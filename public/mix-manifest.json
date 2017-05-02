@@ -1,0 +1,13 @@
+{
+  "/mix.js": "/mix.js",
+  "/css/frontend.css": "/css/frontend.css",
+  "/css/backend.css": "/css/backend.css",
+  "/css/login.css": "/css/login.css",
+  "/js/core.common.js": "/js/core.common.js",
+  "/js/core.frontend.js": "/js/core.frontend.js",
+  "/css/app.common.css": "/css/app.common.css",
+  "/css/app.frontend.css": "/css/app.frontend.css",
+  "/js/scripts.js": "/js/scripts.js",
+  "/js/login.js": "/js/login.js",
+  "/js/backend.js": "/js/backend.js"
+}
