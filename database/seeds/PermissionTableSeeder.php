@@ -73,25 +73,45 @@ class PermissionTableSeeder extends Seeder
 //                'display_name' => 'Delete Địa Điểm ',
 //                'description' => 'Delete Địa Điểm '
 //            ]
+//            [
+//                'name' => 'dichvu-list',
+//                'display_name' => 'Display Dịch Vụ Listing',
+//                'description' => 'See only Listing Of Dịch Vụ'
+//            ],
+//            [
+//                'name' => 'dichvu-create',
+//                'display_name' => 'Create Dịch Vụ ',
+//                'description' => 'Create New Dịch Vụ '
+//            ],
+//            [
+//                'name' => 'dichvu-edit',
+//                'display_name' => 'Edit Dịch Vụ ',
+//                'description' => 'Edit Dịch Vụ '
+//            ],
+//            [
+//                'name' => 'dichvu-delete',
+//                'display_name' => 'Delete Dịch Vụ ',
+//                'description' => 'Delete Dịch Vụ '
+//            ]
             [
-                'name' => 'dichvu-list',
-                'display_name' => 'Display Dịch Vụ Listing',
-                'description' => 'See only Listing Of Dịch Vụ'
+                'name' => 'album-list',
+                'display_name' => 'Display Album Listing',
+                'description' => 'See only Listing Of Album'
             ],
             [
-                'name' => 'dichvu-create',
-                'display_name' => 'Create Dịch Vụ ',
-                'description' => 'Create New Dịch Vụ '
+                'name' => 'album-create',
+                'display_name' => 'Create Album ',
+                'description' => 'Create New Album '
             ],
             [
-                'name' => 'dichvu-edit',
-                'display_name' => 'Edit Dịch Vụ ',
-                'description' => 'Edit Dịch Vụ '
+                'name' => 'album-edit',
+                'display_name' => 'Edit Album ',
+                'description' => 'Edit Album '
             ],
             [
-                'name' => 'dichvu-delete',
-                'display_name' => 'Delete Dịch Vụ ',
-                'description' => 'Delete Dịch Vụ '
+                'name' => 'album-delete',
+                'display_name' => 'Delete Album ',
+                'description' => 'Delete Album '
             ]
 
         ];

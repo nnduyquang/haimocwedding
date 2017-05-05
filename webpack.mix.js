@@ -19,12 +19,18 @@ mix.styles([
         'bower_components/swiper/dist/js/swiper.min.js',
     ], 'public/js/core.frontend.js')
     .styles([
+        'bower_components/dropzone/dist/min/dropzone.min.js',
+    ], 'public/js/core.backend.js')
+    .styles([
         'bower_components/bootstrap/dist/css/bootstrap.min.css',
         'bower_components/font-awesome/css/font-awesome.min.css',
     ], 'public/css/app.common.css')
     .styles([
         'bower_components/swiper/dist/css/swiper.min.css',
     ], 'public/css/app.frontend.css')
+    .styles([
+        'bower_components/dropzone/dist/min/dropzone.min.css',
+    ], 'public/css/app.backend.css')
     .styles([
         'resources/assets/js/scripts.frontend.js'
     ], 'public/js/scripts.js')
@@ -44,6 +50,7 @@ mix.styles([
     .styles([
         'resources/assets/js/be.diadiem.js',
         'resources/assets/js/be.dichvu.js',
+        'resources/assets/js/be.album.js',
     ], 'public/js/backend.js')
 
 

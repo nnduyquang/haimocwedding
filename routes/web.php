@@ -65,4 +65,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('sml_admin/dia_diem/{id}/edit', ['as' => 'diadiems.edit', 'uses' => 'DiaDiemController@edit', 'middleware' => ['permission:diadiem-edit']]);
     Route::patch('sml_admin/dia_diem/{id}', ['as' => 'diadiems.update', 'uses' => 'DiaDiemController@update', 'middleware' => ['permission:diadiem-edit']]);
     Route::delete('sml_admin/dia_diem/{id}', ['as' => 'diadiems.destroy', 'uses' => 'DiaDiemController@destroy', 'middleware' => ['permission:diadiem-delete']]);
+    //Dịch Vụ
+    Route::get('sml_admin/dich_vu', ['as' => 'dichvus.index', 'uses' => 'DichVuController@index', 'middleware' => ['permission:dichvu-list|dichvu-create|dichvu-edit|dichvu-delete']]);
+    Route::post('sml_admin/dich_vu/create', ['as' => 'dichvus.store', 'uses' => 'DichVuController@store', 'middleware' => ['permission:dichvu-create']]);
+    Route::get('sml_admin/dich_vu/create', ['as' => 'dichvus.create', 'uses' => 'DichVuController@create', 'middleware' => ['permission:dichvu-create']]);
+    Route::get('sml_admin/dich_vu/{id}/edit', ['as' => 'dichvus.edit', 'uses' => 'DichVuController@edit', 'middleware' => ['permission:dichvu-edit']]);
+    Route::patch('sml_admin/dich_vu/{id}', ['as' => 'dichvus.update', 'uses' => 'DichVuController@update', 'middleware' => ['permission:dichvu-edit']]);
+    Route::delete('sml_admin/dich_vu/{id}', ['as' => 'dichvus.destroy', 'uses' => 'DichVuController@destroy', 'middleware' => ['permission:dichvu-delete']]);
+    //Album
+    Route::get('sml_admin/album', ['as' => 'albums.index', 'uses' => 'AlbumController@index', 'middleware' => ['permission:album-list|album-create|album-edit|album-delete']]);
+    Route::post('sml_admin/album/create', ['as' => 'albums.store', 'uses' => 'AlbumController@store', 'middleware' => ['permission:album-create']]);
+    Route::get('sml_admin/album/create', ['as' => 'albums.create', 'uses' => 'AlbumController@create', 'middleware' => ['permission:album-create']]);
+    Route::get('sml_admin/album/{id}/edit', ['as' => 'albums.edit', 'uses' => 'AlbumController@edit', 'middleware' => ['permission:album-edit']]);
+    Route::patch('sml_admin/album/{id}', ['as' => 'albums.update', 'uses' => 'AlbumController@update', 'middleware' => ['permission:album-edit']]);
+    Route::delete('sml_admin/album/{id}', ['as' => 'albums.destroy', 'uses' => 'AlbumController@destroy', 'middleware' => ['permission:album-delete']]);
 });

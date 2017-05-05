@@ -18,6 +18,7 @@
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
     "swiper": "^3.4.2",
-    "AdminLTE": "admin-lte#^2.3.11"
+    "AdminLTE": "admin-lte#^2.3.11",
+    "dropzone": "^4.3.0"
   }
 }

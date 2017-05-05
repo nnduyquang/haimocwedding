@@ -42,9 +42,15 @@
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
-                <strong>Icon:</strong>
-                {!! Form::file('icon',array('id'=>'chooseIcon','accept'=>'image/jpeg,image/jpg,image/png')) !!}
-                {{ Html::image('images/dichvu/'.$dichvu->icon,'',array('id'=>'showIcon','class'=>'showIcon'))}}
+                <div class="col-md-6">
+                    <div class="row">
+                        <strong>Icon:</strong>
+                        {!! Form::file('icon',array('id'=>'chooseIcon','accept'=>'image/jpeg,image/jpg,image/png')) !!}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    {{ Html::image('images/dichvu/'.$dichvu->icon,'',array('id'=>'showIcon','class'=>'showIcon'))}}
+                </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">

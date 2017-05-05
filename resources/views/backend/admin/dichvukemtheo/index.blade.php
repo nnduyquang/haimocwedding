@@ -32,7 +32,7 @@
         @foreach ($dichvus as $key => $dichvu)
             <tr>
                 <td>{{ ++$i }}</td>
-                <td>{{ $dichvu->icon }}</td>
+                <td> {{ Html::image('images/dichvu/'.$dichvu->icon,'',array('id'=>'showIcon','class'=>'showIcon'))}}</td>
                 <td>{{ $dichvu->name }}</td>
                 <td>{{ $dichvu->note }}</td>
                 <td>{{ $dichvu->order }}</td>

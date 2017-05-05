@@ -17,6 +17,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     {{ Html::style('css/AdminLTE.min.css') }}
     {{ Html::style('css/skin-blue.min.css') }}
     {{ Html::style('css/backend.css') }}
+    {{ Html::style('css/app.backend.css') }}
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -238,6 +239,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 @endif
                 <li><a href="{{ route('diadiems.index') }}"><i class="fa fa-link"></i> <span>Địa Điểm</span></a></li>
                 <li><a href="{{ route('dichvus.index') }}"><i class="fa fa-link"></i> <span>Dịch Vụ</span></a></li>
+                <li><a href="{{ route('albums.index') }}"><i class="fa fa-link"></i> <span>Quản Lý Album</span></a></li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>
@@ -353,6 +355,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="control-sidebar-bg"></div>
 </div>
 {{ Html::script('js/core.common.js') }}
+{{ Html::script('js/core.backend.js') }}
 {{ Html::script('js/app.min.js') }}
 {{ Html::script('js/backend.js') }}
 </body>
