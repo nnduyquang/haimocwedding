@@ -39,8 +39,13 @@ class AlbumController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function uploadImage(Request $request){
+        return $file = $request->all();
+    }
     public function store(Request $request)
     {
+//        return redirect()->route('albums.index')
+//            ->with('success', 'Địa Điểm store successfully');
         dd($request);
     }
 

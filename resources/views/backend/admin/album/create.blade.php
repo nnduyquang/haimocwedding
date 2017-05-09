@@ -20,7 +20,7 @@
             </ul>
         </div>
     @endif
-    {!! Form::open(array('url'=>'#','files'=>true,'enctype' => 'multipart/form-data','id'=>'dropzoneForm')) !!}
+    {!! Form::open(array('files'=>true,'enctype' => 'multipart/form-data','id'=>'dropzoneForm')) !!}
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
@@ -116,9 +116,16 @@
                 <a id="btnThemAnhAlbum" class="btn btn-success" href="#"><i class="fa fa-plus" aria-hidden="true"></i>
                     Thêm Ảnh Vào Album
                 </a>
-                <div id="dropzonePreview" CLASS="dropzone">
-                    <div class="dz-message">Drag&drop</div>
+                {{--<div id="dropzonePreview" CLASS="dropzone">--}}
+                    {{--<div class="dz-message">Drag&drop</div>--}}
+                {{--</div>--}}
+                <div class="dropzone dropzone-previews" id="my-awesome-dropzone">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                    </div>
+
                 </div>
+
             </div>
         </div>
 

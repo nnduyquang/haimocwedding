@@ -75,6 +75,7 @@ Route::group(['middleware' => ['auth']], function () {
     //Album
     Route::get('sml_admin/album', ['as' => 'albums.index', 'uses' => 'AlbumController@index', 'middleware' => ['permission:album-list|album-create|album-edit|album-delete']]);
     Route::post('sml_admin/album/create', ['as' => 'albums.store', 'uses' => 'AlbumController@store', 'middleware' => ['permission:album-create']]);
+    Route::post('sml_admin/album/create/uploadImage', ['as' => 'albums.store', 'uses' => 'AlbumController@uploadImage', 'middleware' => ['permission:album-create']]);
     Route::get('sml_admin/album/create', ['as' => 'albums.create', 'uses' => 'AlbumController@create', 'middleware' => ['permission:album-create']]);
     Route::get('sml_admin/album/{id}/edit', ['as' => 'albums.edit', 'uses' => 'AlbumController@edit', 'middleware' => ['permission:album-edit']]);
     Route::patch('sml_admin/album/{id}', ['as' => 'albums.update', 'uses' => 'AlbumController@update', 'middleware' => ['permission:album-edit']]);
