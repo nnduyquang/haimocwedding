@@ -19,7 +19,9 @@ mix.styles([
         'bower_components/swiper/dist/js/swiper.min.js',
     ], 'public/js/core.frontend.js')
     .styles([
-        'bower_components/dropzone/dist/min/dropzone.min.js',
+        // 'bower_components/dropzone/dist/min/dropzone.min.js',
+        'bower_components/bootstrap-fileinput/js/plugins/purify.js',
+        'bower_components/bootstrap-fileinput/js/fileinput.js'
     ], 'public/js/core.backend.js')
     .styles([
         'bower_components/bootstrap/dist/css/bootstrap.min.css',
@@ -29,7 +31,8 @@ mix.styles([
         'bower_components/swiper/dist/css/swiper.min.css',
     ], 'public/css/app.frontend.css')
     .styles([
-        'bower_components/dropzone/dist/min/dropzone.min.css',
+        // 'bower_components/dropzone/dist/min/dropzone.min.css',
+        'bower_components/bootstrap-fileinput/css/fileinput.min.css',
     ], 'public/css/app.backend.css')
     .styles([
         'resources/assets/js/scripts.frontend.js'

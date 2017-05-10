@@ -119,12 +119,8 @@
                 {{--<div id="dropzonePreview" CLASS="dropzone">--}}
                     {{--<div class="dz-message">Drag&drop</div>--}}
                 {{--</div>--}}
-                <div class="dropzone dropzone-previews" id="my-awesome-dropzone">
-                    <div class="fallback">
-                        <input name="file" type="file" multiple />
-                    </div>
 
-                </div>
+                <input id="input-id" name="input2[]" type="file" class="file" multiple data-show-upload="false" data-show-caption="true">
 
             </div>
         </div>
