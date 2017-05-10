@@ -37,7 +37,7 @@
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
                 <strong>STT:</strong>
-                {!! Form::text('order', null, array('placeholder' => 'Ghi Chú','class' => 'form-control')) !!}
+                {!! Form::text('order', null, array('placeholder' => 'STT','class' => 'form-control')) !!}
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -54,7 +54,7 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button id="btnDichVu" type="submit" class="btn btn-primary">Cập Nhật Dịch Vụ</button>
+            <button id="btnDichVu" type="submit" class="btn btn-primary">Thêm Dịch Vụ</button>
         </div>
     </div>
     {!! Form::close() !!}

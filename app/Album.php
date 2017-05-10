@@ -12,6 +12,10 @@ class Album extends Model
     ];
     protected $primaryKey = 'id';
 
+    public function diadiems(){
+        return $this->belongsToMany('App\diadiems','albumofdiadiem','id_album','id_diadiem')->withTimestamps();
+    }
+
     public function users()
     {
         return $this->belongsTo('App\User', 'user_id');

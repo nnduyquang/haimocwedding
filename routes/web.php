@@ -72,12 +72,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('sml_admin/dich_vu/{id}/edit', ['as' => 'dichvus.edit', 'uses' => 'DichVuController@edit', 'middleware' => ['permission:dichvu-edit']]);
     Route::patch('sml_admin/dich_vu/{id}', ['as' => 'dichvus.update', 'uses' => 'DichVuController@update', 'middleware' => ['permission:dichvu-edit']]);
     Route::delete('sml_admin/dich_vu/{id}', ['as' => 'dichvus.destroy', 'uses' => 'DichVuController@destroy', 'middleware' => ['permission:dichvu-delete']]);
+    //Phụ Kiện
+    Route::get('sml_admin/phu_kien', ['as' => 'phukiens.index', 'uses' => 'PhuKienController@index', 'middleware' => ['permission:phukien-list|phukien-create|phukien-edit|phukien-delete']]);
+    Route::post('sml_admin/phu_kien/create', ['as' => 'phukiens.store', 'uses' => 'PhuKienController@store', 'middleware' => ['permission:phukien-create']]);
+    Route::get('sml_admin/phu_kien/create', ['as' => 'phukiens.create', 'uses' => 'PhuKienController@create', 'middleware' => ['permission:phukien-create']]);
+    Route::get('sml_admin/phu_kien/{id}/edit', ['as' => 'phukiens.edit', 'uses' => 'PhuKienController@edit', 'middleware' => ['permission:phukien-edit']]);
+    Route::patch('sml_admin/phu_kien/{id}', ['as' => 'phukiens.update', 'uses' => 'PhuKienController@update', 'middleware' => ['permission:phukien-edit']]);
+    Route::delete('sml_admin/phu_kien/{id}', ['as' => 'phukiens.destroy', 'uses' => 'PhuKienController@destroy', 'middleware' => ['permission:phukien-delete']]);
     //Album
     Route::get('sml_admin/album', ['as' => 'albums.index', 'uses' => 'AlbumController@index', 'middleware' => ['permission:album-list|album-create|album-edit|album-delete']]);
     Route::post('sml_admin/album/create', ['as' => 'albums.store', 'uses' => 'AlbumController@store', 'middleware' => ['permission:album-create']]);
-    Route::post('sml_admin/album/create/uploadImage', function(){
-        return "success";
-    });
     Route::get('sml_admin/album/create', ['as' => 'albums.create', 'uses' => 'AlbumController@create', 'middleware' => ['permission:album-create']]);
     Route::get('sml_admin/album/{id}/edit', ['as' => 'albums.edit', 'uses' => 'AlbumController@edit', 'middleware' => ['permission:album-edit']]);
     Route::patch('sml_admin/album/{id}', ['as' => 'albums.update', 'uses' => 'AlbumController@update', 'middleware' => ['permission:album-edit']]);

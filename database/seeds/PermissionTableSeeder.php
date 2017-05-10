@@ -93,25 +93,45 @@ class PermissionTableSeeder extends Seeder
 //                'display_name' => 'Delete Dịch Vụ ',
 //                'description' => 'Delete Dịch Vụ '
 //            ]
+//            [
+//                'name' => 'album-list',
+//                'display_name' => 'Display Album Listing',
+//                'description' => 'See only Listing Of Album'
+//            ],
+//            [
+//                'name' => 'album-create',
+//                'display_name' => 'Create Album ',
+//                'description' => 'Create New Album '
+//            ],
+//            [
+//                'name' => 'album-edit',
+//                'display_name' => 'Edit Album ',
+//                'description' => 'Edit Album '
+//            ],
+//            [
+//                'name' => 'album-delete',
+//                'display_name' => 'Delete Album ',
+//                'description' => 'Delete Album '
+//            ]
             [
-                'name' => 'album-list',
-                'display_name' => 'Display Album Listing',
-                'description' => 'See only Listing Of Album'
+                'name' => 'phukien-list',
+                'display_name' => 'Display Phụ Kiện Listing',
+                'description' => 'See only Listing Of Phụ Kiện'
             ],
             [
-                'name' => 'album-create',
-                'display_name' => 'Create Album ',
-                'description' => 'Create New Album '
+                'name' => 'phukien-create',
+                'display_name' => 'Create Phụ Kiện ',
+                'description' => 'Create New Phụ Kiện '
             ],
             [
-                'name' => 'album-edit',
-                'display_name' => 'Edit Album ',
-                'description' => 'Edit Album '
+                'name' => 'phukien-edit',
+                'display_name' => 'Edit Phụ Kiện ',
+                'description' => 'Edit Phụ Kiện '
             ],
             [
-                'name' => 'album-delete',
-                'display_name' => 'Delete Album ',
-                'description' => 'Delete Album '
+                'name' => 'phukien-delete',
+                'display_name' => 'Delete Phụ Kiện ',
+                'description' => 'Delete Phụ Kiện '
             ]
 
         ];
