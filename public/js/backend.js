@@ -44,8 +44,8 @@ $('#btnThemAnhAlbum').click(function () {
 // });
 // $("input[name='image']").imageuploadify();
 $("#input-id").fileinput({
-    initialPreviewShowDelete:true
 
+    showUpload: false,
 });
 
 

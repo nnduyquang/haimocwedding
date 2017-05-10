@@ -1,818 +1,9 @@
-;(function(factory) {
-    'use strict';
-    /* global window: false, define: false, module: false */
-    var root = typeof window === 'undefined' ? null : window;
-
-    if (typeof define === 'function' && define.amd) {
-        define(function(){ return factory(root); });
-    } else if (typeof module !== 'undefined') {
-        module.exports = factory(root);
-    } else {
-        root.DOMPurify = factory(root);
-    }
-}(function factory(window) {
-    'use strict';
-
-    var DOMPurify = function(window) {
-        return factory(window);
-    };
-
-    /**
-     * Version label, exposed for easier checks
-     * if DOMPurify is up to date or not
-     */
-    DOMPurify.version = '0.7.4';
-
-    if (!window || !window.document || window.document.nodeType !== 9) {
-        // not running in a browser, provide a factory function
-        // so that you can pass your own Window
-        DOMPurify.isSupported = false;
-        return DOMPurify;
-    }
-
-    var document = window.document;
-    var originalDocument = document;
-    var DocumentFragment = window.DocumentFragment;
-    var HTMLTemplateElement = window.HTMLTemplateElement;
-    var NodeFilter = window.NodeFilter;
-    var NamedNodeMap = window.NamedNodeMap || window.MozNamedAttrMap;
-    var Text = window.Text;
-    var Comment = window.Comment;
-    var DOMParser = window.DOMParser;
-
-    // As per issue #47, the web-components registry is inherited by a
-    // new document created via createHTMLDocument. As per the spec
-    // (http://w3c.github.io/webcomponents/spec/custom/#creating-and-passing-registries)
-    // a new empty registry is used when creating a template contents owner
-    // document, so we use that as our parent document to ensure nothing
-    // is inherited.
-    if (typeof HTMLTemplateElement === 'function') {
-        var template = document.createElement('template');
-        if (template.content && template.content.ownerDocument) {
-            document = template.content.ownerDocument;
-        }
-    }
-    var implementation = document.implementation;
-    var createNodeIterator = document.createNodeIterator;
-    var getElementsByTagName = document.getElementsByTagName;
-    var createDocumentFragment = document.createDocumentFragment;
-    var importNode = originalDocument.importNode;
-
-    var hooks = {};
-
-    /**
-     * Expose whether this browser supports running the full DOMPurify.
-     */
-    DOMPurify.isSupported =
-        typeof implementation.createHTMLDocument !== 'undefined' &&
-        document.documentMode !== 9;
-
-    /* Add properties to a lookup table */
-    var _addToSet = function(set, array) {
-        var l = array.length;
-        while (l--) {
-            if (typeof array[l] === 'string') {
-                array[l] = array[l].toLowerCase();
-            }
-            set[array[l]] = true;
-        }
-        return set;
-    };
-
-    /* Shallow clone an object */
-    var _cloneObj = function(object) {
-        var newObject = {};
-        var property;
-        for (property in object) {
-            if (object.hasOwnProperty(property)) {
-                newObject[property] = object[property];
-            }
-        }
-        return newObject;
-    };
-
-    /**
-     * We consider the elements and attributes below to be safe. Ideally
-     * don't add any new ones but feel free to remove unwanted ones.
-     */
-
-    /* allowed element names */
-    var ALLOWED_TAGS = null;
-    var DEFAULT_ALLOWED_TAGS = _addToSet({}, [
-
-        // HTML
-        'a','abbr','acronym','address','area','article','aside','audio','b',
-        'bdi','bdo','big','blink','blockquote','body','br','button','canvas',
-        'caption','center','cite','code','col','colgroup','content','data',
-        'datalist','dd','decorator','del','details','dfn','dir','div','dl','dt',
-        'element','em','fieldset','figcaption','figure','font','footer','form',
-        'h1','h2','h3','h4','h5','h6','head','header','hgroup','hr','html','i',
-        'img','input','ins','kbd','label','legend','li','main','map','mark',
-        'marquee','menu','menuitem','meter','nav','nobr','ol','optgroup',
-        'option','output','p','pre','progress','q','rp','rt','ruby','s','samp',
-        'section','select','shadow','small','source','spacer','span','strike',
-        'strong','style','sub','summary','sup','table','tbody','td','template',
-        'textarea','tfoot','th','thead','time','tr','track','tt','u','ul','var',
-        'video','wbr',
-
-        // SVG
-        'svg','altglyph','altglyphdef','altglyphitem','animatecolor',
-        'animatemotion','animatetransform','circle','clippath','defs','desc',
-        'ellipse','filter','font','g','glyph','glyphref','hkern','image','line',
-        'lineargradient','marker','mask','metadata','mpath','path','pattern',
-        'polygon','polyline','radialgradient','rect','stop','switch','symbol',
-        'text','textpath','title','tref','tspan','view','vkern',
-
-        // SVG Filters
-        'feBlend','feColorMatrix','feComponentTransfer','feComposite',
-        'feConvolveMatrix','feDiffuseLighting','feDisplacementMap',
-        'feFlood','feFuncA','feFuncB','feFuncG','feFuncR','feGaussianBlur',
-        'feMerge','feMergeNode','feMorphology','feOffset',
-        'feSpecularLighting','feTile','feTurbulence',
-
-        //MathML
-        'math','menclose','merror','mfenced','mfrac','mglyph','mi','mlabeledtr',
-        'mmuliscripts','mn','mo','mover','mpadded','mphantom','mroot','mrow',
-        'ms','mpspace','msqrt','mystyle','msub','msup','msubsup','mtable','mtd',
-        'mtext','mtr','munder','munderover',
-
-        //Text
-        '#text'
-    ]);
-
-    /* Allowed attribute names */
-    var ALLOWED_ATTR = null;
-    var DEFAULT_ALLOWED_ATTR = _addToSet({}, [
-
-        // HTML
-        'accept','action','align','alt','autocomplete','background','bgcolor',
-        'border','cellpadding','cellspacing','checked','cite','class','clear','color',
-        'cols','colspan','coords','datetime','default','dir','disabled',
-        'download','enctype','face','for','headers','height','hidden','high','href',
-        'hreflang','id','ismap','label','lang','list','loop', 'low','max',
-        'maxlength','media','method','min','multiple','name','noshade','novalidate',
-        'nowrap','open','optimum','pattern','placeholder','poster','preload','pubdate',
-        'radiogroup','readonly','rel','required','rev','reversed','rows',
-        'rowspan','spellcheck','scope','selected','shape','size','span',
-        'srclang','start','src','step','style','summary','tabindex','title',
-        'type','usemap','valign','value','width','xmlns',
-
-        // SVG
-        'accent-height','accumulate','additivive','alignment-baseline',
-        'ascent','attributename','attributetype','azimuth','basefrequency',
-        'baseline-shift','begin','bias','by','clip','clip-path','clip-rule',
-        'color','color-interpolation','color-interpolation-filters','color-profile',
-        'color-rendering','cx','cy','d','dx','dy','diffuseconstant','direction',
-        'display','divisor','dur','edgemode','elevation','end','fill','fill-opacity',
-        'fill-rule','filter','flood-color','flood-opacity','font-family','font-size',
-        'font-size-adjust','font-stretch','font-style','font-variant','font-weight',
-        'fx', 'fy','g1','g2','glyph-name','glyphref','gradientunits','gradienttransform',
-        'image-rendering','in','in2','k','k1','k2','k3','k4','kerning','keypoints',
-        'keysplines','keytimes','lengthadjust','letter-spacing','kernelmatrix',
-        'kernelunitlength','lighting-color','local','marker-end','marker-mid',
-        'marker-start','markerheight','markerunits','markerwidth','maskcontentunits',
-        'maskunits','max','mask','mode','min','numoctaves','offset','operator',
-        'opacity','order','orient','orientation','origin','overflow','paint-order',
-        'path','pathlength','patterncontentunits','patterntransform','patternunits',
-        'points','preservealpha','r','rx','ry','radius','refx','refy','repeatcount',
-        'repeatdur','restart','result','rotate','scale','seed','shape-rendering',
-        'specularconstant','specularexponent','spreadmethod','stddeviation','stitchtiles',
-        'stop-color','stop-opacity','stroke-dasharray','stroke-dashoffset','stroke-linecap',
-        'stroke-linejoin','stroke-miterlimit','stroke-opacity','stroke','stroke-width',
-        'surfacescale','targetx','targety','transform','text-anchor','text-decoration',
-        'text-rendering','textlength','u1','u2','unicode','values','viewbox',
-        'visibility','vert-adv-y','vert-origin-x','vert-origin-y','word-spacing',
-        'wrap','writing-mode','xchannelselector','ychannelselector','x','x1','x2',
-        'y','y1','y2','z','zoomandpan',
-
-        // MathML
-        'accent','accentunder','bevelled','close','columnsalign','columnlines',
-        'columnspan','denomalign','depth','display','displaystyle','fence',
-        'frame','largeop','length','linethickness','lspace','lquote',
-        'mathbackground','mathcolor','mathsize','mathvariant','maxsize',
-        'minsize','movablelimits','notation','numalign','open','rowalign',
-        'rowlines','rowspacing','rowspan','rspace','rquote','scriptlevel',
-        'scriptminsize','scriptsizemultiplier','selection','separator',
-        'separators','stretchy','subscriptshift','supscriptshift','symmetric',
-        'voffset',
-
-        // XML
-        'xlink:href','xml:id','xlink:title','xml:space','xmlns:xlink'
-    ]);
-
-    /* Explicitly forbidden tags (overrides ALLOWED_TAGS/ADD_TAGS) */
-    var FORBID_TAGS = null;
-
-    /* Explicitly forbidden attributes (overrides ALLOWED_ATTR/ADD_ATTR) */
-    var FORBID_ATTR = null;
-
-    /* Decide if custom data attributes are okay */
-    var ALLOW_DATA_ATTR = true;
-
-    /* Decide if unknown protocols are okay */
-    var ALLOW_UNKNOWN_PROTOCOLS = false;
-
-    /* Output should be safe for jQuery's $() factory? */
-    var SAFE_FOR_JQUERY = false;
-
-    /* Output should be safe for common template engines.
-     * This means, DOMPurify removes data attributes, mustaches and ERB
-     */
-    var SAFE_FOR_TEMPLATES = false;
-
-    /* Specify template detection regex for SAFE_FOR_TEMPLATES mode */
-    var MUSTACHE_EXPR = /\{\{[\s\S]*|[\s\S]*\}\}/gm;
-    var ERB_EXPR = /<%[\s\S]*|[\s\S]*%>/gm;
-
-    /* Decide if document with <html>... should be returned */
-    var WHOLE_DOCUMENT = false;
-
-    /* Decide if a DOM `HTMLBodyElement` should be returned, instead of a html string.
-     * If `WHOLE_DOCUMENT` is enabled a `HTMLHtmlElement` will be returned instead
-     */
-    var RETURN_DOM = false;
-
-    /* Decide if a DOM `DocumentFragment` should be returned, instead of a html string */
-    var RETURN_DOM_FRAGMENT = false;
-
-    /* If `RETURN_DOM` or `RETURN_DOM_FRAGMENT` is enabled, decide if the returned DOM
-     * `Node` is imported into the current `Document`. If this flag is not enabled the
-     * `Node` will belong (its ownerDocument) to a fresh `HTMLDocument`, created by
-     * DOMPurify. */
-    var RETURN_DOM_IMPORT = false;
-
-    /* Output should be free from DOM clobbering attacks? */
-    var SANITIZE_DOM = true;
-
-    /* Keep element content when removing element? */
-    var KEEP_CONTENT = true;
-
-    /* Tags to ignore content of when KEEP_CONTENT is true */
-    var FORBID_CONTENTS = _addToSet({}, [
-        'audio', 'head', 'math', 'script', 'style', 'svg', 'video'
-    ]);
-
-    /* Tags that are safe for data: URIs */
-    var DATA_URI_TAGS = _addToSet({}, [
-        'audio', 'video', 'img', 'source'
-    ]);
-
-    /* Attributes safe for values like "javascript:" */
-    var URI_SAFE_ATTRIBUTES = _addToSet({}, [
-        'alt','class','for','id','label','name','pattern','placeholder',
-        'summary','title','value','style','xmlns'
-    ]);
-
-    /* Keep a reference to config to pass to hooks */
-    var CONFIG = null;
-
-    /* Ideally, do not touch anything below this line */
-    /* ______________________________________________ */
-
-    var formElement = document.createElement('form');
-
-    /**
-     * _parseConfig
-     *
-     * @param  optional config literal
-     */
-    var _parseConfig = function(cfg) {
-        /* Shield configuration object from tampering */
-        if (typeof cfg !== 'object') {
-            cfg = {};
-        }
-
-        /* Set configuration parameters */
-        ALLOWED_TAGS = 'ALLOWED_TAGS' in cfg ?
-            _addToSet({}, cfg.ALLOWED_TAGS) : DEFAULT_ALLOWED_TAGS;
-        ALLOWED_ATTR = 'ALLOWED_ATTR' in cfg ?
-            _addToSet({}, cfg.ALLOWED_ATTR) : DEFAULT_ALLOWED_ATTR;
-        FORBID_TAGS = 'FORBID_TAGS' in cfg ?
-            _addToSet({}, cfg.FORBID_TAGS) : {};
-        FORBID_ATTR = 'FORBID_ATTR' in cfg ?
-            _addToSet({}, cfg.FORBID_ATTR) : {};
-        ALLOW_DATA_ATTR     = cfg.ALLOW_DATA_ATTR     !== false; // Default true
-        ALLOW_UNKNOWN_PROTOCOLS = cfg.ALLOW_UNKNOWN_PROTOCOLS || false; // Default false
-        SAFE_FOR_JQUERY     = cfg.SAFE_FOR_JQUERY     ||  false; // Default false
-        SAFE_FOR_TEMPLATES  = cfg.SAFE_FOR_TEMPLATES  ||  false; // Default false
-        WHOLE_DOCUMENT      = cfg.WHOLE_DOCUMENT      ||  false; // Default false
-        RETURN_DOM          = cfg.RETURN_DOM          ||  false; // Default false
-        RETURN_DOM_FRAGMENT = cfg.RETURN_DOM_FRAGMENT ||  false; // Default false
-        RETURN_DOM_IMPORT   = cfg.RETURN_DOM_IMPORT   ||  false; // Default false
-        SANITIZE_DOM        = cfg.SANITIZE_DOM        !== false; // Default true
-        KEEP_CONTENT        = cfg.KEEP_CONTENT        !== false; // Default true
-
-        if (SAFE_FOR_TEMPLATES) {
-            ALLOW_DATA_ATTR = false;
-        }
-
-        if (RETURN_DOM_FRAGMENT) {
-            RETURN_DOM = true;
-        }
-
-        /* Merge configuration parameters */
-        if (cfg.ADD_TAGS) {
-            if (ALLOWED_TAGS === DEFAULT_ALLOWED_TAGS) {
-                ALLOWED_TAGS = _cloneObj(ALLOWED_TAGS);
-            }
-            _addToSet(ALLOWED_TAGS, cfg.ADD_TAGS);
-        }
-        if (cfg.ADD_ATTR) {
-            if (ALLOWED_ATTR === DEFAULT_ALLOWED_ATTR) {
-                ALLOWED_ATTR = _cloneObj(ALLOWED_ATTR);
-            }
-            _addToSet(ALLOWED_ATTR, cfg.ADD_ATTR);
-        }
-
-        /* Add #text in case KEEP_CONTENT is set to true */
-        if (KEEP_CONTENT) { ALLOWED_TAGS['#text'] = true; }
-
-        // Prevent further manipulation of configuration.
-        // Not available in IE8, Safari 5, etc.
-        if (Object && 'freeze' in Object) { Object.freeze(cfg); }
-
-        CONFIG = cfg;
-    };
-
-   /**
-     * _forceRemove
-     *
-     * @param  a DOM node
-     */
-    var _forceRemove = function(node) {
-        try {
-            node.parentNode.removeChild(node);
-        } catch (e) {
-            node.outerHTML = '';
-        }
-    };
-
-   /**
-     * _initDocument
-     *
-     * @param  a string of dirty markup
-     * @return a DOM, filled with the dirty markup
-     */
-    var _initDocument = function(dirty) {
-        /* Create a HTML document using DOMParser */
-        var doc, body;
-        try {
-            doc = new DOMParser().parseFromString(dirty, 'text/html');
-        } catch (e) {}
-
-        /* Some browsers throw, some browsers return null for the code above
-           DOMParser with text/html support is only in very recent browsers. */
-        if (!doc) {
-            doc = implementation.createHTMLDocument('');
-            body = doc.body;
-            body.parentNode.removeChild(body.parentNode.firstElementChild);
-            body.outerHTML = dirty;
-        }
-
-        /* Work on whole document or just its body */
-        if (typeof doc.getElementsByTagName === 'function') {
-            return doc.getElementsByTagName(
-                WHOLE_DOCUMENT ? 'html' : 'body')[0];
-        }
-        return getElementsByTagName.call(doc,
-            WHOLE_DOCUMENT ? 'html' : 'body')[0];
-    };
-
-    /**
-     * _createIterator
-     *
-     * @param  document/fragment to create iterator for
-     * @return iterator instance
-     */
-    var _createIterator = function(root) {
-        return createNodeIterator.call(root.ownerDocument || root,
-            root,
-            NodeFilter.SHOW_ELEMENT
-            | NodeFilter.SHOW_COMMENT
-            | NodeFilter.SHOW_TEXT,
-            function() { return NodeFilter.FILTER_ACCEPT; },
-            false
-        );
-    };
-
-    /**
-     * _isClobbered
-     *
-     * @param  element to check for clobbering attacks
-     * @return true if clobbered, false if safe
-     */
-    var _isClobbered = function(elm) {
-        if (elm instanceof Text || elm instanceof Comment) {
-            return false;
-        }
-        if (  typeof elm.nodeName !== 'string'
-           || typeof elm.textContent !== 'string'
-           || typeof elm.removeChild !== 'function'
-           || !(elm.attributes instanceof NamedNodeMap)
-           || typeof elm.removeAttribute !== 'function'
-           || typeof elm.setAttribute !== 'function'
-        ) {
-            return true;
-        }
-        return false;
-    };
-
-    /**
-     * _sanitizeElements
-     *
-     * @protect nodeName
-     * @protect textContent
-     * @protect removeChild
-     *
-     * @param   node to check for permission to exist
-     * @return  true if node was killed, false if left alive
-     */
-    var _sanitizeElements = function(currentNode) {
-        var tagName, content;
-        /* Execute a hook if present */
-        _executeHook('beforeSanitizeElements', currentNode, null);
-
-        /* Check if element is clobbered or can clobber */
-        if (_isClobbered(currentNode)) {
-            _forceRemove(currentNode);
-            return true;
-        }
-
-        /* Now let's check the element's type and name */
-        tagName = currentNode.nodeName.toLowerCase();
-
-        /* Execute a hook if present */
-        _executeHook('uponSanitizeElement', currentNode, {
-            tagName: tagName
-        });
-
-        /* Remove element if anything forbids its presence */
-        if (!ALLOWED_TAGS[tagName] || FORBID_TAGS[tagName]) {
-            /* Keep content except for black-listed elements */
-            if (KEEP_CONTENT && !FORBID_CONTENTS[tagName]
-                    && typeof currentNode.insertAdjacentHTML === 'function') {
-                try {
-                    currentNode.insertAdjacentHTML('AfterEnd', currentNode.innerHTML);
-                } catch (e) {}
-            }
-            _forceRemove(currentNode);
-            return true;
-        }
-
-        /* Convert markup to cover jQuery behavior */
-        if (SAFE_FOR_JQUERY && !currentNode.firstElementChild &&
-                (!currentNode.content || !currentNode.content.firstElementChild)) {
-            currentNode.innerHTML = currentNode.textContent.replace(/</g, '&lt;');
-        }
-
-        /* Sanitize element content to be template-safe */
-        if (SAFE_FOR_TEMPLATES && currentNode.nodeType === 3) {
-            /* Get the element's text content */
-            content = currentNode.textContent;
-            content = content.replace(MUSTACHE_EXPR, ' ');
-            content = content.replace(ERB_EXPR, ' ');
-            currentNode.textContent = content;
-        }
-
-        /* Execute a hook if present */
-        _executeHook('afterSanitizeElements', currentNode, null);
-
-        return false;
-    };
-
-    var DATA_ATTR = /^data-[\w.\u00B7-\uFFFF-]/;
-    var IS_ALLOWED_URI = /^(?:(?:(?:f|ht)tps?|mailto|tel):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i;
-    var IS_SCRIPT_OR_DATA = /^(?:\w+script|data):/i;
-    /* This needs to be extensive thanks to Webkit/Blink's behavior */
-    var ATTR_WHITESPACE = /[\x00-\x20\xA0\u1680\u180E\u2000-\u2029\u205f\u3000]/g;
-
-    /**
-     * _sanitizeAttributes
-     *
-     * @protect attributes
-     * @protect nodeName
-     * @protect removeAttribute
-     * @protect setAttribute
-     *
-     * @param   node to sanitize
-     * @return  void
-     */
-    var _sanitizeAttributes = function(currentNode) {
-        var attr, name, value, lcName, idAttr, attributes, hookEvent, l;
-        /* Execute a hook if present */
-        _executeHook('beforeSanitizeAttributes', currentNode, null);
-
-        attributes = currentNode.attributes;
-
-        /* Check if we have attributes; if not we might have a text node */
-        if (!attributes) { return; }
-
-        hookEvent = {
-            attrName: '',
-            attrValue: '',
-            keepAttr: true
-        };
-        l = attributes.length;
-
-        /* Go backwards over all attributes; safely remove bad ones */
-        while (l--) {
-            attr = attributes[l];
-            name = attr.name;
-            value = attr.value;
-            lcName = name.toLowerCase();
-
-            /* Execute a hook if present */
-            hookEvent.attrName = lcName;
-            hookEvent.attrValue = value;
-            hookEvent.keepAttr = true;
-            _executeHook('uponSanitizeAttribute', currentNode, hookEvent );
-            value = hookEvent.attrValue;
-
-            /* Remove attribute */
-            // Safari (iOS + Mac), last tested v8.0.5, crashes if you try to
-            // remove a "name" attribute from an <img> tag that has an "id"
-            // attribute at the time.
-            if (lcName === 'name'  &&
-                    currentNode.nodeName === 'IMG' && attributes.id) {
-                idAttr = attributes.id;
-                attributes = Array.prototype.slice.apply(attributes);
-                currentNode.removeAttribute('id');
-                currentNode.removeAttribute(name);
-                if (attributes.indexOf(idAttr) > l) {
-                    currentNode.setAttribute('id', idAttr.value);
-                }
-            } else {
-                // This avoids a crash in Safari v9.0 with double-ids.
-                // The trick is to first set the id to be empty and then to
-                // remove the attriubute
-                if (name === 'id') {
-                    currentNode.setAttribute(name, '');
-                }
-                currentNode.removeAttribute(name);
-            }
-
-            /* Did the hooks approve of the attribute? */
-            if (!hookEvent.keepAttr) {
-                continue;
-            }
-
-            /* Make sure attribute cannot clobber */
-            if (SANITIZE_DOM &&
-                    (lcName === 'id' || lcName === 'name') &&
-                    (value in window || value in document || value in formElement)) {
-                continue;
-            }
-
-            /* Sanitize attribute content to be template-safe */
-            if (SAFE_FOR_TEMPLATES) {
-                value = value.replace(MUSTACHE_EXPR, ' ');
-                value = value.replace(ERB_EXPR, ' ');
-            }
-
-            if (
-                /* Check the name is permitted */
-                (ALLOWED_ATTR[lcName] && !FORBID_ATTR[lcName] && (
-                  /* Check no script, data or unknown possibly unsafe URI
-                     unless we know URI values are safe for that attribute */
-                  URI_SAFE_ATTRIBUTES[lcName] ||
-                  IS_ALLOWED_URI.test(value.replace(ATTR_WHITESPACE,'')) ||
-                  /* Keep image data URIs alive if src is allowed */
-                  (lcName === 'src' && value.indexOf('data:') === 0 &&
-                   DATA_URI_TAGS[currentNode.nodeName.toLowerCase()])
-                )) ||
-                /* Allow potentially valid data-* attributes:
-                 * At least one character after "-" (https://html.spec.whatwg.org/multipage/dom.html#embedding-custom-non-visible-data-with-the-data-*-attributes)
-                 * XML-compatible (https://html.spec.whatwg.org/multipage/infrastructure.html#xml-compatible and http://www.w3.org/TR/xml/#d0e804)
-                 * We don't need to check the value; it's always URI safe.
-                 */
-                 (ALLOW_DATA_ATTR && DATA_ATTR.test(lcName)) ||
-                 /* Allow unknown protocols:
-                  * This provides support for links that are handled by protocol handlers which may be unknown
-                  * ahead of time, e.g. fb:, spotify:
-                  */
-                 (ALLOW_UNKNOWN_PROTOCOLS && !IS_SCRIPT_OR_DATA.test(value.replace(ATTR_WHITESPACE,'')))
-            ) {
-                /* Handle invalid data-* attribute set by try-catching it */
-                try {
-                    currentNode.setAttribute(name, value);
-                } catch (e) {}
-            }
-        }
-
-        /* Execute a hook if present */
-        _executeHook('afterSanitizeAttributes', currentNode, null);
-    };
-
-    /**
-     * _sanitizeShadowDOM
-     *
-     * @param  fragment to iterate over recursively
-     * @return void
-     */
-    var _sanitizeShadowDOM = function(fragment) {
-        var shadowNode;
-        var shadowIterator = _createIterator(fragment);
-
-        /* Execute a hook if present */
-        _executeHook('beforeSanitizeShadowDOM', fragment, null);
-
-        while ( (shadowNode = shadowIterator.nextNode()) ) {
-            /* Execute a hook if present */
-            _executeHook('uponSanitizeShadowNode', shadowNode, null);
-
-            /* Sanitize tags and elements */
-            if (_sanitizeElements(shadowNode)) {
-                continue;
-            }
-
-            /* Deep shadow DOM detected */
-            if (shadowNode.content instanceof DocumentFragment) {
-                _sanitizeShadowDOM(shadowNode.content);
-            }
-
-            /* Check attributes, sanitize if necessary */
-            _sanitizeAttributes(shadowNode);
-        }
-
-        /* Execute a hook if present */
-        _executeHook('afterSanitizeShadowDOM', fragment, null);
-    };
-
-    /**
-     * _executeHook
-     * Execute user configurable hooks
-     *
-     * @param  {String} entryPoint  Name of the hook's entry point
-     * @param  {Node} currentNode
-     */
-    var _executeHook = function(entryPoint, currentNode, data) {
-        if (!hooks[entryPoint]) { return; }
-
-        hooks[entryPoint].forEach(function(hook) {
-            hook.call(DOMPurify, currentNode, data, CONFIG);
-        });
-    };
-
-    /**
-     * sanitize
-     * Public method providing core sanitation functionality
-     *
-     * @param {String} dirty string
-     * @param {Object} configuration object
-     */
-    DOMPurify.sanitize = function(dirty, cfg) {
-        var body, currentNode, oldNode, nodeIterator, returnNode;
-        /* Make sure we have a string to sanitize.
-           DO NOT return early, as this will return the wrong type if
-           the user has requested a DOM object rather than a string */
-        if (!dirty) {
-            dirty = '';
-        }
-
-        /* Stringify, in case dirty is an object */
-        if (typeof dirty !== 'string') {
-            if (typeof dirty.toString !== 'function') {
-                throw new TypeError('toString is not a function');
-            } else {
-                dirty = dirty.toString();
-            }
-        }
-
-        /* Check we can run. Otherwise fall back or ignore */
-        if (!DOMPurify.isSupported) {
-            if (typeof window.toStaticHTML === 'object'
-                || typeof window.toStaticHTML === 'function') {
-                return window.toStaticHTML(dirty);
-            }
-            return dirty;
-        }
-
-        /* Assign config vars */
-        _parseConfig(cfg);
-
-        /* Exit directly if we have nothing to do */
-        if (!RETURN_DOM && !WHOLE_DOCUMENT && dirty.indexOf('<') === -1) {
-            return dirty;
-        }
-
-        /* Initialize the document to work on */
-        body = _initDocument(dirty);
-
-        /* Check we have a DOM node from the data */
-        if (!body) {
-            return RETURN_DOM ? null : '';
-        }
-
-        /* Get node iterator */
-        nodeIterator = _createIterator(body);
-
-        /* Now start iterating over the created document */
-        while ( (currentNode = nodeIterator.nextNode()) ) {
-
-            /* Fix IE's strange behavior with manipulated textNodes #89 */
-            if (currentNode.nodeType === 3 && currentNode === oldNode) {
-                continue;
-            }
-
-            /* Sanitize tags and elements */
-            if (_sanitizeElements(currentNode)) {
-                continue;
-            }
-
-            /* Shadow DOM detected, sanitize it */
-            if (currentNode.content instanceof DocumentFragment) {
-                _sanitizeShadowDOM(currentNode.content);
-            }
-
-            /* Check attributes, sanitize if necessary */
-            _sanitizeAttributes(currentNode);
-
-            oldNode = currentNode;
-        }
-
-        /* Return sanitized string or DOM */
-        if (RETURN_DOM) {
-
-            if (RETURN_DOM_FRAGMENT) {
-                returnNode = createDocumentFragment.call(body.ownerDocument);
-
-                while (body.firstChild) {
-                    returnNode.appendChild(body.firstChild);
-                }
-            } else {
-                returnNode = body;
-            }
-
-            if (RETURN_DOM_IMPORT) {
-                /* adoptNode() is not used because internal state is not reset
-                   (e.g. the past names map of a HTMLFormElement), this is safe
-                   in theory but we would rather not risk another attack vector.
-                   The state that is cloned by importNode() is explicitly defined
-                   by the specs. */
-                returnNode = importNode.call(originalDocument, returnNode, true);
-            }
-
-            return returnNode;
-        }
-
-        return WHOLE_DOCUMENT ? body.outerHTML : body.innerHTML;
-    };
-
-    /**
-     * addHook
-     * Public method to add DOMPurify hooks
-     *
-     * @param {String} entryPoint
-     * @param {Function} hookFunction
-     */
-    DOMPurify.addHook = function(entryPoint, hookFunction) {
-        if (typeof hookFunction !== 'function') { return; }
-        hooks[entryPoint] = hooks[entryPoint] || [];
-        hooks[entryPoint].push(hookFunction);
-    };
-
-    /**
-     * removeHook
-     * Public method to remove a DOMPurify hook at a given entryPoint
-     * (pops it from the stack of hooks if more are present)
-     *
-     * @param {String} entryPoint
-     * @return void
-     */
-    DOMPurify.removeHook = function(entryPoint) {
-        if (hooks[entryPoint]) {
-            hooks[entryPoint].pop();
-        }
-    };
-
-    /**
-     * removeHooks
-     * Public method to remove all DOMPurify hooks at a given entryPoint
-     *
-     * @param  {String} entryPoint
-     * @return void
-     */
-    DOMPurify.removeHooks = function(entryPoint) {
-        if (hooks[entryPoint]) {
-            hooks[entryPoint] = [];
-        }
-    };
-
-    /**
-     * removeAllHooks
-     * Public method to remove all DOMPurify hooks
-     *
-     * @return void
-     */
-    DOMPurify.removeAllHooks = function() {
-        hooks = [];
-    };
-
-    return DOMPurify;
-}));
-
+/*! Sortable 1.4.2 - MIT | git://github.com/rubaxa/Sortable.git */
+!function(t){"use strict";"function"==typeof define&&define.amd?define(t):"undefined"!=typeof module&&"undefined"!=typeof module.exports?module.exports=t():"undefined"!=typeof Package?KvSortable=t():window.KvSortable=t()}(function(){"use strict";function t(t,e){if(!t||!t.nodeType||1!==t.nodeType)throw"KvSortable: `el` must be HTMLElement, and not "+{}.toString.call(t);this.el=t,this.options=e=b({},e),t[j]=this;var n={group:Math.random(),sort:!0,disabled:!1,store:null,handle:null,scroll:!0,scrollSensitivity:30,scrollSpeed:10,draggable:/[uo]l/i.test(t.nodeName)?"li":">*",ghostClass:"kvsortable-ghost",chosenClass:"kvsortable-chosen",ignore:"a, img",filter:null,animation:0,setData:function(t,e){t.setData("Text",e.textContent)},dropBubble:!1,dragoverBubble:!1,dataIdAttr:"data-id",delay:0,forceFallback:!1,fallbackClass:"kvsortable-fallback",fallbackOnBody:!1};for(var i in n)!(i in e)&&(e[i]=n[i]);z(e);for(var r in this)"_"===r.charAt(0)&&(this[r]=this[r].bind(this));this.nativeDraggable=e.forceFallback?!1:P,o(t,"mousedown",this._onTapStart),o(t,"touchstart",this._onTapStart),this.nativeDraggable&&(o(t,"dragover",this),o(t,"dragenter",this)),q.push(this._onDragOver),e.store&&this.sort(e.store.get(this))}function e(t){w&&w.state!==t&&(s(w,"display",t?"none":""),!t&&w.state&&S.insertBefore(w,_),w.state=t)}function n(t,e,n){if(t){n=n||U;do if(">*"===e&&t.parentNode===n||v(t,e))return t;while(t!==n&&(t=t.parentNode))}return null}function i(t){t.dataTransfer&&(t.dataTransfer.dropEffect="move"),t.preventDefault()}function o(t,e,n){t.addEventListener(e,n,!1)}function r(t,e,n){t.removeEventListener(e,n,!1)}function a(t,e,n){if(t)if(t.classList)t.classList[n?"add":"remove"](e);else{var i=(" "+t.className+" ").replace(M," ").replace(" "+e+" "," ");t.className=(i+(n?" "+e:"")).replace(M," ")}}function s(t,e,n){var i=t&&t.style;if(i){if(void 0===n)return U.defaultView&&U.defaultView.getComputedStyle?n=U.defaultView.getComputedStyle(t,""):t.currentStyle&&(n=t.currentStyle),void 0===e?n:n[e];e in i||(e="-webkit-"+e),i[e]=n+("string"==typeof n?"":"px")}}function l(t,e,n){if(t){var i=t.getElementsByTagName(e),o=0,r=i.length;if(n)for(;r>o;o++)n(i[o],o);return i}return[]}function d(t,e,n,i,o,r,a){var s=U.createEvent("Event"),l=(t||e[j]).options,d="on"+n.charAt(0).toUpperCase()+n.substr(1);s.initEvent(n,!0,!0),s.to=e,s.from=o||e,s.item=i||e,s.clone=w,s.oldIndex=r,s.newIndex=a,e.dispatchEvent(s),l[d]&&l[d].call(t,s)}function c(t,e,n,i,o,r){var a,s,l=t[j],d=l.options.onMove;return a=U.createEvent("Event"),a.initEvent("move",!0,!0),a.to=e,a.from=t,a.dragged=n,a.draggedRect=i,a.related=o||e,a.relatedRect=r||e.getBoundingClientRect(),t.dispatchEvent(a),d&&(s=d.call(l,a)),s}function u(t){t.draggable=!1}function h(){K=!1}function f(t,e){var n=t.lastElementChild,i=n.getBoundingClientRect();return(e.clientY-(i.top+i.height)>5||e.clientX-(i.right+i.width)>5)&&n}function p(t){for(var e=t.tagName+t.className+t.src+t.href+t.textContent,n=e.length,i=0;n--;)i+=e.charCodeAt(n);return i.toString(36)}function g(t,e){var n=0;if(!t||!t.parentNode)return-1;for(;t&&(t=t.previousElementSibling);)"TEMPLATE"!==t.nodeName.toUpperCase()&&v(t,e)&&n++;return n}function v(t,e){if(t){e=e.split(".");var n=e.shift().toUpperCase(),i=new RegExp("\\s("+e.join("|")+")(?=\\s)","g");return!(""!==n&&t.nodeName.toUpperCase()!=n||e.length&&((" "+t.className+" ").match(i)||[]).length!=e.length)}return!1}function m(t,e){var n,i;return function(){void 0===n&&(n=arguments,i=this,setTimeout(function(){1===n.length?t.call(i,n[0]):t.apply(i,n),n=void 0},e))}}function b(t,e){if(t&&e)for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n]);return t}if("undefined"==typeof window||"undefined"==typeof window.document)return function(){throw new Error("sortable.js requires a window with a document")};var _,D,y,w,S,T,C,E,x,N,B,k,O,X,Y,A,I,R={},M=/\s+/g,j="KvSortable"+(new Date).getTime(),L=window,U=L.document,H=L.parseInt,P=!!("draggable"in U.createElement("div")),W=function(t){return t=U.createElement("x"),t.style.cssText="pointer-events:auto","auto"===t.style.pointerEvents}(),K=!1,F=Math.abs,q=([].slice,[]),V=m(function(t,e,n){if(n&&e.scroll){var i,o,r,a,s=e.scrollSensitivity,l=e.scrollSpeed,d=t.clientX,c=t.clientY,u=window.innerWidth,h=window.innerHeight;if(E!==n&&(C=e.scroll,E=n,C===!0)){C=n;do if(C.offsetWidth<C.scrollWidth||C.offsetHeight<C.scrollHeight)break;while(C=C.parentNode)}C&&(i=C,o=C.getBoundingClientRect(),r=(F(o.right-d)<=s)-(F(o.left-d)<=s),a=(F(o.bottom-c)<=s)-(F(o.top-c)<=s)),r||a||(r=(s>=u-d)-(s>=d),a=(s>=h-c)-(s>=c),(r||a)&&(i=L)),(R.vx!==r||R.vy!==a||R.el!==i)&&(R.el=i,R.vx=r,R.vy=a,clearInterval(R.pid),i&&(R.pid=setInterval(function(){i===L?L.scrollTo(L.pageXOffset+r*l,L.pageYOffset+a*l):(a&&(i.scrollTop+=a*l),r&&(i.scrollLeft+=r*l))},24)))}},30),z=function(t){var e=t.group;e&&"object"==typeof e||(e=t.group={name:e}),["pull","put"].forEach(function(t){t in e||(e[t]=!0)}),t.groups=" "+e.name+(e.put.join?" "+e.put.join(" "):"")+" "};return t.prototype={constructor:t,_onTapStart:function(t){var e=this,i=this.el,o=this.options,r=t.type,a=t.touches&&t.touches[0],s=(a||t).target,l=s,c=o.filter;if(!("mousedown"===r&&0!==t.button||o.disabled)&&(s=n(s,o.draggable,i))){if(k=g(s,o.draggable),"function"==typeof c){if(c.call(this,t,s,this))return d(e,l,"filter",s,i,k),void t.preventDefault()}else if(c&&(c=c.split(",").some(function(t){return t=n(l,t.trim(),i),t?(d(e,t,"filter",s,i,k),!0):void 0})))return void t.preventDefault();(!o.handle||n(l,o.handle,i))&&this._prepareDragStart(t,a,s)}},_prepareDragStart:function(t,e,n){var i,r=this,s=r.el,d=r.options,c=s.ownerDocument;n&&!_&&n.parentNode===s&&(Y=t,S=s,_=n,D=_.parentNode,T=_.nextSibling,X=d.group,i=function(){r._disableDelayedDrag(),_.draggable=!0,a(_,r.options.chosenClass,!0),r._triggerDragStart(e)},d.ignore.split(",").forEach(function(t){l(_,t.trim(),u)}),o(c,"mouseup",r._onDrop),o(c,"touchend",r._onDrop),o(c,"touchcancel",r._onDrop),d.delay?(o(c,"mouseup",r._disableDelayedDrag),o(c,"touchend",r._disableDelayedDrag),o(c,"touchcancel",r._disableDelayedDrag),o(c,"mousemove",r._disableDelayedDrag),o(c,"touchmove",r._disableDelayedDrag),r._dragStartTimer=setTimeout(i,d.delay)):i())},_disableDelayedDrag:function(){var t=this.el.ownerDocument;clearTimeout(this._dragStartTimer),r(t,"mouseup",this._disableDelayedDrag),r(t,"touchend",this._disableDelayedDrag),r(t,"touchcancel",this._disableDelayedDrag),r(t,"mousemove",this._disableDelayedDrag),r(t,"touchmove",this._disableDelayedDrag)},_triggerDragStart:function(t){t?(Y={target:_,clientX:t.clientX,clientY:t.clientY},this._onDragStart(Y,"touch")):this.nativeDraggable?(o(_,"dragend",this),o(S,"dragstart",this._onDragStart)):this._onDragStart(Y,!0);try{U.selection?U.selection.empty():window.getSelection().removeAllRanges()}catch(e){}},_dragStarted:function(){S&&_&&(a(_,this.options.ghostClass,!0),t.active=this,d(this,S,"start",_,S,k))},_emulateDragOver:function(){if(A){if(this._lastX===A.clientX&&this._lastY===A.clientY)return;this._lastX=A.clientX,this._lastY=A.clientY,W||s(y,"display","none");var t=U.elementFromPoint(A.clientX,A.clientY),e=t,n=" "+this.options.group.name,i=q.length;if(e)do{if(e[j]&&e[j].options.groups.indexOf(n)>-1){for(;i--;)q[i]({clientX:A.clientX,clientY:A.clientY,target:t,rootEl:e});break}t=e}while(e=e.parentNode);W||s(y,"display","")}},_onTouchMove:function(e){if(Y){t.active||this._dragStarted(),this._appendGhost();var n=e.touches?e.touches[0]:e,i=n.clientX-Y.clientX,o=n.clientY-Y.clientY,r=e.touches?"translate3d("+i+"px,"+o+"px,0)":"translate("+i+"px,"+o+"px)";I=!0,A=n,s(y,"webkitTransform",r),s(y,"mozTransform",r),s(y,"msTransform",r),s(y,"transform",r),e.preventDefault()}},_appendGhost:function(){if(!y){var t,e=_.getBoundingClientRect(),n=s(_),i=this.options;y=_.cloneNode(!0),a(y,i.ghostClass,!1),a(y,i.fallbackClass,!0),s(y,"top",e.top-H(n.marginTop,10)),s(y,"left",e.left-H(n.marginLeft,10)),s(y,"width",e.width),s(y,"height",e.height),s(y,"opacity","0.8"),s(y,"position","fixed"),s(y,"zIndex","100000"),s(y,"pointerEvents","none"),i.fallbackOnBody&&U.body.appendChild(y)||S.appendChild(y),t=y.getBoundingClientRect(),s(y,"width",2*e.width-t.width),s(y,"height",2*e.height-t.height)}},_onDragStart:function(t,e){var n=t.dataTransfer,i=this.options;this._offUpEvents(),"clone"==X.pull&&(w=_.cloneNode(!0),s(w,"display","none"),S.insertBefore(w,_)),e?("touch"===e?(o(U,"touchmove",this._onTouchMove),o(U,"touchend",this._onDrop),o(U,"touchcancel",this._onDrop)):(o(U,"mousemove",this._onTouchMove),o(U,"mouseup",this._onDrop)),this._loopId=setInterval(this._emulateDragOver,50)):(n&&(n.effectAllowed="move",i.setData&&i.setData.call(this,n,_)),o(U,"drop",this),setTimeout(this._dragStarted,0))},_onDragOver:function(t){var i,o,r,a=this.el,l=this.options,d=l.group,u=d.put,p=X===d,g=l.sort;if(void 0!==t.preventDefault&&(t.preventDefault(),!l.dragoverBubble&&t.stopPropagation()),I=!0,X&&!l.disabled&&(p?g||(r=!S.contains(_)):X.pull&&u&&(X.name===d.name||u.indexOf&&~u.indexOf(X.name)))&&(void 0===t.rootEl||t.rootEl===this.el)){if(V(t,l,this.el),K)return;if(i=n(t.target,l.draggable,a),o=_.getBoundingClientRect(),r)return e(!0),void(w||T?S.insertBefore(_,w||T):g||S.appendChild(_));if(0===a.children.length||a.children[0]===y||a===t.target&&(i=f(a,t))){if(i){if(i.animated)return;m=i.getBoundingClientRect()}e(p),c(S,a,_,o,i,m)!==!1&&(_.contains(a)||(a.appendChild(_),D=a),this._animate(o,_),i&&this._animate(m,i))}else if(i&&!i.animated&&i!==_&&void 0!==i.parentNode[j]){x!==i&&(x=i,N=s(i),B=s(i.parentNode));var v,m=i.getBoundingClientRect(),b=m.right-m.left,C=m.bottom-m.top,E=/left|right|inline/.test(N.cssFloat+N.display)||"flex"==B.display&&0===B["flex-direction"].indexOf("row"),k=i.offsetWidth>_.offsetWidth,O=i.offsetHeight>_.offsetHeight,Y=(E?(t.clientX-m.left)/b:(t.clientY-m.top)/C)>.5,A=i.nextElementSibling,R=c(S,a,_,o,i,m);if(R!==!1){if(K=!0,setTimeout(h,30),e(p),1===R||-1===R)v=1===R;else if(E){var M=_.offsetTop,L=i.offsetTop;v=M===L?i.previousElementSibling===_&&!k||Y&&k:L>M}else v=A!==_&&!O||Y&&O;_.contains(a)||(v&&!A?a.appendChild(_):i.parentNode.insertBefore(_,v?A:i)),D=_.parentNode,this._animate(o,_),this._animate(m,i)}}}},_animate:function(t,e){var n=this.options.animation;if(n){var i=e.getBoundingClientRect();s(e,"transition","none"),s(e,"transform","translate3d("+(t.left-i.left)+"px,"+(t.top-i.top)+"px,0)"),e.offsetWidth,s(e,"transition","all "+n+"ms"),s(e,"transform","translate3d(0,0,0)"),clearTimeout(e.animated),e.animated=setTimeout(function(){s(e,"transition",""),s(e,"transform",""),e.animated=!1},n)}},_offUpEvents:function(){var t=this.el.ownerDocument;r(U,"touchmove",this._onTouchMove),r(t,"mouseup",this._onDrop),r(t,"touchend",this._onDrop),r(t,"touchcancel",this._onDrop)},_onDrop:function(e){var n=this.el,i=this.options;clearInterval(this._loopId),clearInterval(R.pid),clearTimeout(this._dragStartTimer),r(U,"mousemove",this._onTouchMove),this.nativeDraggable&&(r(U,"drop",this),r(n,"dragstart",this._onDragStart)),this._offUpEvents(),e&&(I&&(e.preventDefault(),!i.dropBubble&&e.stopPropagation()),y&&y.parentNode.removeChild(y),_&&(this.nativeDraggable&&r(_,"dragend",this),u(_),a(_,this.options.ghostClass,!1),a(_,this.options.chosenClass,!1),S!==D?(O=g(_,i.draggable),O>=0&&(d(null,D,"sort",_,S,k,O),d(this,S,"sort",_,S,k,O),d(null,D,"add",_,S,k,O),d(this,S,"remove",_,S,k,O))):(w&&w.parentNode.removeChild(w),_.nextSibling!==T&&(O=g(_,i.draggable),O>=0&&(d(this,S,"update",_,S,k,O),d(this,S,"sort",_,S,k,O)))),t.active&&((null===O||-1===O)&&(O=k),d(this,S,"end",_,S,k,O),this.save()))),this._nulling()},_nulling:function(){S=_=D=y=T=w=C=E=Y=A=I=O=x=N=X=t.active=null},handleEvent:function(t){var e=t.type;"dragover"===e||"dragenter"===e?_&&(this._onDragOver(t),i(t)):("drop"===e||"dragend"===e)&&this._onDrop(t)},toArray:function(){for(var t,e=[],i=this.el.children,o=0,r=i.length,a=this.options;r>o;o++)t=i[o],n(t,a.draggable,this.el)&&e.push(t.getAttribute(a.dataIdAttr)||p(t));return e},sort:function(t){var e={},i=this.el;this.toArray().forEach(function(t,o){var r=i.children[o];n(r,this.options.draggable,i)&&(e[t]=r)},this),t.forEach(function(t){e[t]&&(i.removeChild(e[t]),i.appendChild(e[t]))})},save:function(){var t=this.options.store;t&&t.set(this)},closest:function(t,e){return n(t,e||this.options.draggable,this.el)},option:function(t,e){var n=this.options;return void 0===e?n[t]:(n[t]=e,void("group"===t&&z(n)))},destroy:function(){var t=this.el;t[j]=null,r(t,"mousedown",this._onTapStart),r(t,"touchstart",this._onTapStart),this.nativeDraggable&&(r(t,"dragover",this),r(t,"dragenter",this)),Array.prototype.forEach.call(t.querySelectorAll("[draggable]"),function(t){t.removeAttribute("draggable")}),q.splice(q.indexOf(this._onDragOver),1),this._onDrop(),this.el=t=null}},t.utils={on:o,off:r,css:s,find:l,is:function(t,e){return!!n(t,e,t)},extend:b,throttle:m,closest:n,toggleClass:a,index:g},t.create=function(e,n){return new t(e,n)},t.version="1.4.2",t}),function(t){"use strict";"function"==typeof define&&define.amd?define(["jquery"],t):t(jQuery)}(function(t){"use strict";t.fn.kvsortable=function(e){var n,i=arguments;return this.each(function(){var o=t(this),r=o.data("kvsortable");if(r||!(e instanceof Object)&&e||(r=new KvSortable(this,e),o.data("kvsortable",r)),r){if("widget"===e)return r;"destroy"===e?(r.destroy(),o.removeData("kvsortable")):"function"==typeof r[e]?n=r[e].apply(r,[].slice.call(i,1)):e in r.options&&(n=r.option.apply(r,i))}}),void 0===n?this:n}});
+(function(e){"use strict";var t=typeof window==="undefined"?null:window;if(typeof define==="function"&&define.amd){define(function(){return e(t)})}else if(typeof module!=="undefined"){module.exports=e(t)}else{t.DOMPurify=e(t)}})(function e(t){"use strict";var r=function(t){return e(t)};r.version="0.7.4";if(!t||!t.document||t.document.nodeType!==9){r.isSupported=false;return r}var n=t.document;var a=n;var i=t.DocumentFragment;var o=t.HTMLTemplateElement;var l=t.NodeFilter;var s=t.NamedNodeMap||t.MozNamedAttrMap;var f=t.Text;var c=t.Comment;var u=t.DOMParser;if(typeof o==="function"){var d=n.createElement("template");if(d.content&&d.content.ownerDocument){n=d.content.ownerDocument}}var m=n.implementation;var p=n.createNodeIterator;var h=n.getElementsByTagName;var v=n.createDocumentFragment;var g=a.importNode;var y={};r.isSupported=typeof m.createHTMLDocument!=="undefined"&&n.documentMode!==9;var b=function(e,t){var r=t.length;while(r--){if(typeof t[r]==="string"){t[r]=t[r].toLowerCase()}e[t[r]]=true}return e};var T=function(e){var t={};var r;for(r in e){if(e.hasOwnProperty(r)){t[r]=e[r]}}return t};var x=null;var k=b({},["a","abbr","acronym","address","area","article","aside","audio","b","bdi","bdo","big","blink","blockquote","body","br","button","canvas","caption","center","cite","code","col","colgroup","content","data","datalist","dd","decorator","del","details","dfn","dir","div","dl","dt","element","em","fieldset","figcaption","figure","font","footer","form","h1","h2","h3","h4","h5","h6","head","header","hgroup","hr","html","i","img","input","ins","kbd","label","legend","li","main","map","mark","marquee","menu","menuitem","meter","nav","nobr","ol","optgroup","option","output","p","pre","progress","q","rp","rt","ruby","s","samp","section","select","shadow","small","source","spacer","span","strike","strong","style","sub","summary","sup","table","tbody","td","template","textarea","tfoot","th","thead","time","tr","track","tt","u","ul","var","video","wbr","svg","altglyph","altglyphdef","altglyphitem","animatecolor","animatemotion","animatetransform","circle","clippath","defs","desc","ellipse","filter","font","g","glyph","glyphref","hkern","image","line","lineargradient","marker","mask","metadata","mpath","path","pattern","polygon","polyline","radialgradient","rect","stop","switch","symbol","text","textpath","title","tref","tspan","view","vkern","feBlend","feColorMatrix","feComponentTransfer","feComposite","feConvolveMatrix","feDiffuseLighting","feDisplacementMap","feFlood","feFuncA","feFuncB","feFuncG","feFuncR","feGaussianBlur","feMerge","feMergeNode","feMorphology","feOffset","feSpecularLighting","feTile","feTurbulence","math","menclose","merror","mfenced","mfrac","mglyph","mi","mlabeledtr","mmuliscripts","mn","mo","mover","mpadded","mphantom","mroot","mrow","ms","mpspace","msqrt","mystyle","msub","msup","msubsup","mtable","mtd","mtext","mtr","munder","munderover","#text"]);var A=null;var w=b({},["accept","action","align","alt","autocomplete","background","bgcolor","border","cellpadding","cellspacing","checked","cite","class","clear","color","cols","colspan","coords","datetime","default","dir","disabled","download","enctype","face","for","headers","height","hidden","high","href","hreflang","id","ismap","label","lang","list","loop","low","max","maxlength","media","method","min","multiple","name","noshade","novalidate","nowrap","open","optimum","pattern","placeholder","poster","preload","pubdate","radiogroup","readonly","rel","required","rev","reversed","rows","rowspan","spellcheck","scope","selected","shape","size","span","srclang","start","src","step","style","summary","tabindex","title","type","usemap","valign","value","width","xmlns","accent-height","accumulate","additivive","alignment-baseline","ascent","attributename","attributetype","azimuth","basefrequency","baseline-shift","begin","bias","by","clip","clip-path","clip-rule","color","color-interpolation","color-interpolation-filters","color-profile","color-rendering","cx","cy","d","dx","dy","diffuseconstant","direction","display","divisor","dur","edgemode","elevation","end","fill","fill-opacity","fill-rule","filter","flood-color","flood-opacity","font-family","font-size","font-size-adjust","font-stretch","font-style","font-variant","font-weight","fx","fy","g1","g2","glyph-name","glyphref","gradientunits","gradienttransform","image-rendering","in","in2","k","k1","k2","k3","k4","kerning","keypoints","keysplines","keytimes","lengthadjust","letter-spacing","kernelmatrix","kernelunitlength","lighting-color","local","marker-end","marker-mid","marker-start","markerheight","markerunits","markerwidth","maskcontentunits","maskunits","max","mask","mode","min","numoctaves","offset","operator","opacity","order","orient","orientation","origin","overflow","paint-order","path","pathlength","patterncontentunits","patterntransform","patternunits","points","preservealpha","r","rx","ry","radius","refx","refy","repeatcount","repeatdur","restart","result","rotate","scale","seed","shape-rendering","specularconstant","specularexponent","spreadmethod","stddeviation","stitchtiles","stop-color","stop-opacity","stroke-dasharray","stroke-dashoffset","stroke-linecap","stroke-linejoin","stroke-miterlimit","stroke-opacity","stroke","stroke-width","surfacescale","targetx","targety","transform","text-anchor","text-decoration","text-rendering","textlength","u1","u2","unicode","values","viewbox","visibility","vert-adv-y","vert-origin-x","vert-origin-y","word-spacing","wrap","writing-mode","xchannelselector","ychannelselector","x","x1","x2","y","y1","y2","z","zoomandpan","accent","accentunder","bevelled","close","columnsalign","columnlines","columnspan","denomalign","depth","display","displaystyle","fence","frame","largeop","length","linethickness","lspace","lquote","mathbackground","mathcolor","mathsize","mathvariant","maxsize","minsize","movablelimits","notation","numalign","open","rowalign","rowlines","rowspacing","rowspan","rspace","rquote","scriptlevel","scriptminsize","scriptsizemultiplier","selection","separator","separators","stretchy","subscriptshift","supscriptshift","symmetric","voffset","xlink:href","xml:id","xlink:title","xml:space","xmlns:xlink"]);var E=null;var S=null;var M=true;var O=false;var L=false;var D=false;var N=/\{\{[\s\S]*|[\s\S]*\}\}/gm;var _=/<%[\s\S]*|[\s\S]*%>/gm;var C=false;var z=false;var R=false;var F=false;var H=true;var B=true;var W=b({},["audio","head","math","script","style","svg","video"]);var j=b({},["audio","video","img","source"]);var G=b({},["alt","class","for","id","label","name","pattern","placeholder","summary","title","value","style","xmlns"]);var I=null;var q=n.createElement("form");var P=function(e){if(typeof e!=="object"){e={}}x="ALLOWED_TAGS"in e?b({},e.ALLOWED_TAGS):k;A="ALLOWED_ATTR"in e?b({},e.ALLOWED_ATTR):w;E="FORBID_TAGS"in e?b({},e.FORBID_TAGS):{};S="FORBID_ATTR"in e?b({},e.FORBID_ATTR):{};M=e.ALLOW_DATA_ATTR!==false;O=e.ALLOW_UNKNOWN_PROTOCOLS||false;L=e.SAFE_FOR_JQUERY||false;D=e.SAFE_FOR_TEMPLATES||false;C=e.WHOLE_DOCUMENT||false;z=e.RETURN_DOM||false;R=e.RETURN_DOM_FRAGMENT||false;F=e.RETURN_DOM_IMPORT||false;H=e.SANITIZE_DOM!==false;B=e.KEEP_CONTENT!==false;if(D){M=false}if(R){z=true}if(e.ADD_TAGS){if(x===k){x=T(x)}b(x,e.ADD_TAGS)}if(e.ADD_ATTR){if(A===w){A=T(A)}b(A,e.ADD_ATTR)}if(B){x["#text"]=true}if(Object&&"freeze"in Object){Object.freeze(e)}I=e};var U=function(e){try{e.parentNode.removeChild(e)}catch(t){e.outerHTML=""}};var V=function(e){var t,r;try{t=(new u).parseFromString(e,"text/html")}catch(n){}if(!t){t=m.createHTMLDocument("");r=t.body;r.parentNode.removeChild(r.parentNode.firstElementChild);r.outerHTML=e}if(typeof t.getElementsByTagName==="function"){return t.getElementsByTagName(C?"html":"body")[0]}return h.call(t,C?"html":"body")[0]};var K=function(e){return p.call(e.ownerDocument||e,e,l.SHOW_ELEMENT|l.SHOW_COMMENT|l.SHOW_TEXT,function(){return l.FILTER_ACCEPT},false)};var J=function(e){if(e instanceof f||e instanceof c){return false}if(typeof e.nodeName!=="string"||typeof e.textContent!=="string"||typeof e.removeChild!=="function"||!(e.attributes instanceof s)||typeof e.removeAttribute!=="function"||typeof e.setAttribute!=="function"){return true}return false};var Q=function(e){var t,r;re("beforeSanitizeElements",e,null);if(J(e)){U(e);return true}t=e.nodeName.toLowerCase();re("uponSanitizeElement",e,{tagName:t});if(!x[t]||E[t]){if(B&&!W[t]&&typeof e.insertAdjacentHTML==="function"){try{e.insertAdjacentHTML("AfterEnd",e.innerHTML)}catch(n){}}U(e);return true}if(L&&!e.firstElementChild&&(!e.content||!e.content.firstElementChild)){e.innerHTML=e.textContent.replace(/</g,"&lt;")}if(D&&e.nodeType===3){r=e.textContent;r=r.replace(N," ");r=r.replace(_," ");e.textContent=r}re("afterSanitizeElements",e,null);return false};var X=/^data-[\w.\u00B7-\uFFFF-]/;var Y=/^(?:(?:(?:f|ht)tps?|mailto|tel):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i;var Z=/^(?:\w+script|data):/i;var $=/[\x00-\x20\xA0\u1680\u180E\u2000-\u2029\u205f\u3000]/g;var ee=function(e){var r,a,i,o,l,s,f,c;re("beforeSanitizeAttributes",e,null);s=e.attributes;if(!s){return}f={attrName:"",attrValue:"",keepAttr:true};c=s.length;while(c--){r=s[c];a=r.name;i=r.value;o=a.toLowerCase();f.attrName=o;f.attrValue=i;f.keepAttr=true;re("uponSanitizeAttribute",e,f);i=f.attrValue;if(o==="name"&&e.nodeName==="IMG"&&s.id){l=s.id;s=Array.prototype.slice.apply(s);e.removeAttribute("id");e.removeAttribute(a);if(s.indexOf(l)>c){e.setAttribute("id",l.value)}}else{if(a==="id"){e.setAttribute(a,"")}e.removeAttribute(a)}if(!f.keepAttr){continue}if(H&&(o==="id"||o==="name")&&(i in t||i in n||i in q)){continue}if(D){i=i.replace(N," ");i=i.replace(_," ")}if(A[o]&&!S[o]&&(G[o]||Y.test(i.replace($,""))||o==="src"&&i.indexOf("data:")===0&&j[e.nodeName.toLowerCase()])||M&&X.test(o)||O&&!Z.test(i.replace($,""))){try{e.setAttribute(a,i)}catch(u){}}}re("afterSanitizeAttributes",e,null)};var te=function(e){var t;var r=K(e);re("beforeSanitizeShadowDOM",e,null);while(t=r.nextNode()){re("uponSanitizeShadowNode",t,null);if(Q(t)){continue}if(t.content instanceof i){te(t.content)}ee(t)}re("afterSanitizeShadowDOM",e,null)};var re=function(e,t,n){if(!y[e]){return}y[e].forEach(function(e){e.call(r,t,n,I)})};r.sanitize=function(e,n){var o,l,s,f,c;if(!e){e=""}if(typeof e!=="string"){if(typeof e.toString!=="function"){throw new TypeError("toString is not a function")}else{e=e.toString()}}if(!r.isSupported){if(typeof t.toStaticHTML==="object"||typeof t.toStaticHTML==="function"){return t.toStaticHTML(e)}return e}P(n);if(!z&&!C&&e.indexOf("<")===-1){return e}o=V(e);if(!o){return z?null:""}f=K(o);while(l=f.nextNode()){if(l.nodeType===3&&l===s){continue}if(Q(l)){continue}if(l.content instanceof i){te(l.content)}ee(l);s=l}if(z){if(R){c=v.call(o.ownerDocument);while(o.firstChild){c.appendChild(o.firstChild)}}else{c=o}if(F){c=g.call(a,c,true)}return c}return C?o.outerHTML:o.innerHTML};r.addHook=function(e,t){if(typeof t!=="function"){return}y[e]=y[e]||[];y[e].push(t)};r.removeHook=function(e){if(y[e]){y[e].pop()}};r.removeHooks=function(e){if(y[e]){y[e]=[]}};r.removeAllHooks=function(){y=[]};return r});
+//# sourceMappingURL=./dist/purify.min.js.map
 /*!
- * bootstrap-fileinput v4.3.9
+ * bootstrap-fileinput v4.4.0
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
@@ -842,6 +33,17 @@
 
     $.fn.fileinputLocales = {};
     $.fn.fileinputThemes = {};
+
+    String.prototype.setTokens = function (replacePairs) {
+        var str = this.toString(), key, re;
+        for (key in replacePairs) {
+            if (replacePairs.hasOwnProperty(key)) {
+                re = new RegExp("\{" + key + "\}", "g");
+                str = str.replace(re, replacePairs[key]);
+            }
+        }
+        return str;
+    };
 
     var $h, FileInput;
 
@@ -1037,6 +239,60 @@
                 $cache = $el.closest('.kv-zoom-cache');
             }
             $cache.remove();
+        },
+        setOrientation: function (buffer, callback) {
+            var scanner = new DataView(buffer), idx = 0, value = 1, // Non-rotated is the default
+                maxBytes, uInt16, exifLength;
+            if (scanner.getUint16(idx) !== 0xFFD8 || buffer.length < 2) {
+                return; // not a proper JPEG
+            }
+            idx += 2;
+            maxBytes = scanner.byteLength;
+            while (idx < maxBytes - 2) {
+                uInt16 = scanner.getUint16(idx);
+                idx += 2;
+                switch (uInt16) {
+                    case 0xFFE1: // Start of EXIF
+                        exifLength = scanner.getUint16(idx);
+                        maxBytes = exifLength - idx;
+                        idx += 2;
+                        break;
+                    case 0x0112: // Orientation tag
+                        value = scanner.getUint16(idx + 6, false);
+                        maxBytes = 0; // Stop scanning
+                        break;
+                }
+            }
+            if (callback) {
+                callback(value);
+            }
+        },
+        validateOrientation: function (file, callback) {
+            if (!window.FileReader || !window.DataView) {
+                return; // skip orientation if pre-requisite libraries not supported by browser
+            }
+            var reader = new FileReader(), buffer;
+            reader.onloadend = function () {
+                buffer = reader.result;
+                $h.setOrientation(buffer, callback);
+            };
+            reader.readAsArrayBuffer(file);
+        },
+        adjustOrientedImage: function ($img, isZoom) {
+            var offsetContTop, offsetTop, newTop;
+            if (!$img.hasClass('is-portrait-gt4')) {
+                return;
+            }
+            if (isZoom) {
+                $img.css({width: $img.parent().height()});
+                return;
+            } else {
+                $img.css({height: 'auto', width: $img.height()});
+            }
+            offsetContTop = $img.parent().offset().top;
+            offsetTop = $img.offset().top;
+            newTop = offsetContTop - offsetTop;
+            $img.css('margin-top', newTop);
         }
     };
     FileInput = function (element, options) {
@@ -1057,32 +313,10 @@
     };
     FileInput.prototype = {
         constructor: FileInput,
-        _init: function (options) {
-            var self = this, $el = self.$element, $cont, t;
-            self.options = options;
-            $.each(options, function (key, value) {
-                switch (key) {
-                    case 'minFileCount':
-                    case 'maxFileCount':
-                    case 'maxFileSize':
-                        self[key] = $h.getNum(value);
-                        break;
-                    default:
-                        self[key] = value;
-                        break;
-                }
-            });
-            self.$form = $el.closest('form');
-            self._initTemplateDefaults();
-            self.fileInputCleared = false;
-            self.fileBatchCompleted = true;
-            if (!self.isPreviewable) {
-                self.showPreview = false;
-            }
-            self.uploadFileAttr = !$h.isEmpty($el.attr('name')) ? $el.attr('name') : 'file_data';
+        _cleanup: function() {
+            var self = this;
             self.reader = null;
             self.formdata = {};
-            self.clearStack();
             self.uploadCount = 0;
             self.uploadStatus = {};
             self.uploadLog = [];
@@ -1090,9 +324,46 @@
             self.loadedImages = [];
             self.totalImagesCount = 0;
             self.ajaxRequests = [];
+            self.clearStack();
+            self.fileInputCleared = false;
+            self.fileBatchCompleted = true;
+            if (!self.isPreviewable) {
+                self.showPreview = false;
+            }
             self.isError = false;
             self.ajaxAborted = false;
             self.cancelling = false;
+        },
+        _init: function (options) {
+            var self = this, $el = self.$element, $cont, t;
+            self.options = options;
+            $.each(options, function (key, value) {
+                switch (key) {
+                    case 'minFileCount':
+                    case 'maxFileCount':
+                    case 'minFileSize':
+                    case 'maxFileSize':
+                    case 'maxFilePreviewSize':
+                    case 'resizeImageQuality':
+                    case 'resizeIfSizeMoreThan':
+                    case 'progressUploadThreshold':
+                    case 'initialPreviewCount':
+                    case 'zoomModalHeight':
+                    case 'minImageHeight':
+                    case 'maxImageHeight':
+                    case 'minImageWidth':
+                    case 'maxImageWidth':
+                        self[key] = $h.getNum(value);
+                        break;
+                    default:
+                        self[key] = value;
+                        break;
+                }
+            });
+            self._cleanup();
+            self.$form = $el.closest('form');
+            self._initTemplateDefaults();
+            self.uploadFileAttr = !$h.isEmpty($el.attr('name')) ? $el.attr('name') : 'file_data';
             t = self._getLayoutTemplate('progress');
             self.progressTemplate = t.replace('{class}', self.progressClass);
             self.progressCompleteTemplate = t.replace('{class}', self.progressCompleteClass);
@@ -1151,8 +422,8 @@
         _initTemplateDefaults: function () {
             var self = this, tMain1, tMain2, tPreview, tFileIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse,
                 tModalMain, tModal, tProgress, tSize, tFooter, tActions, tActionDelete, tActionUpload, tActionZoom,
-                tActionDrag, tTagBef, tTagBef1, tTagBef2, tTagAft, tGeneric, tHtml, tImage, tText, tVideo, tAudio,
-                tFlash, tObject, tPdf, tOther, tZoomCache;
+                tActionDrag, tIndicator, tTagBef, tTagBef1, tTagBef2, tTagAft, tGeneric, tHtml, tImage, tText, tVideo,
+                tAudio, tFlash, tObject, tPdf, tOther, tZoomCache, vDefaultDim;
             tMain1 = '{preview}\n' +
                 '<div class="kv-upload-progress hide"></div>\n' +
                 '<div class="input-group {class}">\n' +
@@ -1210,10 +481,9 @@
             tSize = ' <samp>({sizeText})</samp>';
             tFooter = '<div class="file-thumbnail-footer">\n' +
                 '    <div class="file-footer-caption" title="{caption}">{caption}<br>{size}</div>\n' +
-                '    {progress} {actions}\n' +
+                '    {progress} {indicator} {actions}\n' +
                 '</div>';
-            tActions = '<div class="file-upload-indicator" title="{indicatorTitle}">{indicator}</div>\n' +
-                '{drag}\n' +
+            tActions = '{drag}\n' +
                 '<div class="file-actions">\n' +
                 '    <div class="file-footer-buttons">\n' +
                 '        {upload} {delete} {zoom} {other}' +
@@ -1228,6 +498,7 @@
             tActionZoom = '<button type="button" class="kv-file-zoom {zoomClass}" ' +
                 'title="{zoomTitle}">{zoomIcon}</button>';
             tActionDrag = '<span class="file-drag-handle {dragClass}" title="{dragTitle}">{dragIcon}</span>';
+            tIndicator = '<div class="file-upload-indicator" title="{indicatorTitle}">{indicator}</div>';
             tTagBef = '<div class="file-preview-frame {frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
                 ' data-template="{template}"';
             tTagBef1 = tTagBef + '><div class="kv-file-content">\n';
@@ -1248,13 +519,14 @@
             tFlash = '<object class="kv-preview-data file-object" type="application/x-shockwave-flash" ' +
                 'width="{width}" height="{height}" data="{data}">\n' + $h.OBJECT_PARAMS + ' ' + $h.DEFAULT_PREVIEW +
                 '\n</object>\n';
-            tObject = '<object class="kv-preview-data file-object" data="{data}" type="{type}" ' +
+            tObject = '<object class="kv-preview-data file-object {typeCss}" data="{data}" type="{type}" ' +
                 'width="{width}" height="{height}">\n' + '<param name="movie" value="{caption}" />\n' +
                 $h.OBJECT_PARAMS + ' ' + $h.DEFAULT_PREVIEW + '\n</object>\n';
             tPdf = '<embed class="kv-preview-data" src="{data}" ' +
                 'width="{width}" height="{height}" type="application/pdf">\n';
             tOther = '<div class="kv-preview-data file-preview-other-frame">\n' + $h.DEFAULT_PREVIEW + '\n</div>\n';
             tZoomCache = '<div class="kv-zoom-cache" style="display:none">{zoomContent}</div>';
+            vDefaultDim = {width: "100%", height: "100%", 'min-height': "480px"};
             self.defaults = {
                 layoutTemplates: {
                     main1: tMain1,
@@ -1268,6 +540,7 @@
                     progress: tProgress,
                     size: tSize,
                     footer: tFooter,
+                    indicator: tIndicator,
                     actions: tActions,
                     actionDelete: tActionDelete,
                     actionUpload: tActionUpload,
@@ -1301,22 +574,22 @@
                     image: {width: "auto", height: "160px"},
                     html: {width: "213px", height: "160px"},
                     text: {width: "213px", height: "160px"},
-                    video: {width: "213px", height: "160px"},
-                    audio: {width: "213px", height: "80px"},
-                    flash: {width: "213px", height: "160px"},
-                    object: {width: "160px", height: "auto"},
+                    video: {width: "auto", height: "100%", 'max-width': "100%"},
+                    audio: {width: "100%", height: "30px"},
+                    flash: {width: "auto", height: "100%", 'max-width': "100%"},
+                    object: {height: "100%"},
                     pdf: {width: "160px", height: "160px"},
                     other: {width: "160px", height: "160px"}
                 },
                 previewZoomSettings: {
                     image: {width: "auto", height: "auto", 'max-width': "100%", 'max-height': "100%"},
-                    html: {width: "100%", height: "100%", 'min-height': "480px"},
-                    text: {width: "100%", height: "100%", 'min-height': "480px"},
+                    html: vDefaultDim,
+                    text: vDefaultDim,
                     video: {width: "auto", height: "100%", 'max-width': "100%"},
                     audio: {width: "100%", height: "30px"},
                     flash: {width: "auto", height: "480px"},
-                    object: {width: "auto", height: "100%", 'min-height': "480px"},
-                    pdf: {width: "100%", height: "100%", 'min-height': "480px"},
+                    object: {width: "auto", height: "100%", 'max-width': "100%", 'min-height': "480px"},
+                    pdf: vDefaultDim,
                     other: {width: "auto", height: "100%", 'min-height': "480px"}
                 },
                 fileTypeSettings: {
@@ -1447,7 +720,7 @@
                         out = parseTemplate(cat, content, fname, ftype, previewId, ftr, ind, frameClass);
                     } else {
                         out = parseTemplate('generic', content, fname, ftype, previewId, ftr, ind, frameClass, cat)
-                            .replace(/\{content}/g, data.content[i]);
+                            .setTokens({'content': data.content[i]});
                     }
                     if (data.tags.length && data.tags[i]) {
                         out = $h.replaceTags(out, data.tags[i]);
@@ -1560,18 +833,23 @@
                         return '';
                     }
                     isDisabled = isDisabled === undefined ? true : isDisabled;
-                    var config = data.config[i], caption = $h.ifSet('caption', config), actions = '',
+                    var config = data.config[i], caption = $h.ifSet('caption', config), actions,
                         width = $h.ifSet('width', config, 'auto'), url = $h.ifSet('url', config, false),
                         key = $h.ifSet('key', config, null), fs = self.fileActionSettings,
-                        showDel = $h.ifSet('showDelete', config, true), showZoom = $h.ifSet('showZoom', config, fs.showZoom),
-                        showDrag = $h.ifSet('showDrag', config, fs.showDrag), disabled = (url === false) && isDisabled;
-                    if (self.initialPreviewShowDelete) {
-                        actions = self._renderFileActions(false, showDel, showZoom, showDrag, disabled, url, key, true);
-                    }
-                    return self._getLayoutTemplate('footer').replace(/\{progress}/g, self._renderThumbProgress())
-                        .replace(/\{actions}/g, actions).replace(/\{caption}/g, caption)
-                        .replace(/\{size}/g, self._getSize(size)).replace(/\{width}/g, width)
-                        .replace(/\{indicator}/g, '').replace(/\{indicatorTitle}/g, '');
+                        initPreviewShowDel = self.initialPreviewShowDelete || false,
+                        showDel = $h.ifSet('showDelete', config, $h.ifSet('showDelete', fs, initPreviewShowDel)),
+                        showZoom = $h.ifSet('showZoom', config, $h.ifSet('showZoom', fs, true)),
+                        showDrag = $h.ifSet('showDrag', config, $h.ifSet('showDrag', fs, true)),
+                        disabled = (url === false) && isDisabled;
+                    actions = self._renderFileActions(false, showDel, showZoom, showDrag, disabled, url, key, true);
+                    return self._getLayoutTemplate('footer').setTokens({
+                        'progress': self._renderThumbProgress(),
+                        'actions': actions,
+                        'caption': caption,
+                        'size': self._getSize(size),
+                        'width': width,
+                        'indicator': ''
+                    });
                 }
             };
             self.previewCache.init();
@@ -1612,20 +890,22 @@
             return $.trim($err.text()).length ? true : false;
         },
         _errorHandler: function (evt, caption) {
-            var self = this, err = evt.target.error;
+            var self = this, err = evt.target.error, showError = function (msg) {
+                self._showError(msg.replace('{name}', caption));
+            };
             /** @namespace err.NOT_FOUND_ERR */
             /** @namespace err.SECURITY_ERR */
             /** @namespace err.NOT_READABLE_ERR */
             if (err.code === err.NOT_FOUND_ERR) {
-                self._showError(self.msgFileNotFound.replace('{name}', caption));
+                showError(self.msgFileNotFound);
             } else if (err.code === err.SECURITY_ERR) {
-                self._showError(self.msgFileSecured.replace('{name}', caption));
+                showError(self.msgFileSecured);
             } else if (err.code === err.NOT_READABLE_ERR) {
-                self._showError(self.msgFileNotReadable.replace('{name}', caption));
+                showError(self.msgFileNotReadable);
             } else if (err.code === err.ABORT_ERR) {
-                self._showError(self.msgFilePreviewAborted.replace('{name}', caption));
+                showError(self.msgFilePreviewAborted);
             } else {
-                self._showError(self.msgFilePreviewError.replace('{name}', caption));
+                showError(self.msgFilePreviewError);
             }
         },
         _addError: function (msg) {
@@ -1653,7 +933,7 @@
             if (!folders) {
                 return;
             }
-            msg = self.msgFoldersNotAllowed.replace(/\{n}/g, folders);
+            msg = self.msgFoldersNotAllowed.replace('{n}', folders);
             self._addError(msg);
             $h.addCss(self.$container, 'has-error');
             $error.fadeIn(800);
@@ -1737,8 +1017,8 @@
             var self = this, ext, out = null;
             if (fname && fname.indexOf('.') > -1) {
                 ext = fname.split('.').pop();
-                if (self.previewFileIconSettings && self.previewFileIconSettings[ext]) {
-                    out = self.previewFileIconSettings[ext];
+                if (self.previewFileIconSettings) {
+                    out = self.previewFileIconSettings[ext] || self.previewFileIconSettings[ext.toLowerCase()] || null;
                 }
                 if (self.previewFileExtSettings) {
                     $.each(self.previewFileExtSettings, function (key, func) {
@@ -1753,12 +1033,11 @@
             return out;
         },
         _parseFilePreviewIcon: function (content, fname) {
-            var self = this, icn = self._getPreviewIcon(fname) || self.previewFileIcon;
-            if (content.indexOf('{previewFileIcon}') > -1) {
-                content = content.replace(/\{previewFileIconClass}/g, self.previewFileIconClass).replace(
-                    /\{previewFileIcon}/g, icn);
+            var self = this, icn = self._getPreviewIcon(fname) || self.previewFileIcon, out = content;
+            if (out.indexOf('{previewFileIcon}') > -1) {
+                out = out.setTokens({'previewFileIconClass': self.previewFileIconClass, 'previewFileIcon': icn});
             }
-            return content;
+            return out;
         },
         _raise: function (event, params) {
             var self = this, e = $.Event(event);
@@ -1788,7 +1067,9 @@
                     break;
                 // receive data response via `filecustomerror` event`
                 default:
-                    self.ajaxAborted = e.result;
+                    if (!self.ajaxAborted) {
+                        self.ajaxAborted = e.result;
+                    }
                     break;
             }
             return true;
@@ -1952,6 +1233,7 @@
             settings = {
                 handle: '.drag-handle-init',
                 dataIdAttr: 'data-preview-id',
+                scroll: false,
                 draggable: selector,
                 onSort: function (e) {
                     var oldIndex = e.oldIndex, newIndex = e.newIndex, key, $frame;
@@ -1962,7 +1244,7 @@
                         if (self.initialPreviewConfig[i] !== null) {
                             key = self.initialPreviewConfig[i].key;
                             $frame = $(".kv-file-remove[data-key='" + key + "']").closest($h.FRAMES);
-                            $frame.attr('data-fileindex', 'init_' + i).data('fileindex', 'init_' + i);
+                            $frame.attr('data-fileindex', 'init_' + i).attr('data-fileindex', 'init_' + i);
                         }
                     }
                     self._raise('filesorted', {
@@ -2011,15 +1293,16 @@
         },
         _getModalContent: function () {
             var self = this;
-            return self._getLayoutTemplate('modal')
-                .replace(/\{zoomFrameClass}/g, self.frameClass)
-                .replace(/\{heading}/g, self.msgZoomModalHeading)
-                .replace(/\{prev}/g, self._getZoomButton('prev'))
-                .replace(/\{next}/g, self._getZoomButton('next'))
-                .replace(/\{toggleheader}/g, self._getZoomButton('toggleheader'))
-                .replace(/\{fullscreen}/g, self._getZoomButton('fullscreen'))
-                .replace(/\{borderless}/g, self._getZoomButton('borderless'))
-                .replace(/\{close}/g, self._getZoomButton('close'));
+            return self._getLayoutTemplate('modal').setTokens({
+                'zoomFrameClass': self.frameClass,
+                'heading': self.msgZoomModalHeading,
+                'prev': self._getZoomButton('prev'),
+                'next': self._getZoomButton('next'),
+                'toggleheader': self._getZoomButton('toggleheader'),
+                'fullscreen': self._getZoomButton('fullscreen'),
+                'borderless': self._getZoomButton('borderless'),
+                'close': self._getZoomButton('close')
+            });
         },
         _listenModalEvent: function (event) {
             var self = this, $modal = self.$modal, getParams = function (e) {
@@ -2151,10 +1434,12 @@
             $body = $modal.find('.kv-zoom-body');
             $modal.removeClass('kv-single-content');
             if (animate) {
-                $tmp = $body.clone().insertAfter($body);
+                $tmp = $body.addClass('file-thumb-loading').clone().insertAfter($body);
                 $body.html(body).hide();
                 $tmp.fadeOut('fast', function () {
-                    $body.fadeIn('fast');
+                    $body.fadeIn('fast', function () {
+                        $body.removeClass('file-thumb-loading');
+                    });
                     $tmp.remove();
                 });
             } else {
@@ -2172,6 +1457,10 @@
                 });
             }
             $modal.data('previewId', pid);
+            var $img = $body.find('img');
+            if ($img.length) {
+                $h.adjustOrientedImage($img, true);
+            }
             self._handler($prev, 'click', function () {
                 self._zoomSlideShow('prev', pid);
             });
@@ -2535,7 +1824,8 @@
                 var $thumb = $(this), $preview = self.$preview, $remove = $thumb.find('.kv-file-remove');
                 $remove.removeAttr('disabled');
                 self._handler($remove, 'click', function () {
-                    var id = $thumb.attr('id'), out = self._raise('filesuccessremove', [id, $thumb.data('fileindex')]);
+                    var id = $thumb.attr('id'),
+                        out = self._raise('filesuccessremove', [id, $thumb.attr('data-fileindex')]);
                     $h.cleanMemory($thumb);
                     if (out === false) {
                         return;
@@ -2763,7 +2053,8 @@
             };
             fnSuccess = function (data, textStatus, jqXHR) {
                 /** @namespace data.errorkeys */
-                var outData = self._getOutData(jqXHR, data), $thumbs = self._getThumbs(':not(.file-preview-error)'), key = 0,
+                var outData = self._getOutData(jqXHR, data), $thumbs = self._getThumbs(':not(.file-preview-error)'),
+                    key = 0,
                     keys = $h.isEmpty(data) || $h.isEmpty(data.errorkeys) ? [] : data.errorkeys;
                 if ($h.isEmpty(data) || $h.isEmpty(data.error)) {
                     self._raise('filebatchuploadsuccess', [outData]);
@@ -2976,7 +2267,7 @@
                     return;
                 }
                 var $frame = $el.closest($h.FRAMES), cache = self.previewCache.data,
-                    settings, params, index = $frame.data('fileindex'), config, extraData;
+                    settings, params, index = $frame.attr('data-fileindex'), config, extraData;
                 index = parseInt(index.replace('init_', ''));
                 config = $h.isEmpty(cache.config) && $h.isEmpty(cache.config[index]) ? null : cache.config[index];
                 extraData = $h.isEmpty(config) || $h.isEmpty(config.extra) ? deleteExtraData : config.extra;
@@ -3002,8 +2293,7 @@
                     success: function (data, textStatus, jqXHR) {
                         var n, cap;
                         if ($h.isEmpty(data) || $h.isEmpty(data.error)) {
-                            self.previewCache.init();
-                            index = parseInt(($frame.data('fileindex')).replace('init_', ''));
+                            index = parseInt(($frame.attr('data-fileindex')).replace('init_', ''));
                             self.previewCache.unset(index);
                             n = self.previewCache.count();
                             cap = n > 0 ? self._getMsgSelected(n) : '';
@@ -3079,7 +2369,7 @@
                 config = self.previewSettings[cat] || self.defaults.previewSettings[cat],
                 w = config && config.width ? config.width : '', h = config && config.height ? config.height : '',
                 footer = foot || self._renderFileFooter(caption, size, ($h.isEmpty(w) ? 'auto' : w), isError),
-                hasIconSetting = self._getPreviewIcon(fname),
+                hasIconSetting = self._getPreviewIcon(fname), typeCss = 'type-default',
                 forcePrevIcon = hasIconSetting && self.preferIconicPreview,
                 forceZoomIcon = hasIconSetting && self.preferIconicZoomPreview,
                 getContent = function (c, d, zoom, frameCss) {
@@ -3095,10 +2385,29 @@
                     if (c === 'text') {
                         d = $h.htmlEncode(d);
                     }
-                    return tmplt.replace(/\{previewId}/g, id).replace(/\{caption}/g, caption)
-                        .replace(/\{frameClass}/g, css).replace(/\{type}/g, ftype).replace(/\{fileindex}/g, ind)
-                        .replace(/\{width}/g, w).replace(/\{height}/g, h)
-                        .replace(/\{footer}/g, footer).replace(/\{data}/g, d).replace(/\{template}/g, templ || cat);
+                    if (cat === 'object' && !ftype) {
+                        $.each(self.defaults.fileTypeSettings, function (key, func) {
+                            if (key === 'object' || key === 'other') {
+                                return;
+                            }
+                            if (func(fname, ftype)) {
+                                typeCss = 'type-' + key;
+                            }
+                        });
+                    }
+                    return tmplt.setTokens({
+                        'previewId': id,
+                        'caption': caption,
+                        'frameClass': css,
+                        'type': ftype,
+                        'fileindex': ind,
+                        'width': w,
+                        'height': h,
+                        'typeCss': typeCss,
+                        'footer': footer,
+                        'data': d,
+                        'template': templ || cat
+                    });
                 };
             ind = ind || previewId.slice(previewId.lastIndexOf('-') + 1);
             if (self.fileActionSettings.showZoom) {
@@ -3130,22 +2439,39 @@
             }
             var self = this, cat = self._parseFileType(file), fname = file ? file.name : '', caption = self.slug(fname),
                 types = self.allowedPreviewTypes, mimes = self.allowedPreviewMimeTypes, $preview = self.$preview,
-                chkTypes = types && types.indexOf(cat) >= 0, size = file.size || 0,
+                chkTypes = types && types.indexOf(cat) >= 0, fsize = file.size || 0, ftype = file.type,
                 iData = (cat === 'text' || cat === 'html' || cat === 'image') ? theFile.target.result : data, content,
-                chkMimes = mimes && mimes.indexOf(file.type) !== -1;
+                chkMimes = mimes && mimes.indexOf(ftype) !== -1;
             /** @namespace window.DOMPurify */
             if (cat === 'html' && self.purifyHtml && window.DOMPurify) {
                 iData = window.DOMPurify.sanitize(iData);
             }
             if (chkTypes || chkMimes) {
-                content = self._generatePreviewTemplate(cat, iData, fname, file.type, previewId, false, size);
+                content = self._generatePreviewTemplate(cat, iData, fname, ftype, previewId, false, fsize);
                 self._clearDefaultPreview();
                 $preview.append("\n" + content);
-                self._validateImage(previewId, caption, file.type);
+                var $img = $preview.find('#' + previewId + ' img');
+                if ($img.length && self.autoOrientImage) {
+                    $h.validateOrientation(file, function (value) {
+                        if (value) {
+                            var $zoomImg = $preview.find('#zoom-' + previewId + ' img'), css = 'rotate-' + value;
+                            if (value > 4) {
+                                css += ($img.width() > $img.height() ? ' is-portrait-gt4' : ' is-landscape-gt4');
+                            }
+                            $h.addCss($img, css);
+                            $h.addCss($zoomImg, css);
+                            self._raise('fileimageoriented', {'$img': $img, 'file': file});
+                        }
+                        self._validateImage(previewId, caption, ftype, fsize);
+                        $h.adjustOrientedImage($img);
+                    });
+                } else {
+                    self._validateImage(previewId, caption, ftype, fsize);
+                }
             } else {
                 self._previewDefault(file, previewId);
             }
-            self._setThumbAttr(previewId, caption, size);
+            self._setThumbAttr(previewId, caption, fsize);
             self._initSortable();
         },
         _setThumbAttr: function (id, caption, size) {
@@ -3247,14 +2573,20 @@
                 }
                 fSizeKB = fileSize.toFixed(2);
                 if (self.maxFileSize > 0 && fileSize > self.maxFileSize) {
-                    msg = self.msgSizeTooLarge.replace('{name}', caption).replace('{size}', fSizeKB)
-                        .replace('{maxSize}', self.maxFileSize);
+                    msg = self.msgSizeTooLarge.setTokens({
+                        'name': caption,
+                        'size': fSizeKB,
+                        'maxSize': self.maxFileSize
+                    });
                     self.isError = throwError(msg, file, previewId, i);
                     return;
                 }
                 if (self.minFileSize !== null && fileSize <= $h.getNum(self.minFileSize)) {
-                    msg = self.msgSizeTooSmall.replace('{name}', caption).replace('{size}', fSizeKB)
-                        .replace('{minSize}', self.minFileSize);
+                    msg = self.msgSizeTooSmall.setTokens({
+                        'name': caption,
+                        'size': fSizeKB,
+                        'minSize': self.minFileSize
+                    });
                     self.isError = throwError(msg, file, previewId, i);
                     return;
                 }
@@ -3265,7 +2597,7 @@
                         fileCount += !func || (typeof func !== 'function') ? 0 : (func(file.type, file.name) ? 1 : 0);
                     }
                     if (fileCount === 0) {
-                        msg = self.msgInvalidFileType.replace('{name}', caption).replace('{types}', strTypes);
+                        msg = self.msgInvalidFileType.setTokens({'name': caption, 'types': strTypes});
                         self.isError = throwError(msg, file, previewId, i);
                         return;
                     }
@@ -3274,7 +2606,7 @@
                     chk = $h.compare(caption, fileExtExpr);
                     fileCount += $h.isEmpty(chk) ? 0 : chk.length;
                     if (fileCount === 0) {
-                        msg = self.msgInvalidFileExtension.replace('{name}', caption).replace('{extensions}', strExt);
+                        msg = self.msgInvalidFileExtension.setTokens({'name': caption, 'extensions': strExt});
                         self.isError = throwError(msg, file, previewId, i);
                         return;
                     }
@@ -3307,8 +2639,12 @@
                         self._initFileActions();
                     };
                     reader.onloadend = function () {
-                        msg = msgProgress.replace('{index}', i + 1).replace('{files}', numFiles)
-                            .replace('{percent}', 50).replace('{name}', caption);
+                        msg = msgProgress.setTokens({
+                            'index': i + 1,
+                            'files': numFiles,
+                            'percent': 50,
+                            'name': caption
+                        });
                         setTimeout(function () {
                             $status.html(msg);
                             self._updateFileDetails(numFiles);
@@ -3319,8 +2655,12 @@
                     reader.onprogress = function (data) {
                         if (data.lengthComputable) {
                             var fact = (data.loaded / data.total) * 100, progress = Math.ceil(fact);
-                            msg = msgProgress.replace('{index}', i + 1).replace('{files}', numFiles)
-                                .replace('{percent}', progress).replace('{name}', caption);
+                            msg = msgProgress.setTokens({
+                                'index': i + 1,
+                                'files': numFiles,
+                                'percent': progress,
+                                'name': caption
+                            });
                             setTimeout(function () {
                                 $status.html(msg);
                             }, 100);
@@ -3400,16 +2740,15 @@
             self._setProgress(101, self.$progress, self.msgCancelled);
         },
         _setProgress: function (p, $el, error) {
-            var self = this, pct = Math.min(p, 100), out, status, pctLimit = self.progressUploadThreshold,
+            var self = this, pct = Math.min(p, 100), out, pctLimit = self.progressUploadThreshold,
                 t = p <= 100 ? self.progressTemplate : self.progressCompleteTemplate,
                 template = pct < 100 ? self.progressTemplate : (error ? self.progressErrorTemplate : t);
             $el = $el || self.$progress;
             if (!$h.isEmpty(template)) {
                 if (pctLimit && pct > pctLimit && p <= 100) {
-                    out = template.replace(/\{percent}/g, pctLimit).replace(/\{status}/g, self.msgUploadThreshold);
+                    out = template.setTokens({'percent': pctLimit, 'status': self.msgUploadThreshold});
                 } else {
-                    status = p > 100 ? self.msgUploadEnd : pct + '%';
-                    out = template.replace(/\{percent}/g, pct).replace(/\{status}/g, status);
+                    out = template.setTokens({'percent': pct, 'status': (p > 100 ? self.msgUploadEnd : pct + '%')});
                 }
                 $el.html(out);
                 if (error) {
@@ -3512,11 +2851,11 @@
             if (isValid) {
                 return;
             }
-            msg = self['msgImage' + type + chk].replace('{name}', fname).replace('{size}', limit);
+            msg = self['msgImage' + type + chk].setTokens({'name': fname, 'size': limit});
             self._showUploadError(msg, params);
             self._setPreviewError($thumb, i, null);
         },
-        _validateImage: function (previewId, fname, ftype) {
+        _validateImage: function (previewId, fname, ftype, fsize) {
             var self = this, $preview = self.$preview, params, w1, w2, $thumb = $preview.find("#" + previewId),
                 i = $thumb.attr('data-fileindex'), $img = $thumb.find('img');
             fname = fname || 'Untitled';
@@ -3538,12 +2877,21 @@
                     self._checkDimensions(i, 'Large', $img, $thumb, fname, 'Height', params);
                 }
                 self._raise('fileimageloaded', [previewId]);
-                self.loadedImages.push({ind: i, img: $img, thumb: $thumb, pid: previewId, typ: ftype});
+                self.loadedImages.push({
+                    ind: i,
+                    img: $img,
+                    thumb: $thumb,
+                    pid: previewId,
+                    typ: ftype,
+                    siz: fsize,
+                    validated: false
+                });
                 self._validateAllImages();
             });
         },
         _validateAllImages: function () {
-            var self = this, i, counter = {val: 0}, numImgs = self.loadedImages.length;
+            var self = this, i, counter = {val: 0}, numImgs = self.loadedImages.length, config,
+                fsize, minSize = self.resizeIfSizeMoreThan;
             if (numImgs !== self.totalImagesCount) {
                 return;
             }
@@ -3552,7 +2900,15 @@
                 return;
             }
             for (i = 0; i < self.loadedImages.length; i++) {
-                self._getResizedImage(self.loadedImages[i], counter, numImgs);
+                config = self.loadedImages[i];
+                if (config.validated) {
+                    continue;
+                }
+                fsize = config.siz;
+                if (fsize && fsize > minSize * 1000) {
+                    self._getResizedImage(config, counter, numImgs);
+                }
+                self.loadedImages[i].validated = true;
             }
         },
         _getResizedImage: function (config, counter, numImgs) {
@@ -3560,14 +2916,14 @@
                 ratio = 1, maxWidth = self.maxImageWidth || width, maxHeight = self.maxImageHeight || height,
                 isValidImage = !!(width && height), chkWidth, chkHeight, canvas = self.imageCanvas,
                 context = self.imageCanvasContext, type = config.typ, pid = config.pid, ind = config.ind,
-                thumb = config.thumb, throwError, msg;
+                $thumb = config.thumb, throwError, msg;
             throwError = function (msg, params, ev) {
                 if (self.isUploadable) {
                     self._showUploadError(msg, params, ev);
                 } else {
                     self._showError(msg, params, ev);
                 }
-                self._setPreviewError(thumb, ind);
+                self._setPreviewError($thumb, ind);
             };
             if (!self.filestack[ind] || !isValidImage || (width <= maxWidth && height <= maxHeight)) {
                 if (isValidImage && self.filestack[ind]) {
@@ -3680,22 +3036,24 @@
             self._initBrowse($container);
         },
         _renderMain: function () {
-            var self = this, dropCss = (self.isUploadable && self.dropZoneEnabled) ? ' file-drop-zone' : 'file-drop-disabled',
+            var self = this,
+                dropCss = (self.isUploadable && self.dropZoneEnabled) ? ' file-drop-zone' : 'file-drop-disabled',
                 close = !self.showClose ? '' : self._getLayoutTemplate('close'),
                 preview = !self.showPreview ? '' : self._getLayoutTemplate('preview')
-                    .replace(/\{class}/g, self.previewClass)
-                    .replace(/\{dropClass}/g, dropCss),
+                    .setTokens({'class': self.previewClass, 'dropClass': dropCss}),
                 css = self.isDisabled ? self.captionClass + ' file-caption-disabled' : self.captionClass,
-                caption = self.captionTemplate.replace(/\{class}/g, css + ' kv-fileinput-caption');
-            return self.mainTemplate.replace(/\{class}/g, self.mainClass +
-                (!self.showBrowse && self.showCaption ? ' no-browse' : ''))
-                .replace(/\{preview}/g, preview)
-                .replace(/\{close}/g, close)
-                .replace(/\{caption}/g, caption)
-                .replace(/\{upload}/g, self._renderButton('upload'))
-                .replace(/\{remove}/g, self._renderButton('remove'))
-                .replace(/\{cancel}/g, self._renderButton('cancel'))
-                .replace(/\{browse}/g, self._renderButton('browse'));
+                caption = self.captionTemplate.setTokens({'class': css + ' kv-fileinput-caption'});
+            return self.mainTemplate.setTokens({
+                'class': self.mainClass + (!self.showBrowse && self.showCaption ? ' no-browse' : ''),
+                'preview': preview,
+                'close': close,
+                'caption': caption,
+                'upload': self._renderButton('upload'),
+                'remove': self._renderButton('remove'),
+                'cancel': self._renderButton('cancel'),
+                'browse': self._renderButton('browse')
+            });
+
         },
         _renderButton: function (type) {
             var self = this, tmplt = self._getLayoutTemplate('btnDefault'), css = self[type + 'Class'],
@@ -3737,31 +3095,42 @@
             if (!$h.isEmpty(label)) {
                 label = ' <span class="' + self.buttonLabelClass + '">' + label + '</span>';
             }
-            return tmplt.replace('{type}', btnType).replace('{css}', css).replace('{title}', title)
-                .replace('{status}', status).replace('{icon}', icon).replace('{label}', label);
+            return tmplt.setTokens({
+                'type': btnType, 'css': css, 'title': title, 'status': status, 'icon': icon, 'label': label
+            });
         },
         _renderThumbProgress: function () {
             var self = this;
-            return '<div class="file-thumb-progress hide">' + self.progressTemplate.replace(/\{percent}/g, '0')
-                    .replace(/\{status}/g, self.msgUploadBegin) + '</div>';
+            return '<div class="file-thumb-progress hide">' +
+                self.progressTemplate.setTokens({'percent': '0', 'status': self.msgUploadBegin}) +
+                '</div>';
         },
         _renderFileFooter: function (caption, size, width, isError) {
             var self = this, config = self.fileActionSettings, rem = config.showRemove, drg = config.showDrag,
                 upl = config.showUpload, zoom = config.showZoom, out, template = self._getLayoutTemplate('footer'),
-                indicator = isError ? config.indicatorError : config.indicatorNew,
-                title = isError ? config.indicatorErrorTitle : config.indicatorNewTitle;
+                ind = isError ? config.indicatorError : config.indicatorNew,
+                tInd = self._getLayoutTemplate('indicator'),
+                title = isError ? config.indicatorErrorTitle : config.indicatorNewTitle,
+                indicator = tInd.setTokens({'indicator': ind, 'indicatorTitle': title});
             size = self._getSize(size);
             if (self.isUploadable) {
-                out = template.replace(/\{actions}/g, self._renderFileActions(upl, rem, zoom, drg, false, false, false))
-                    .replace(/\{caption}/g, caption).replace(/\{size}/g, size).replace(/\{width}/g, width)
-                    .replace(/\{progress}/g, self._renderThumbProgress()).replace(/\{indicator}/g, indicator)
-                    .replace(/\{indicatorTitle}/g, title);
+                out = template.setTokens({
+                    'actions': self._renderFileActions(upl, rem, zoom, drg, false, false, false),
+                    'caption': caption,
+                    'size': size,
+                    'width': width,
+                    'progress': self._renderThumbProgress(),
+                    'indicator': indicator
+                });
             } else {
-                out = template.replace(/\{actions}/g,
-                    self._renderFileActions(false, false, zoom, drg, false, false, false))
-                    .replace(/\{caption}/g, caption).replace(/\{size}/g, size).replace(/\{width}/g, width)
-                    .replace(/\{progress}/g, '').replace(/\{indicator}/g, indicator)
-                    .replace(/\{indicatorTitle}/g, title);
+                out = template.setTokens({
+                    'actions': self._renderFileActions(false, false, zoom, drg, false, false, false),
+                    'caption': caption,
+                    'size': size,
+                    'width': width,
+                    'progress': '',
+                    'indicator': indicator
+                });
             }
             out = $h.replaceTags(out, self.previewThumbTags);
             return out;
@@ -3770,44 +3139,50 @@
             if (!showUpload && !showDelete && !showZoom && !showDrag) {
                 return '';
             }
-            var self = this,
-                vUrl = url === false ? '' : ' data-url="' + url + '"',
+            var self = this, vUrl = url === false ? '' : ' data-url="' + url + '"',
                 vKey = key === false ? '' : ' data-key="' + key + '"',
                 btnDelete = '', btnUpload = '', btnZoom = '', btnDrag = '', css,
                 template = self._getLayoutTemplate('actions'), config = self.fileActionSettings,
-                otherButtons = self.otherActionButtons.replace(/\{dataKey}/g, vKey),
+                otherButtons = self.otherActionButtons.setTokens({'dataKey': vKey}),
                 removeClass = disabled ? config.removeClass + ' disabled' : config.removeClass;
             if (showDelete) {
-                btnDelete = self._getLayoutTemplate('actionDelete')
-                    .replace(/\{removeClass}/g, removeClass)
-                    .replace(/\{removeIcon}/g, config.removeIcon)
-                    .replace(/\{removeTitle}/g, config.removeTitle)
-                    .replace(/\{dataUrl}/g, vUrl)
-                    .replace(/\{dataKey}/g, vKey);
+                btnDelete = self._getLayoutTemplate('actionDelete').setTokens({
+                    'removeClass': removeClass,
+                    'removeIcon': config.removeIcon,
+                    'removeTitle': config.removeTitle,
+                    'dataUrl': vUrl,
+                    'dataKey': vKey
+                });
             }
             if (showUpload) {
-                btnUpload = self._getLayoutTemplate('actionUpload')
-                    .replace(/\{uploadClass}/g, config.uploadClass)
-                    .replace(/\{uploadIcon}/g, config.uploadIcon)
-                    .replace(/\{uploadTitle}/g, config.uploadTitle);
+                btnUpload = self._getLayoutTemplate('actionUpload').setTokens({
+                    'uploadClass': config.uploadClass,
+                    'uploadIcon': config.uploadIcon,
+                    'uploadTitle': config.uploadTitle
+                });
             }
             if (showZoom) {
-                btnZoom = self._getLayoutTemplate('actionZoom')
-                    .replace(/\{zoomClass}/g, config.zoomClass)
-                    .replace(/\{zoomIcon}/g, config.zoomIcon)
-                    .replace(/\{zoomTitle}/g, config.zoomTitle);
+                btnZoom = self._getLayoutTemplate('actionZoom').setTokens({
+                    'zoomClass': config.zoomClass,
+                    'zoomIcon': config.zoomIcon,
+                    'zoomTitle': config.zoomTitle
+                });
             }
             if (showDrag && isInit) {
                 css = 'drag-handle-init ' + config.dragClass;
-                btnDrag = self._getLayoutTemplate('actionDrag').replace(/\{dragClass}/g, css)
-                    .replace(/\{dragTitle}/g, config.dragTitle)
-                    .replace(/\{dragIcon}/g, config.dragIcon);
+                btnDrag = self._getLayoutTemplate('actionDrag').setTokens({
+                    'dragClass': css,
+                    'dragTitle': config.dragTitle,
+                    'dragIcon': config.dragIcon
+                });
             }
-            return template.replace(/\{delete}/g, btnDelete)
-                .replace(/\{upload}/g, btnUpload)
-                .replace(/\{zoom}/g, btnZoom)
-                .replace(/\{drag}/g, btnDrag)
-                .replace(/\{other}/g, otherButtons);
+            return template.setTokens({
+                'delete': btnDelete,
+                'upload': btnUpload,
+                'zoom': btnZoom,
+                'drag': btnDrag,
+                'other': otherButtons
+            });
         },
         _browse: function (e) {
             var self = this;
@@ -3866,9 +3241,13 @@
                 } else {
                     files = e.target.files || {};
                 }
-                $.each(files, function (i, f) {
-                    self._filterDuplicate(f, tfiles, fileIds);
-                });
+                if (isAjaxUpload) {
+                    $.each(files, function (i, f) {
+                        self._filterDuplicate(f, tfiles, fileIds);
+                    });
+                } else {
+                    tfiles = files;
+                }
             }
             if ($h.isEmpty(tfiles) || tfiles.length === 0) {
                 if (!isAjaxUpload) {
@@ -3919,9 +3298,9 @@
                 data = $.extend(true, {}, self._getOutData(), params);
                 data.abortData = self.ajaxAborted.data || {};
                 data.abortMessage = self.ajaxAborted.message;
-                self.cancel();
                 self._setProgress(101, self.$progress, self.msgCancelled);
                 self._showUploadError(self.ajaxAborted.message, data, 'filecustomerror');
+                self.cancel();
                 return true;
             }
             return false;
@@ -4173,6 +3552,11 @@
             if ($form && $form.length) {
                 $form.off(ns);
             }
+            if (self.isUploadable) {
+                self._clearFileInput();
+            }
+            self._cleanup();
+            self._initPreviewCache();
             $el.insertBefore($cont).off(ns).removeData();
             $cont.off().remove();
             return $el;
@@ -4182,6 +3566,10 @@
             options = options ? $.extend(true, {}, self.options, options) : self.options;
             self.destroy();
             $el.fileinput(options);
+            self = $el.data('fileinput');
+            if (self.isUploadable) {
+                self._clearFileInput();
+            }
             if ($el.val()) {
                 $el.trigger('change.fileinput');
             }
@@ -4257,6 +3645,7 @@
         showUploadedThumbs: true,
         browseOnZoneClick: false,
         autoReplace: false,
+        autoOrientImage: true, // for JPEG images based on EXIF orientation tag
         generateFileId: null,
         previewClass: '',
         captionClass: '',
@@ -4328,6 +3717,7 @@
         resizePreference: 'width',
         resizeQuality: 0.92,
         resizeDefaultImageType: 'image/jpeg',
+        resizeIfSizeMoreThan: 0, // in KB
         minFileSize: 0,
         maxFileSize: 0,
         maxFilePreviewSize: 25600, // 25 MB

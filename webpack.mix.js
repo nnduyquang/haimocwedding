@@ -20,7 +20,8 @@ mix.styles([
     ], 'public/js/core.frontend.js')
     .styles([
         // 'bower_components/dropzone/dist/min/dropzone.min.js',
-        'bower_components/bootstrap-fileinput/js/plugins/purify.js',
+        'bower_components/bootstrap-fileinput/js/plugins/sortable.min.js',
+        'bower_components/bootstrap-fileinput/js/plugins/purify.min.js',
         'bower_components/bootstrap-fileinput/js/fileinput.js'
     ], 'public/js/core.backend.js')
     .styles([

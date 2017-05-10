@@ -120,7 +120,7 @@
                     {{--<div class="dz-message">Drag&drop</div>--}}
                 {{--</div>--}}
 
-                <input id="input-id" name="input2[]" type="file" class="file" multiple data-show-upload="false" data-show-caption="true">
+                <input id="input-id" name="input2[]" type="file" class="file-loading" multiple data-show-upload="false" data-show-caption="true">
 
             </div>
         </div>
