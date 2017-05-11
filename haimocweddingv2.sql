@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2017 at 01:32 PM
+-- Generation Time: May 11, 2017 at 11:05 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -19,6 +19,19 @@ SET time_zone = "+00:00";
 --
 -- Database: `haimocweddingv2`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `albumofdiadiem`
+--
+
+CREATE TABLE `albumofdiadiem` (
+  `id_diadiem` int(10) UNSIGNED NOT NULL,
+  `id_album` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -40,7 +53,10 @@ CREATE TABLE `albums` (
   `note` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `tenalbum` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `arrayidphukien` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `arrayiddichvu` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -94,11 +110,27 @@ CREATE TABLE `dichvus` (
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `icon` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `order` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `note` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `note` text COLLATE utf8mb4_unicode_ci,
   `user_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `dichvus`
+--
+
+INSERT INTO `dichvus` (`id`, `name`, `icon`, `order`, `note`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'Hair & Makeup for Bride & Groom', 'hairmakeup_1493860644501.png', '1', NULL, 1, '2017-05-03 18:17:24', '2017-05-03 18:17:24'),
+(2, 'Photo Props', 'photoprops_1493860858609.png', '1', NULL, 1, '2017-05-03 18:20:58', '2017-05-03 18:20:58'),
+(3, 'Set of Accessories', 'setofaccessorie_1493860887793.png', '1', NULL, 1, '2017-05-03 18:21:27', '2017-05-03 18:21:27'),
+(4, 'All Photo Data', 'allphotodata_1493860919345.png', '1', NULL, 1, '2017-05-03 18:21:59', '2017-05-03 18:21:59'),
+(5, '10” x 10” Album', '10album_1493860949081.png', '1', '(the maximum number of photos : 25 pics)', 1, '2017-05-03 18:22:29', '2017-05-03 18:22:29'),
+(6, 'Simple Edited Photo Data', 'simpleeditedpho_1493860977077.png', '1', '(pictures for your album)', 1, '2017-05-03 18:22:57', '2017-05-03 18:22:57'),
+(7, 'English Speaking Guide', 'englsihspeaking_1493861002699.png', '1', NULL, 1, '2017-05-03 18:23:22', '2017-05-03 18:23:22'),
+(8, 'Transportation Expenses', 'transportatione_1493861028688.png', '1', '(Studio ⇆ Location)', 1, '2017-05-03 18:23:48', '2017-05-03 18:23:48'),
+(9, 'Shipping Cost by Air', 'shippingbyair_1493861051494.png', '1', NULL, 1, '2017-05-03 18:24:11', '2017-05-03 18:24:11'),
+(10, 'A3 Photo Board', 'a3photoboard_1493861081696.png', '1', '(Book NOW, Get it FREE!)', 1, '2017-05-03 18:24:41', '2017-05-03 18:24:41');
 
 -- --------------------------------------------------------
 
@@ -127,7 +159,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2017_05_02_004410_add_info_phobien_to_diadiems_table', 7),
 (12, '2017_05_02_085531_change_type_mota_diadiems_table', 8),
 (13, '2017_05_02_091030_create_albums_table', 9),
-(14, '2017_05_02_093935_create_dichvus_table', 10);
+(14, '2017_05_02_093935_create_dichvus_table', 10),
+(15, '2017_05_04_011612_change_note_to_nullable_dichvus_table', 11),
+(16, '2017_05_10_134635_create_phukiens_table', 12),
+(17, '2017_05_10_140720_add_column_to_albums_table', 12),
+(18, '2017_05_10_141035_create_album_diadiem_table', 12);
 
 -- --------------------------------------------------------
 
@@ -176,7 +212,11 @@ INSERT INTO `permissions` (`id`, `name`, `display_name`, `description`, `created
 (13, 'dichvu-list', 'Display Dịch Vụ Listing', 'See only Listing Of Dịch Vụ', '2017-05-02 02:38:45', '2017-05-02 02:38:45'),
 (14, 'dichvu-create', 'Create Dịch Vụ ', 'Create New Dịch Vụ ', '2017-05-02 02:38:45', '2017-05-02 02:38:45'),
 (15, 'dichvu-edit', 'Edit Dịch Vụ ', 'Edit Dịch Vụ ', '2017-05-02 02:38:45', '2017-05-02 02:38:45'),
-(16, 'dichvu-delete', 'Delete Dịch Vụ ', 'Delete Dịch Vụ ', '2017-05-02 02:38:45', '2017-05-02 02:38:45');
+(16, 'dichvu-delete', 'Delete Dịch Vụ ', 'Delete Dịch Vụ ', '2017-05-02 02:38:45', '2017-05-02 02:38:45'),
+(17, 'album-list', 'Display Album Listing', 'See only Listing Of Album', '2017-05-04 21:23:36', '2017-05-04 21:23:36'),
+(18, 'album-create', 'Create Album ', 'Create New Album ', '2017-05-04 21:23:37', '2017-05-04 21:23:37'),
+(19, 'album-edit', 'Edit Album ', 'Edit Album ', '2017-05-04 21:23:37', '2017-05-04 21:23:37'),
+(20, 'album-delete', 'Delete Album ', 'Delete Album ', '2017-05-04 21:23:37', '2017-05-04 21:23:37');
 
 -- --------------------------------------------------------
 
@@ -205,7 +245,30 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (9, 1),
 (10, 1),
 (11, 1),
-(12, 1);
+(12, 1),
+(13, 1),
+(14, 1),
+(15, 1),
+(16, 1),
+(17, 1),
+(18, 1),
+(19, 1),
+(20, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `phukiens`
+--
+
+CREATE TABLE `phukiens` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `order` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -275,6 +338,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `creat
 --
 
 --
+-- Indexes for table `albumofdiadiem`
+--
+ALTER TABLE `albumofdiadiem`
+  ADD PRIMARY KEY (`id_diadiem`,`id_album`);
+
+--
 -- Indexes for table `albums`
 --
 ALTER TABLE `albums`
@@ -325,6 +394,13 @@ ALTER TABLE `permission_role`
   ADD KEY `permission_role_role_id_foreign` (`role_id`);
 
 --
+-- Indexes for table `phukiens`
+--
+ALTER TABLE `phukiens`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `phukiens_user_id_foreign` (`user_id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -363,17 +439,22 @@ ALTER TABLE `diadiems`
 -- AUTO_INCREMENT for table `dichvus`
 --
 ALTER TABLE `dichvus`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `phukiens`
+--
+ALTER TABLE `phukiens`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `roles`
 --
@@ -412,6 +493,12 @@ ALTER TABLE `dichvus`
 ALTER TABLE `permission_role`
   ADD CONSTRAINT `permission_role_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `permission_role_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `phukiens`
+--
+ALTER TABLE `phukiens`
+  ADD CONSTRAINT `phukiens_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `role_user`
