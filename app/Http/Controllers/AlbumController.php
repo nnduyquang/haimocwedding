@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Album;
+use App\DichVu;
+use App\PhuKien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -30,7 +32,9 @@ class AlbumController extends Controller
      */
     public function create()
     {
-        return view('backend.admin.album.create', compact('roles'));
+        $dichvus = $this->create_get_all_dichvu();
+        $phukiens = $this->create_get_all_phukien();
+        return view('backend.admin.album.create', compact(['roles', 'dichvus','phukiens']));
     }
 
     /**
@@ -41,15 +45,12 @@ class AlbumController extends Controller
      */
     public function uploadImage(Request $request)
     {
-//        return 'success';
-        dd($request);
+
     }
 
     public function store(Request $request)
     {
-//        return redirect()->route('albums.index')
-//            ->with('success', 'Địa Điểm store successfully');
-        dd($request);
+
     }
 
     /**
@@ -95,5 +96,17 @@ class AlbumController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function create_get_all_dichvu()
+    {
+        $dichvus = DichVu::all()->sortBy('order');
+        return $dichvus;
+    }
+
+    public function create_get_all_phukien()
+    {
+        $phukiens = PhuKien::all()->sortBy('order');
+        return $phukiens;
     }
 }

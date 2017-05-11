@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2017 at 11:05 AM
+-- Generation Time: May 12, 2017 at 01:47 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -56,7 +56,8 @@ CREATE TABLE `albums` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `tenalbum` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `arrayidphukien` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `arrayiddichvu` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+  `arrayiddichvu` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_albummanager` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -135,6 +136,20 @@ INSERT INTO `dichvus` (`id`, `name`, `icon`, `order`, `note`, `user_id`, `create
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `imagemanagers`
+--
+
+CREATE TABLE `imagemanagers` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `imagename` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_albummanager` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -163,7 +178,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (15, '2017_05_04_011612_change_note_to_nullable_dichvus_table', 11),
 (16, '2017_05_10_134635_create_phukiens_table', 12),
 (17, '2017_05_10_140720_add_column_to_albums_table', 12),
-(18, '2017_05_10_141035_create_album_diadiem_table', 12);
+(18, '2017_05_10_141035_create_album_diadiem_table', 12),
+(19, '2017_05_11_141252_create_imagemanagers_table', 13),
+(21, '2017_05_11_141628_add_id_albummanager_to_albums_table', 14);
 
 -- --------------------------------------------------------
 
@@ -216,7 +233,11 @@ INSERT INTO `permissions` (`id`, `name`, `display_name`, `description`, `created
 (17, 'album-list', 'Display Album Listing', 'See only Listing Of Album', '2017-05-04 21:23:36', '2017-05-04 21:23:36'),
 (18, 'album-create', 'Create Album ', 'Create New Album ', '2017-05-04 21:23:37', '2017-05-04 21:23:37'),
 (19, 'album-edit', 'Edit Album ', 'Edit Album ', '2017-05-04 21:23:37', '2017-05-04 21:23:37'),
-(20, 'album-delete', 'Delete Album ', 'Delete Album ', '2017-05-04 21:23:37', '2017-05-04 21:23:37');
+(20, 'album-delete', 'Delete Album ', 'Delete Album ', '2017-05-04 21:23:37', '2017-05-04 21:23:37'),
+(21, 'phukien-list', 'Display Phụ Kiện Listing', 'See only Listing Of Phụ Kiện', '2017-05-11 06:39:30', '2017-05-11 06:39:30'),
+(22, 'phukien-create', 'Create Phụ Kiện ', 'Create New Phụ Kiện ', '2017-05-11 06:39:30', '2017-05-11 06:39:30'),
+(23, 'phukien-edit', 'Edit Phụ Kiện ', 'Edit Phụ Kiện ', '2017-05-11 06:39:30', '2017-05-11 06:39:30'),
+(24, 'phukien-delete', 'Delete Phụ Kiện ', 'Delete Phụ Kiện ', '2017-05-11 06:39:30', '2017-05-11 06:39:30');
 
 -- --------------------------------------------------------
 
@@ -253,7 +274,11 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (17, 1),
 (18, 1),
 (19, 1),
-(20, 1);
+(20, 1),
+(21, 1),
+(22, 1),
+(23, 1),
+(24, 1);
 
 -- --------------------------------------------------------
 
@@ -269,6 +294,16 @@ CREATE TABLE `phukiens` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `phukiens`
+--
+
+INSERT INTO `phukiens` (`id`, `name`, `order`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'Corset for Dress', '1', 1, '2017-05-11 06:51:42', '2017-05-11 06:51:42'),
+(2, 'White Shirt for Tuxedo/Suite', '1', 1, '2017-05-11 06:51:54', '2017-05-11 06:51:54'),
+(3, 'Shoes for Bride & Groom', '1', 1, '2017-05-11 06:52:02', '2017-05-11 06:52:02'),
+(4, 'Groom & Bride’s Undergarments for kimono', '1', 1, '2017-05-11 06:52:17', '2017-05-11 06:52:17');
 
 -- --------------------------------------------------------
 
@@ -368,6 +403,12 @@ ALTER TABLE `dichvus`
   ADD KEY `dichvus_user_id_foreign` (`user_id`);
 
 --
+-- Indexes for table `imagemanagers`
+--
+ALTER TABLE `imagemanagers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -441,20 +482,25 @@ ALTER TABLE `diadiems`
 ALTER TABLE `dichvus`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
+-- AUTO_INCREMENT for table `imagemanagers`
+--
+ALTER TABLE `imagemanagers`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `phukiens`
 --
 ALTER TABLE `phukiens`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `roles`
 --

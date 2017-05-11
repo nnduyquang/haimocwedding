@@ -54,60 +54,28 @@
                     {!! Form::text('quanaochure', null, array('placeholder' => 'Quần Áo Chú Rể','class' => 'form-control')) !!}
                 </div>
                 <div class="col-md-12">
+                    @foreach ($phukiens as $key => $phukien)
                     <div class="col-md-6">
                         <input class="form-check-input" name="plandetails[]" type="checkbox"
                                id="inlineCheckbox1"
-                               value="1">
-                        abc
+                               value="{{$phukien->id}}">
+                        {{$phukien->name}}
                     </div>
-                    <div class="col-md-6">
-                        <input class="form-check-input" name="plandetails[]" type="checkbox"
-                               id="inlineCheckbox1"
-                               value="1">
-                        abc
-                    </div>
-                    <div class="col-md-6">
-                        <input class="form-check-input" name="plandetails[]" type="checkbox"
-                               id="inlineCheckbox1"
-                               value="1">
-                        abc
-                    </div>
-                    <div class="col-md-6">
-                        <input class="form-check-input" name="plandetails[]" type="checkbox"
-                               id="inlineCheckbox1"
-                               value="1">
-                        abc
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <h3>Dịch Vụ Bao Gồm Trong Kế Hoạch</h3>
+                @foreach ($dichvus as $key => $dichvu)
                 <div class="col-md-6">
                     <input class="form-check-input" name="dichvus[]" type="checkbox"
                            id="inlineCheckbox1"
-                           value="1">
-                    Dịch Vụ 1
+                           value="{{$dichvu->id}}">
+                    {{$dichvu->name}}
                 </div>
-                <div class="col-md-6">
-                    <input class="form-check-input" name="dichvus[]" type="checkbox"
-                           id="inlineCheckbox1"
-                           value="2">
-                    Dịch Vụ 2
-                </div>
-                <div class="col-md-6">
-                    <input class="form-check-input" name="dichvus[]" type="checkbox"
-                           id="inlineCheckbox1"
-                           value="3">
-                    Dịch Vụ 3
-                </div>
-                <div class="col-md-6">
-                    <input class="form-check-input" name="dichvus[]" type="checkbox"
-                           id="inlineCheckbox1"
-                           value="4">
-                    Dịch Vụ 4
-                </div>
+                @endforeach
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
