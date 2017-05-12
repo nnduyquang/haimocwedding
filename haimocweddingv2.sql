@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2017 at 01:47 AM
+-- Generation Time: May 12, 2017 at 11:47 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -33,6 +33,14 @@ CREATE TABLE `albumofdiadiem` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `albumofdiadiem`
+--
+
+INSERT INTO `albumofdiadiem` (`id_diadiem`, `id_album`, `created_at`, `updated_at`) VALUES
+(1, 7, '2017-05-12 02:31:06', '2017-05-12 02:31:06'),
+(5, 7, '2017-05-12 02:31:06', '2017-05-12 02:31:06');
+
 -- --------------------------------------------------------
 
 --
@@ -50,15 +58,20 @@ CREATE TABLE `albums` (
   `soluonganhchup` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `quanaocodau` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `quanaochure` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `note` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `note` int(11) DEFAULT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `tenalbum` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `arrayidphukien` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `arrayiddichvu` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_albummanager` int(10) UNSIGNED NOT NULL
+  `arrayiddichvu` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `albums`
+--
+
+INSERT INTO `albums` (`id`, `name`, `path`, `mota`, `anhdaidien`, `order`, `tongthoigianchup`, `soluonganhchup`, `quanaocodau`, `quanaochure`, `note`, `user_id`, `created_at`, `updated_at`, `arrayidphukien`, `arrayiddichvu`) VALUES
+(7, '1123', '1123', 'qwe', 'setofaccessorie_1494581466572.png', '1', 'qwe', 'asd', 'asd', 'asd', NULL, 1, '2017-05-12 02:31:06', '2017-05-12 02:31:06', '3', '8');
 
 -- --------------------------------------------------------
 
@@ -142,10 +155,22 @@ INSERT INTO `dichvus` (`id`, `name`, `icon`, `order`, `note`, `user_id`, `create
 CREATE TABLE `imagemanagers` (
   `id` int(10) UNSIGNED NOT NULL,
   `imagename` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_albummanager` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_album` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `imagemanagers`
+--
+
+INSERT INTO `imagemanagers` (`id`, `imagename`, `id_album`, `created_at`, `updated_at`) VALUES
+(40, '7_10album_1494581466677.png', 7, NULL, NULL),
+(41, '7_a3photoboard_1494581466679.png', 7, NULL, NULL),
+(42, '7_allphotodata_1494581466680.png', 7, NULL, NULL),
+(43, '7_englsihspeaking_1494581466693.png', 7, NULL, NULL),
+(44, '7_hairmakeup_1494581466696.png', 7, NULL, NULL),
+(45, '7_photoprops_1494581466698.png', 7, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -180,7 +205,15 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (17, '2017_05_10_140720_add_column_to_albums_table', 12),
 (18, '2017_05_10_141035_create_album_diadiem_table', 12),
 (19, '2017_05_11_141252_create_imagemanagers_table', 13),
-(21, '2017_05_11_141628_add_id_albummanager_to_albums_table', 14);
+(21, '2017_05_11_141628_add_id_albummanager_to_albums_table', 14),
+(22, '2017_05_12_021930_change_type_column_id_albummanager_table', 15),
+(23, '2017_05_12_024044_change_allownull_column_note_albums_table', 16),
+(26, '2017_05_12_024356_drop_column_tenalbum_albums_table', 17),
+(27, '2017_05_12_030459_change_type_column_id_albummanager_albums_table', 18),
+(28, '2017_05_12_030621_change_type_column_id_albummanager_imagemanagers_table', 19),
+(29, '2017_05_12_030848_drop_column_id_albummanager_albums_table', 20),
+(30, '2017_05_12_031000_drop_change_id_albummanager_imagemanagers_table', 21),
+(31, '2017_05_12_031401_change_type_column_id_album_imagemanagers_table', 22);
 
 -- --------------------------------------------------------
 
@@ -470,7 +503,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `albums`
 --
 ALTER TABLE `albums`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `diadiems`
 --
@@ -485,12 +518,12 @@ ALTER TABLE `dichvus`
 -- AUTO_INCREMENT for table `imagemanagers`
 --
 ALTER TABLE `imagemanagers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
