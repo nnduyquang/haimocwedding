@@ -29,6 +29,10 @@ $('#chooseIcon').change(function (event) {
 $('#btnThemAnhAlbum').click(function () {
     $('#dropzonePreview').slideToggle('slow');
 });
+$('#chooseAnhDaiDienAlbum').change(function (event) {
+    var tmppath = URL.createObjectURL(event.target.files[0]);
+    $("#showAnhDaiDienAlbum").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
+});
 // Dropzone.autoDiscover = false;
 // var myDropzone = new Dropzone('div#my-awesome-dropzone', {
 //     url: "create/uploadImage",

@@ -30,8 +30,34 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
+                <strong>STT:</strong>
+                {!! Form::text('order', null, array('placeholder' => 'STT','class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
                 <strong>Mô Tả:</strong>
                 {!! Form::textarea('mota', null, array('placeholder' => 'Mô Tả Ngắn','class' => 'form-control','rows'=>'5','style'=>'resize:none')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Ảnh Đại Diện:</strong>
+                {!! Form::file('anhdaidien',array('id'=>'chooseAnhDaiDienAlbum','class'=>'showAnhDaiDienAlbum','accept'=>'image/jpeg,image/jpg,image/png')) !!}
+                {{ Html::image('','',array('id'=>'showAnhDaiDienAlbum'))}}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <h3>Địa Điểm Chụp</h3>
+                @foreach ($diadiems as $key => $diadiem)
+                    <div class="col-md-6">
+                        <input class="form-check-input" name="arraydiadiem[]" type="checkbox"
+                               id="idDiaDiem"
+                               value="{{$diadiem->id}}">
+                        {{$diadiem->name}}
+                    </div>
+                @endforeach
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -56,8 +82,8 @@
                 <div class="col-md-12">
                     @foreach ($phukiens as $key => $phukien)
                     <div class="col-md-6">
-                        <input class="form-check-input" name="plandetails[]" type="checkbox"
-                               id="inlineCheckbox1"
+                        <input class="form-check-input" name="arrayidphukien[]" type="checkbox"
+                               id="idPhuKien"
                                value="{{$phukien->id}}">
                         {{$phukien->name}}
                     </div>
@@ -70,8 +96,8 @@
                 <h3>Dịch Vụ Bao Gồm Trong Kế Hoạch</h3>
                 @foreach ($dichvus as $key => $dichvu)
                 <div class="col-md-6">
-                    <input class="form-check-input" name="dichvus[]" type="checkbox"
-                           id="inlineCheckbox1"
+                    <input class="form-check-input" name="arrayiddichvu[]" type="checkbox"
+                           id="idDichVu"
                            value="{{$dichvu->id}}">
                     {{$dichvu->name}}
                 </div>
@@ -84,12 +110,14 @@
                 <a id="btnThemAnhAlbum" class="btn btn-success" href="#"><i class="fa fa-plus" aria-hidden="true"></i>
                     Thêm Ảnh Vào Album
                 </a>
-                {{--<div id="dropzonePreview" CLASS="dropzone">--}}
-                    {{--<div class="dz-message">Drag&drop</div>--}}
-                {{--</div>--}}
+                <input id="input-id" name="images[]" type="file" class="file-loading" multiple data-show-upload="false" data-show-caption="true">
 
-                <input id="input-id" name="input2[]" type="file" class="file-loading" multiple data-show-upload="false" data-show-caption="true">
-
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Ghi Chú Thêm:</strong>
+                {!! Form::textarea('note', null, array('placeholder' => 'Ghi Chú','class' => 'form-control','rows'=>'5','style'=>'resize:none')) !!}
             </div>
         </div>
 

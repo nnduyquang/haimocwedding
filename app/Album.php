@@ -8,12 +8,12 @@ class Album extends Model
 {
     protected $table = 'albums';
     protected $fillable = [
-        'name', 'path','mota','anhdaidien','order','tongthoigianchup','soluonganhchup','quanaocodau','quanaochure','user_id'
+        'name', 'path','mota','anhdaidien','order','tongthoigianchup','soluonganhchup','quanaocodau','quanaochure','note','arrayidphukien','arrayiddichvu','user_id'
     ];
     protected $primaryKey = 'id';
 
     public function diadiems(){
-        return $this->belongsToMany('App\diadiems','albumofdiadiem','id_album','id_diadiem')->withTimestamps();
+        return $this->belongsToMany('App\diadiem','albumofdiadiem','id_album','id_diadiem')->withTimestamps();
     }
 
     public function users()
