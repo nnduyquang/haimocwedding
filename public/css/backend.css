@@ -17,3 +17,17 @@
   width: 100%;
   height: 200px;
 }
+
+.editHinhAlbum {
+  width: 100%;
+  height: 250px;
+}
+
+.is-remove {
+  float: left;
+  width: 100%;
+}
+
+.file-input-new {
+  display: none;
+}
