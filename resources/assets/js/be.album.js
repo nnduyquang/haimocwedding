@@ -37,5 +37,13 @@ $('.is-remove').each(function () {
         }
     });
 });
+$('input[type=checkbox][name=IsCampaign]').change(function () {
+    if ($(this).prop("checked")) {
+        $('input[name=price]').removeAttr("disabled");
+    }
+    else {
+        $('input[name=price]').attr("disabled", "disabled");
+    }
+});
 
 

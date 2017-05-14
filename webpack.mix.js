@@ -17,6 +17,7 @@ mix.styles([
 ], 'public/js/core.common.js')
     .styles([
         'bower_components/swiper/dist/js/swiper.min.js',
+        'bower_components/nivo-slider/jquery.nivo.slider.pack.js',
     ], 'public/js/core.frontend.js')
     .styles([
         // 'bower_components/dropzone/dist/min/dropzone.min.js',
@@ -30,12 +31,15 @@ mix.styles([
     ], 'public/css/app.common.css')
     .styles([
         'bower_components/swiper/dist/css/swiper.min.css',
+        'bower_components/nivo-slider/nivo-slider.css'
     ], 'public/css/app.frontend.css')
     .styles([
         // 'bower_components/dropzone/dist/min/dropzone.min.css',
         'bower_components/bootstrap-fileinput/css/fileinput.min.css',
     ], 'public/css/app.backend.css')
     .styles([
+        'resources/assets/js/libs-min.js',
+        'resources/assets/js/application.js',
         'resources/assets/js/scripts.frontend.js'
     ], 'public/js/scripts.js')
     .styles([
@@ -49,12 +53,13 @@ mix.styles([
     .copy(
         'bower_components/AdminLTE/dist/css/skins/skin-blue.min.css', 'public/css/skin-blue.min.css', false)
     .copy('bower_components/AdminLTE/dist/js/app.min.js', 'public/js')
-    .copy('bower_components/bootstrap/fonts/', 'public/fonts',false)
+    .copy('bower_components/bootstrap/fonts/', 'public/fonts', false)
     .copy('bower_components/font-awesome/fonts/', 'public/fonts', false)
     .styles([
         'resources/assets/js/be.diadiem.js',
         'resources/assets/js/be.dichvu.js',
         'resources/assets/js/be.album.js',
+        'resources/assets/js/be.slider.js',
     ], 'public/js/backend.js')
 
 

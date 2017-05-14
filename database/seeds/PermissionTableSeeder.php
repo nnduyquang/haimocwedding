@@ -113,25 +113,45 @@ class PermissionTableSeeder extends Seeder
 //                'display_name' => 'Delete Album ',
 //                'description' => 'Delete Album '
 //            ]
+//            [
+//                'name' => 'phukien-list',
+//                'display_name' => 'Display Phụ Kiện Listing',
+//                'description' => 'See only Listing Of Phụ Kiện'
+//            ],
+//            [
+//                'name' => 'phukien-create',
+//                'display_name' => 'Create Phụ Kiện ',
+//                'description' => 'Create New Phụ Kiện '
+//            ],
+//            [
+//                'name' => 'phukien-edit',
+//                'display_name' => 'Edit Phụ Kiện ',
+//                'description' => 'Edit Phụ Kiện '
+//            ],
+//            [
+//                'name' => 'phukien-delete',
+//                'display_name' => 'Delete Phụ Kiện ',
+//                'description' => 'Delete Phụ Kiện '
+//            ]
             [
-                'name' => 'phukien-list',
-                'display_name' => 'Display Phụ Kiện Listing',
-                'description' => 'See only Listing Of Phụ Kiện'
+                'name' => 'slider-list',
+                'display_name' => 'Display Slider Listing',
+                'description' => 'See only Slider Of Role'
             ],
             [
-                'name' => 'phukien-create',
-                'display_name' => 'Create Phụ Kiện ',
-                'description' => 'Create New Phụ Kiện '
+                'name' => 'slider-create',
+                'display_name' => 'Create Slider',
+                'description' => 'Create New Slider'
             ],
             [
-                'name' => 'phukien-edit',
-                'display_name' => 'Edit Phụ Kiện ',
-                'description' => 'Edit Phụ Kiện '
+                'name' => 'slider-edit',
+                'display_name' => 'Edit Slider',
+                'description' => 'Edit Slider'
             ],
             [
-                'name' => 'phukien-delete',
-                'display_name' => 'Delete Phụ Kiện ',
-                'description' => 'Delete Phụ Kiện '
+                'name' => 'slider-delete',
+                'display_name' => 'Delete Slider',
+                'description' => 'Delete Slider'
             ]
 
         ];

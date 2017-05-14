@@ -28,10 +28,16 @@
                 {!! Form::text('name', null, array('placeholder' => 'Tên Album','class' => 'form-control')) !!}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">
                 <strong>STT:</strong>
                 {!! Form::text('order', null, array('placeholder' => 'STT','class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <div class="form-group">
+                {!! Form::checkbox('IsCampaign', '0',  $album->IsCampaign==1?true:false) !!} Đây Là Báo Giá?
+                {!! Form::text('price', null, array('placeholder' => 'Báo Giá','class' => 'form-control',$album->IsCampaign==0?'disabled=disabled':'')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">

@@ -41,13 +41,20 @@ class AlbumRequest extends FormRequest
                     'soluonganhchup' => 'required',
                     'quanaochure' => 'required',
                     'images' => 'required'
-
                 ];
             }
             case 'PUT':
             case 'PATCH': {
                 return [
                     'name' => 'required',
+                    'mota' => 'required',
+                    'arrayidphukien' => 'required',
+                    'arrayiddichvu' => 'required',
+                    'arraydiadiem' => 'required',
+                    'tongthoigianchup' => 'required',
+                    'quanaocodau' => 'required',
+                    'soluonganhchup' => 'required',
+                    'quanaochure' => 'required',
                 ];
             }
         }

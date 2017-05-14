@@ -15,7 +15,6 @@ class DropChangeIdAlbummanagerImagemanagersTable extends Migration
     {
         Schema::table('imagemanagers', function (Blueprint $table) {
             $table->renameColumn('id_albummanager', 'id_album');
-//            $table->integer('id_album')->unsigned()->change();
         });
     }
 

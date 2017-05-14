@@ -1,5 +1,5 @@
 var plugins = {
-    slider: $('.swiper-container')
+    slider: $('.swiper-container'),
 };
 $(document).ready(function () {
     function loadSlider() {
@@ -55,6 +55,9 @@ $(document).ready(function () {
         return $(this).css('color', '#c30d23');
     }).mouseout(function () {
     });
+    function updateItemList() {
+        return this.$itemList = this.$items.find('.j-pickup-campaigns-item');
+    };
 
     if (plugins.slider.length) {
         loadSlider();

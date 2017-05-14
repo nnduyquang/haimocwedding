@@ -5,6 +5,7 @@
 @section('container')
     <div id="main-contain" class="container--is-home">
         <div class="container__inner">
+            @include('frontend.trangchu.chiendich')
             @include('frontend.trangchu.kehoachdenghi')
             @include('frontend.trangchu.khuvuc')
         </div>

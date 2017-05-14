@@ -21,6 +21,7 @@
     "AdminLTE": "admin-lte#^2.3.11",
     "dropzone": "^4.3.0",
     "imageuploadify": "^1.1.0",
-    "bootstrap-fileinput": "4.4.0"
+    "bootstrap-fileinput": "4.4.0",
+    "nivo-slider": "*"
   }
 }

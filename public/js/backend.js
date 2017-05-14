@@ -65,5 +65,18 @@ $('.is-remove').each(function () {
         }
     });
 });
+$('input[type=checkbox][name=IsCampaign]').change(function () {
+    if ($(this).prop("checked")) {
+        $('input[name=price]').removeAttr("disabled");
+    }
+    else {
+        $('input[name=price]').attr("disabled", "disabled");
+    }
+});
 
 
+
+$('#chooseAnhSlider').change(function (event) {
+    var tmppath = URL.createObjectURL(event.target.files[0]);
+    $("#showSlider").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
+});

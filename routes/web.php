@@ -11,21 +11,30 @@
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.trangchu.index');
-});
+//Route::get('/', function () {
+//    return view('frontend.trangchu.index');
+//});
+Route::get('/', 'FrontEndController@getAllTrangChu');
 Route::get('/lien-he', function () {
     return view('frontend.lienhe.index');
 });
 Route::get('/dia-diem/tokyo', function () {
     return view('frontend.diadiem.index');
 });
+//Route::get('/bao-gia/tokyo', function () {
+//    return view('frontend.chitietbaogia.index');
+//});
 Route::get('/album/ancient-and-modern-tokyo', function () {
     return view('frontend.chitietalbum.index');
 });
 Route::get('/album/', function () {
     return view('frontend.tatcaalbum.index');
 });
+//Route::get('/baogia/', function () {
+//    return view('frontend.baogia.index');
+//});
+Route::get('/bao-gia/', 'BaoGiaController@getAllBaoGia');
+Route::get('/bao-gia/{path}', 'BaoGiaController@chiTietBaoGia');
 Route::get('/phu-kien/', function () {
     return view('frontend.phukiencuoi.index');
 });
@@ -86,4 +95,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('sml_admin/album/{id}/edit', ['as' => 'albums.edit', 'uses' => 'AlbumController@edit', 'middleware' => ['permission:album-edit']]);
     Route::patch('sml_admin/album/{id}', ['as' => 'albums.update', 'uses' => 'AlbumController@update', 'middleware' => ['permission:album-edit']]);
     Route::delete('sml_admin/album/{id}', ['as' => 'albums.destroy', 'uses' => 'AlbumController@destroy', 'middleware' => ['permission:album-delete']]);
+    //Slider
+    Route::get('sml_admin/slider', ['as' => 'sliders.index', 'uses' => 'SliderController@index', 'middleware' => ['permission:slider-list|slider-create|slider-edit|slider-delete']]);
+    Route::post('sml_admin/slider/create', ['as' => 'sliders.store', 'uses' => 'SliderController@store', 'middleware' => ['permission:slider-create']]);
+    Route::get('sml_admin/slider/create', ['as' => 'sliders.create', 'uses' => 'SliderController@create', 'middleware' => ['permission:slider-create']]);
+    Route::get('sml_admin/slider/{id}/edit', ['as' => 'sliders.edit', 'uses' => 'SliderController@edit', 'middleware' => ['permission:slider-edit']]);
+    Route::patch('sml_admin/slider/{id}', ['as' => 'sliders.update', 'uses' => 'SliderController@update', 'middleware' => ['permission:slider-edit']]);
+    Route::delete('sml_admin/slider/{id}', ['as' => 'sliders.destroy', 'uses' => 'SliderController@destroy', 'middleware' => ['permission:slider-delete']]);
 });

@@ -83,7 +83,7 @@ class DichVuController extends Controller
     public function edit($id)
     {
         $dichvu = DichVu::find($id);
-        return view('backend.admin.dichvu.edit', compact('dichvu'));
+        return view('backend.admin.dichvukemtheo.edit', compact('dichvu'));
     }
 
     /**

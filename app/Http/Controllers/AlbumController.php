@@ -54,7 +54,14 @@ class AlbumController extends Controller
         $album = new Album();
         $name = $request->input('name');
         $mota = $request->input('mota');
-        $tongthoigianchup = $request->input('mota');
+        if ($request->has('IsCampaign')) {
+            $album->IsCampaign = 1;
+            $album->price = $request->input('price');
+        } else {
+            $album->IsCampaign = 0;
+            $album->price = '';
+        }
+        $tongthoigianchup = $request->input('tongthoigianchup');
         $soluonganhchup = $request->input('soluonganhchup');
         $quanaocodau = $request->input('quanaocodau');
         $quanaochure = $request->input('quanaochure');
@@ -146,12 +153,19 @@ class AlbumController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AlbumRequest $request, $id)
     {
         $album = Album::find($id);
         $name = $request->input('name');
         $mota = $request->input('mota');
-        $tongthoigianchup = $request->input('mota');
+        if ($request->has('IsCampaign')) {
+            $album->IsCampaign = 1;
+            $album->price = $request->input('price');
+        } else {
+            $album->IsCampaign = 0;
+            $album->price = '';
+        }
+        $tongthoigianchup = $request->input('tongthoigianchup');
         $soluonganhchup = $request->input('soluonganhchup');
         $quanaocodau = $request->input('quanaocodau');
         $quanaochure = $request->input('quanaochure');

@@ -31,8 +31,8 @@
                 <a href="http://d-weddingphoto.com/about/#hongkong-office">Hong Kong Office</a>
             </p>
         </li>
-        <li class="p-header__main-nav__item "><a href="{{URL::to('album')}}">Plan</a></li>
-        <li class="p-header__main-nav__item "><a href="http://d-weddingphoto.com/campaigns/">Campaign</a></li>
+        <li class="p-header__main-nav__item "><a href="{{URL::to('album')}}">Album</a></li>
+        <li class="p-header__main-nav__item "><a href="{{URL::to('bao-gia')}}">Báo Giá</a></li>
         <li class="p-header__main-nav__item "><a href="http://d-weddingphoto.com/#area">Area</a></li>
         <li class="p-header__main-nav__item "><a href="{{URL::to('phu-kien')}}">Item</a></li>
     </ul>
