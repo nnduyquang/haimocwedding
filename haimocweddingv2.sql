@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2017 at 11:47 AM
+-- Generation Time: May 15, 2017 at 01:01 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -39,7 +39,10 @@ CREATE TABLE `albumofdiadiem` (
 
 INSERT INTO `albumofdiadiem` (`id_diadiem`, `id_album`, `created_at`, `updated_at`) VALUES
 (1, 7, '2017-05-12 02:31:06', '2017-05-12 02:31:06'),
-(5, 7, '2017-05-12 02:31:06', '2017-05-12 02:31:06');
+(1, 8, '2017-05-12 17:40:07', '2017-05-12 17:40:07'),
+(2, 8, '2017-05-13 07:05:25', '2017-05-13 07:05:25'),
+(6, 7, '2017-05-14 08:31:15', '2017-05-14 08:31:15'),
+(6, 8, '2017-05-13 07:05:25', '2017-05-13 07:05:25');
 
 -- --------------------------------------------------------
 
@@ -63,15 +66,18 @@ CREATE TABLE `albums` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `arrayidphukien` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `arrayiddichvu` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+  `arrayiddichvu` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `IsCampaign` tinyint(1) NOT NULL DEFAULT '0',
+  `price` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `albums`
 --
 
-INSERT INTO `albums` (`id`, `name`, `path`, `mota`, `anhdaidien`, `order`, `tongthoigianchup`, `soluonganhchup`, `quanaocodau`, `quanaochure`, `note`, `user_id`, `created_at`, `updated_at`, `arrayidphukien`, `arrayiddichvu`) VALUES
-(7, '1123', '1123', 'qwe', 'setofaccessorie_1494581466572.png', '1', 'qwe', 'asd', 'asd', 'asd', NULL, 1, '2017-05-12 02:31:06', '2017-05-12 02:31:06', '3', '8');
+INSERT INTO `albums` (`id`, `name`, `path`, `mota`, `anhdaidien`, `order`, `tongthoigianchup`, `soluonganhchup`, `quanaocodau`, `quanaochure`, `note`, `user_id`, `created_at`, `updated_at`, `arrayidphukien`, `arrayiddichvu`, `IsCampaign`, `price`) VALUES
+(7, 'ĐÀ NẴNG NỮA NGÀY', 'da-nang-nua-ngay', 'Nothing', 'baogia1_1494775875400.jpg', '1', 'Theo ca sáng từ 7h- 12h hoặc 12h – 17h', '300~', '2 Váy Cưới', '2 Vest', NULL, 1, '2017-05-12 02:31:06', '2017-05-14 09:35:18', '3', '1-5-4-3-2-6-7-11-10-9-8', 1, '4.900.000'),
+(8, 'ĐÀ NẴNG CẢ NGÀY', 'da-nang-ca-ngay', 'nothing', 'up_1494776025658.jpg', '1', 'Từ 7h -> 17h', '300~', '2 Váy Cưới - 1 Bộ Áo Dài', '2 Vest', NULL, 1, '2017-05-12 17:40:07', '2017-05-14 09:35:37', '3', '1-5-4-3-2-6-7-11-10-9-8', 1, '5.900.000');
 
 -- --------------------------------------------------------
 
@@ -135,16 +141,17 @@ CREATE TABLE `dichvus` (
 --
 
 INSERT INTO `dichvus` (`id`, `name`, `icon`, `order`, `note`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'Hair & Makeup for Bride & Groom', 'hairmakeup_1493860644501.png', '1', NULL, 1, '2017-05-03 18:17:24', '2017-05-03 18:17:24'),
-(2, 'Photo Props', 'photoprops_1493860858609.png', '1', NULL, 1, '2017-05-03 18:20:58', '2017-05-03 18:20:58'),
-(3, 'Set of Accessories', 'setofaccessorie_1493860887793.png', '1', NULL, 1, '2017-05-03 18:21:27', '2017-05-03 18:21:27'),
-(4, 'All Photo Data', 'allphotodata_1493860919345.png', '1', NULL, 1, '2017-05-03 18:21:59', '2017-05-03 18:21:59'),
-(5, '10” x 10” Album', '10album_1493860949081.png', '1', '(the maximum number of photos : 25 pics)', 1, '2017-05-03 18:22:29', '2017-05-03 18:22:29'),
-(6, 'Simple Edited Photo Data', 'simpleeditedpho_1493860977077.png', '1', '(pictures for your album)', 1, '2017-05-03 18:22:57', '2017-05-03 18:22:57'),
-(7, 'English Speaking Guide', 'englsihspeaking_1493861002699.png', '1', NULL, 1, '2017-05-03 18:23:22', '2017-05-03 18:23:22'),
-(8, 'Transportation Expenses', 'transportatione_1493861028688.png', '1', '(Studio ⇆ Location)', 1, '2017-05-03 18:23:48', '2017-05-03 18:23:48'),
-(9, 'Shipping Cost by Air', 'shippingbyair_1493861051494.png', '1', NULL, 1, '2017-05-03 18:24:11', '2017-05-03 18:24:11'),
-(10, 'A3 Photo Board', 'a3photoboard_1493861081696.png', '1', '(Book NOW, Get it FREE!)', 1, '2017-05-03 18:24:41', '2017-05-03 18:24:41');
+(1, 'Trang Điểm Cho Cô Dâu Chú Rể', 'hairmakeup_1493860644501.png', '1', NULL, 1, '2017-05-03 18:17:24', '2017-05-14 02:19:59'),
+(2, 'Hoa Cầm Tay', 'photoprops_1493860858609.png', '1', NULL, 1, '2017-05-03 18:20:58', '2017-05-14 02:20:11'),
+(3, 'Phụ Kiện Đi Kèm', 'setofaccessorie_1493860887793.png', '1', NULL, 1, '2017-05-03 18:21:27', '2017-05-14 09:26:08'),
+(4, 'Toàn Bộ Ảnh Chụp', 'allphotodata_1493860919345.png', '1', NULL, 1, '2017-05-03 18:21:59', '2017-05-14 02:20:30'),
+(5, '25 x 30  Album', '10album_1493860949081.png', '1', '(15 tờ - 30 Trang )', 1, '2017-05-03 18:22:29', '2017-05-14 09:27:03'),
+(6, 'Chỉnh Sửa Hình Ảnh', 'simpleeditedpho_1493860977077.png', '1', '(tối đa 25 tấm)', 1, '2017-05-03 18:22:57', '2017-05-14 02:21:17'),
+(7, '05 Ảnh Để Bàn (13x18cm)', 'englsihspeaking_1493861002699.png', '1', NULL, 1, '2017-05-03 18:23:22', '2017-05-14 09:28:11'),
+(8, 'Phương Tiện Đi Lại', 'transportatione_1493861028688.png', '1', '(Studio ⇆ Location)', 1, '2017-05-03 18:23:48', '2017-05-14 02:21:50'),
+(9, 'Tặng 1 Áo Sơ Mi Nam Cao Cấp', 'shippingbyair_1493861051494.png', '1', NULL, 1, '2017-05-03 18:24:11', '2017-05-14 09:25:16'),
+(10, 'Hình Lớn Ngày Cưới (60x90)', 'a3photoboard_1493861081696.png', '1', NULL, 1, '2017-05-03 18:24:41', '2017-05-14 09:27:24'),
+(11, '01 DVD SlideShow', 'allphotodata149_1494779408092.png', '1', NULL, 1, '2017-05-14 09:29:46', '2017-05-14 09:30:08');
 
 -- --------------------------------------------------------
 
@@ -165,12 +172,8 @@ CREATE TABLE `imagemanagers` (
 --
 
 INSERT INTO `imagemanagers` (`id`, `imagename`, `id_album`, `created_at`, `updated_at`) VALUES
-(40, '7_10album_1494581466677.png', 7, NULL, NULL),
-(41, '7_a3photoboard_1494581466679.png', 7, NULL, NULL),
-(42, '7_allphotodata_1494581466680.png', 7, NULL, NULL),
-(43, '7_englsihspeaking_1494581466693.png', 7, NULL, NULL),
-(44, '7_hairmakeup_1494581466696.png', 7, NULL, NULL),
-(45, '7_photoprops_1494581466698.png', 7, NULL, NULL);
+(49, '7+thump1_1494775875401.jpg', 7, NULL, NULL),
+(50, '8+thump1_1494776025659.jpg', 8, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -213,7 +216,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (28, '2017_05_12_030621_change_type_column_id_albummanager_imagemanagers_table', 19),
 (29, '2017_05_12_030848_drop_column_id_albummanager_albums_table', 20),
 (30, '2017_05_12_031000_drop_change_id_albummanager_imagemanagers_table', 21),
-(31, '2017_05_12_031401_change_type_column_id_album_imagemanagers_table', 22);
+(31, '2017_05_12_031401_change_type_column_id_album_imagemanagers_table', 22),
+(32, '2017_05_14_011952_create_sliders_table', 23),
+(33, '2017_05_14_095015_add_isCampaign_to_albums_table', 24),
+(34, '2017_05_14_100038_add_price_to_albums_table', 25);
 
 -- --------------------------------------------------------
 
@@ -270,7 +276,11 @@ INSERT INTO `permissions` (`id`, `name`, `display_name`, `description`, `created
 (21, 'phukien-list', 'Display Phụ Kiện Listing', 'See only Listing Of Phụ Kiện', '2017-05-11 06:39:30', '2017-05-11 06:39:30'),
 (22, 'phukien-create', 'Create Phụ Kiện ', 'Create New Phụ Kiện ', '2017-05-11 06:39:30', '2017-05-11 06:39:30'),
 (23, 'phukien-edit', 'Edit Phụ Kiện ', 'Edit Phụ Kiện ', '2017-05-11 06:39:30', '2017-05-11 06:39:30'),
-(24, 'phukien-delete', 'Delete Phụ Kiện ', 'Delete Phụ Kiện ', '2017-05-11 06:39:30', '2017-05-11 06:39:30');
+(24, 'phukien-delete', 'Delete Phụ Kiện ', 'Delete Phụ Kiện ', '2017-05-11 06:39:30', '2017-05-11 06:39:30'),
+(25, 'slider-list', 'Display Slider Listing', 'See only Slider Of Role', '2017-05-13 18:24:10', '2017-05-13 18:24:10'),
+(26, 'slider-create', 'Create Slider', 'Create New Slider', '2017-05-13 18:24:10', '2017-05-13 18:24:10'),
+(27, 'slider-edit', 'Edit Slider', 'Edit Slider', '2017-05-13 18:24:11', '2017-05-13 18:24:11'),
+(28, 'slider-delete', 'Delete Slider', 'Delete Slider', '2017-05-13 18:24:11', '2017-05-13 18:24:11');
 
 -- --------------------------------------------------------
 
@@ -311,7 +321,11 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (21, 1),
 (22, 1),
 (23, 1),
-(24, 1);
+(24, 1),
+(25, 1),
+(26, 1),
+(27, 1),
+(28, 1);
 
 -- --------------------------------------------------------
 
@@ -377,6 +391,34 @@ CREATE TABLE `role_user` (
 
 INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
 (1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sliders`
+--
+
+CREATE TABLE `sliders` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `display_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `anhslider` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `chuthich` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `order` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT '1',
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sliders`
+--
+
+INSERT INTO `sliders` (`id`, `display_name`, `anhslider`, `chuthich`, `order`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'up_1494754226187.jpg', 'up_1494754226187.jpg', NULL, '1', 1, '2017-05-14 01:55:51', '2017-05-14 02:30:26'),
+(2, 'up2_1494754384350.jpg', 'up2_1494754384350.jpg', NULL, '1', 1, '2017-05-14 02:33:04', '2017-05-14 02:33:04'),
+(3, 'up3_1494754496897.jpg', 'up3_1494754496897.jpg', NULL, '1', 1, '2017-05-14 02:34:56', '2017-05-14 02:34:56'),
+(4, 'up4_1494754725811.jpg', 'up4_1494754725811.jpg', NULL, '1', 1, '2017-05-14 02:38:45', '2017-05-14 02:38:45'),
+(5, 'up5_1494754877003.jpg', 'up5_1494754877003.jpg', NULL, '1', 1, '2017-05-14 02:41:17', '2017-05-14 02:41:17');
 
 -- --------------------------------------------------------
 
@@ -489,6 +531,13 @@ ALTER TABLE `role_user`
   ADD KEY `role_user_role_id_foreign` (`role_id`);
 
 --
+-- Indexes for table `sliders`
+--
+ALTER TABLE `sliders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sliders_user_id_foreign` (`user_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -503,7 +552,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `albums`
 --
 ALTER TABLE `albums`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `diadiems`
 --
@@ -513,22 +562,22 @@ ALTER TABLE `diadiems`
 -- AUTO_INCREMENT for table `dichvus`
 --
 ALTER TABLE `dichvus`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `imagemanagers`
 --
 ALTER TABLE `imagemanagers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `phukiens`
 --
@@ -539,6 +588,11 @@ ALTER TABLE `phukiens`
 --
 ALTER TABLE `roles`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `sliders`
+--
+ALTER TABLE `sliders`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -585,6 +639,12 @@ ALTER TABLE `phukiens`
 ALTER TABLE `role_user`
   ADD CONSTRAINT `role_user_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `role_user_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `sliders`
+--
+ALTER TABLE `sliders`
+  ADD CONSTRAINT `sliders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
