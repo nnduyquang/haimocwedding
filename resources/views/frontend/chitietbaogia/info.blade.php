@@ -18,76 +18,6 @@
                             </a>
                         </li>
                     @endforeach
-                    {{--<li class="c-gallery__item" data-id="2">--}}
-                    {{--<a>--}}
-                    {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/img06-1.jpg" width="750"--}}
-                    {{--height="562" alt="img06" class=""> </a>--}}
-                    {{--</li>--}}
-                    {{--<li class="c-gallery__item" data-id="3">--}}
-                    {{--<a>--}}
-                    {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/07f3ccdc062b909ecb48515d06ea07c9.jpg"--}}
-                    {{--width="750" height="562" alt="@北海道01" class=""> </a>--}}
-                    {{--</li>--}}
-                    {{--<li class="c-gallery__item" data-id="4">--}}
-                    {{--<a>--}}
-                    {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/2140cfa486c15cbe5e89a64b1cb3d43a.jpg"--}}
-                    {{--width="750" height="562" alt="@北海道10" class=""> </a>--}}
-                    {{--</li>--}}
-                    {{--<li class="c-gallery__item" data-id="5">--}}
-                    {{--<a>--}}
-                    {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/edit_01.jpg" width="750"--}}
-                    {{--height="562" alt="edit_01" class=""> </a>--}}
-                    {{--</li>--}}
-                    {{--<li class="c-gallery__item" data-id="6">--}}
-                    {{--<a>--}}
-                    {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/90f273c9335bedad626aaac651917a58.jpg"--}}
-                    {{--width="750" height="562" alt="@北海道02" class=""> </a>--}}
-                    {{--</li>--}}
-                    {{--<li class="c-gallery__item" data-id="7">--}}
-                    {{--<a>--}}
-                    {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/img04-1.jpg" width="750"--}}
-                    {{--height="562" alt="img04" class=""> </a>--}}
-                    {{--</li>--}}
-                    {{--<li class="c-gallery__item" data-id="8">--}}
-                    {{--<a>--}}
-                    {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/0844512f8d7b715e7e59ab17e6ee8d3e.jpg"--}}
-                    {{--width="750" height="562" alt="@北海道07" class=""> </a>--}}
-                    {{--</li>--}}
-                    {{--<li class="c-gallery__item" data-id="9">--}}
-                    {{--<a>--}}
-                    {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/img10-1.jpg" width="750"--}}
-                    {{--height="562" alt="img10" class=""> </a>--}}
-                    {{--</li>--}}
-                    {{--<li class="c-gallery__item" data-id="10">--}}
-                    {{--<a>--}}
-                    {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/016A0524.jpg" width="750"--}}
-                    {{--height="562" alt="016A0524" class=""> </a>--}}
-                    {{--</li>--}}
-                    {{--<li class="c-gallery__item" data-id="11">--}}
-                    {{--<a>--}}
-                    {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/016A0704.jpg" width="750"--}}
-                    {{--height="562" alt="016A0704" class=""> </a>--}}
-                    {{--</li>--}}
-                    {{--<li class="c-gallery__item" data-id="12">--}}
-                    {{--<a>--}}
-                    {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/016A1210.jpg" width="750"--}}
-                    {{--height="562" alt="016A1210" class=""> </a>--}}
-                    {{--</li>--}}
-                    {{--<li class="c-gallery__item" data-id="13">--}}
-                    {{--<a>--}}
-                    {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/016A1564.jpg" width="750"--}}
-                    {{--height="562" alt="016A1564" class=""> </a>--}}
-                    {{--</li>--}}
-                    {{--<li class="c-gallery__item" data-id="14">--}}
-                    {{--<a>--}}
-                    {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/016A1288.jpg" width="750"--}}
-                    {{--height="562" alt="016A1288" class=""> </a>--}}
-                    {{--</li>--}}
-                    {{--<li class="c-gallery__item" data-id="15">--}}
-                    {{--<a>--}}
-                    {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/016A1052.jpg" width="750"--}}
-                    {{--height="562" alt="016A1052" class=""> </a>--}}
-                    {{--</li>--}}
                 </ul>
 
                 <div class="c-lightbox" style="display: none; opacity: 0;">
@@ -102,36 +32,8 @@
                             @endphp
                             {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/img02-1.jpg" width="750"--}}
                             {{--height="562" alt="img02" class="c-lightbox__photo" data-id="1">--}}
-                            {{ Html::image('images/album/'.$array_images[0].'/'.$imagemanager->imagename,'',array('width'=>'750','height'=>'562','class'=>'c-lightbox__photo','data-id'=>$imagemanager->id))}}
+                            {{ Html::image('images/album/'.$array_images[0].'/'.$imagemanager->imagename,'',array('style'=>'width:100%;height:100%;padding:50px 50px 50px 50px','class'=>'c-lightbox__photo','data-id'=>$imagemanager->id))}}
                         @endforeach
-                        {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/img06-1.jpg" width="750"--}}
-                        {{--height="562" alt="img06" class="c-lightbox__photo" data-id="2">--}}
-                        {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/07f3ccdc062b909ecb48515d06ea07c9.jpg"--}}
-                        {{--width="750" height="562" alt="@北海道01" class="c-lightbox__photo" data-id="3"> <img--}}
-                        {{--src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/2140cfa486c15cbe5e89a64b1cb3d43a.jpg"--}}
-                        {{--width="750" height="562" alt="@北海道10" class="c-lightbox__photo" data-id="4"> <img--}}
-                        {{--src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/edit_01.jpg" width="750"--}}
-                        {{--height="562" alt="edit_01" class="c-lightbox__photo" data-id="5"> <img--}}
-                        {{--src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/90f273c9335bedad626aaac651917a58.jpg"--}}
-                        {{--width="750" height="562" alt="@北海道02" class="c-lightbox__photo" data-id="6"> <img--}}
-                        {{--src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/img04-1.jpg" width="750"--}}
-                        {{--height="562" alt="img04" class="c-lightbox__photo" data-id="7"> <img--}}
-                        {{--src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/0844512f8d7b715e7e59ab17e6ee8d3e.jpg"--}}
-                        {{--width="750" height="562" alt="@北海道07" class="c-lightbox__photo" data-id="8"> <img--}}
-                        {{--src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/img10-1.jpg" width="750"--}}
-                        {{--height="562" alt="img10" class="c-lightbox__photo" data-id="9"> <img--}}
-                        {{--src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/016A0524.jpg" width="750"--}}
-                        {{--height="562" alt="016A0524" class="c-lightbox__photo" data-id="10"> <img--}}
-                        {{--src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/016A0704.jpg" width="750"--}}
-                        {{--height="562" alt="016A0704" class="c-lightbox__photo" data-id="11"> <img--}}
-                        {{--src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/016A1210.jpg" width="750"--}}
-                        {{--height="562" alt="016A1210" class="c-lightbox__photo" data-id="12"> <img--}}
-                        {{--src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/016A1564.jpg" width="750"--}}
-                        {{--height="562" alt="016A1564" class="c-lightbox__photo" data-id="13"> <img--}}
-                        {{--src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/016A1288.jpg" width="750"--}}
-                        {{--height="562" alt="016A1288" class="c-lightbox__photo" data-id="14"> <img--}}
-                        {{--src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/016A1052.jpg" width="750"--}}
-                        {{--height="562" alt="016A1052" class="c-lightbox__photo" data-id="15">--}}
                     </div>
                 </div>
 

@@ -836,10 +836,10 @@
                 'marginLeft': '0'
             });
             return $('.c-lightbox__photo--is-active').stop().velocity({
-                'top': '50%',
-                'left': '50%',
-                'marginTop': '-237.5px',
-                'marginLeft': '-316.5px'
+                'top': '0',
+                'left': '0',
+                'marginTop': '0',
+                'marginLeft': '0'
             }, {
                 duration: duration,
                 easing: easing
@@ -876,10 +876,10 @@
                 'marginLeft': '-633px'
             });
             return $('.c-lightbox__photo--is-active').stop().velocity({
-                'top': '50%',
-                'left': '50%',
-                'marginTop': '-237.5px',
-                'marginLeft': '-316.5px'
+                'top': '0',
+                'left': '0',
+                'marginTop': '0',
+                'marginLeft': '0'
             }, {
                 duration: duration,
                 easing: easing

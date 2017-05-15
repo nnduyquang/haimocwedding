@@ -570,7 +570,7 @@ iframe[name=google_conversion_frame] {
 }
 .c-gallery__item img {
   width: 100%;
-  height: 100%;
+  height: 200px;
   display: block;
 }
 @media only screen and (min-width: 720px) {
@@ -666,9 +666,9 @@ iframe[name=google_conversion_frame] {
   margin: -237.5px 0 0 0;
 }
 .c-lightbox__photo--is-active {
-  top: 50%;
-  left: 50%;
-  margin: -237.5px 0 0 -316.5px;
+  top: 0;
+  left: 0;
+  margin: 0;
 }
 .c-lightbox__photo--is-move-out {
   left: 0%;
@@ -720,11 +720,11 @@ iframe[name=google_conversion_frame] {
 }
 .c-lightbox__btn--next {
   right: 0;
-  background-image: url("../images/top-icn-arrow-next.jpg");
+  background-image: url("../images/temps/top-icn-arrow-next.jpg");
 }
 .c-lightbox__btn--prev {
   left: 0;
-  background-image: url("../images/top-icn-arrow-prev.jpg");
+  background-image: url("../images/temps/top-icn-arrow-prev.jpg");
 }
 .c-lightbox__btn--delete {
   top: 30px;
@@ -732,7 +732,7 @@ iframe[name=google_conversion_frame] {
   width: 40px;
   height: 40px;
   margin: 0;
-  background-image: url("../images/plan-icn-delete.png");
+  background-image: url("../images/temps/plan-icn-delete.png");
 }
 
 .c-notice {
