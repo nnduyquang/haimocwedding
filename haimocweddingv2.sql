@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2017 at 01:01 AM
+-- Generation Time: May 15, 2017 at 12:30 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -76,8 +76,52 @@ CREATE TABLE `albums` (
 --
 
 INSERT INTO `albums` (`id`, `name`, `path`, `mota`, `anhdaidien`, `order`, `tongthoigianchup`, `soluonganhchup`, `quanaocodau`, `quanaochure`, `note`, `user_id`, `created_at`, `updated_at`, `arrayidphukien`, `arrayiddichvu`, `IsCampaign`, `price`) VALUES
-(7, 'ĐÀ NẴNG NỮA NGÀY', 'da-nang-nua-ngay', 'Nothing', 'baogia1_1494775875400.jpg', '1', 'Theo ca sáng từ 7h- 12h hoặc 12h – 17h', '300~', '2 Váy Cưới', '2 Vest', NULL, 1, '2017-05-12 02:31:06', '2017-05-14 09:35:18', '3', '1-5-4-3-2-6-7-11-10-9-8', 1, '4.900.000'),
-(8, 'ĐÀ NẴNG CẢ NGÀY', 'da-nang-ca-ngay', 'nothing', 'up_1494776025658.jpg', '1', 'Từ 7h -> 17h', '300~', '2 Váy Cưới - 1 Bộ Áo Dài', '2 Vest', NULL, 1, '2017-05-12 17:40:07', '2017-05-14 09:35:37', '3', '1-5-4-3-2-6-7-11-10-9-8', 1, '5.900.000');
+(7, 'ĐÀ NẴNG NỮA NGÀY', 'da-nang-nua-ngay', 'Nothing', 'baogia1_1494775875400.jpg', '1', 'Theo ca sáng từ 7h- 12h hoặc 12h – 17h', '300~', '2 Váy Cưới', '2 Vest', NULL, 1, '2017-05-12 02:31:06', '2017-05-14 21:10:09', '1-3', '7-4-3-8-11-2-1-5-10-9', 1, '4.900.000'),
+(8, 'ĐÀ NẴNG CẢ NGÀY', 'da-nang-ca-ngay', 'nothing', 'up_1494776025658.jpg', '1', 'Từ 7h -> 17h', '300~', '2 Váy Cưới', '2 Vest', NULL, 1, '2017-05-12 17:40:07', '2017-05-14 21:10:02', '1-3', '7-4-3-8-11-2-1-5-10-9', 1, '5.900.000');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `aocuois`
+--
+
+CREATE TABLE `aocuois` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `anhdaidien` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mota` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `oreder` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `danhmucaocuoi_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `danhmucaocuois`
+--
+
+CREATE TABLE `danhmucaocuois` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `path` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `anhdaidien` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mota` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `order` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `danhmucaocuois`
+--
+
+INSERT INTO `danhmucaocuois` (`id`, `name`, `path`, `anhdaidien`, `mota`, `user_id`, `created_at`, `updated_at`, `order`) VALUES
+(1, 'Áo Cưới', 'ao-cuoi', 'itemimglarge01_1494842085828.jpg', 'From the latest brand-name dresses to original outfits just for you. With both simple and gorgeous wedding dresses, we carry a lineup made possible exclusively by the dress boutiques in our group.', 1, '2017-05-15 02:54:45', '2017-05-15 02:54:45', '1'),
+(2, 'Áo Dài', 'ao-dai', 'itemimglarge02_1494842134976.jpg', 'Japanese kimono are infused with a variety of meanings. This special wedding attire celebrates and blesses your happiness from this point forward. Why not try an experience of a lifetime?', 1, '2017-05-15 02:55:34', '2017-05-15 02:55:34', '2');
 
 -- --------------------------------------------------------
 
@@ -141,17 +185,17 @@ CREATE TABLE `dichvus` (
 --
 
 INSERT INTO `dichvus` (`id`, `name`, `icon`, `order`, `note`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'Trang Điểm Cho Cô Dâu Chú Rể', 'hairmakeup_1493860644501.png', '1', NULL, 1, '2017-05-03 18:17:24', '2017-05-14 02:19:59'),
-(2, 'Hoa Cầm Tay', 'photoprops_1493860858609.png', '1', NULL, 1, '2017-05-03 18:20:58', '2017-05-14 02:20:11'),
-(3, 'Phụ Kiện Đi Kèm', 'setofaccessorie_1493860887793.png', '1', NULL, 1, '2017-05-03 18:21:27', '2017-05-14 09:26:08'),
-(4, 'Toàn Bộ Ảnh Chụp', 'allphotodata_1493860919345.png', '1', NULL, 1, '2017-05-03 18:21:59', '2017-05-14 02:20:30'),
-(5, '25 x 30  Album', '10album_1493860949081.png', '1', '(15 tờ - 30 Trang )', 1, '2017-05-03 18:22:29', '2017-05-14 09:27:03'),
-(6, 'Chỉnh Sửa Hình Ảnh', 'simpleeditedpho_1493860977077.png', '1', '(tối đa 25 tấm)', 1, '2017-05-03 18:22:57', '2017-05-14 02:21:17'),
-(7, '05 Ảnh Để Bàn (13x18cm)', 'englsihspeaking_1493861002699.png', '1', NULL, 1, '2017-05-03 18:23:22', '2017-05-14 09:28:11'),
-(8, 'Phương Tiện Đi Lại', 'transportatione_1493861028688.png', '1', '(Studio ⇆ Location)', 1, '2017-05-03 18:23:48', '2017-05-14 02:21:50'),
+(1, 'Trang Điểm Cho Cô Dâu Chú Rể', 'hairmakeup_1493860644501.png', '4', NULL, 1, '2017-05-03 18:17:24', '2017-05-14 21:00:44'),
+(2, 'Hoa Cầm Tay', 'photoprops_1493860858609.png', '5', NULL, 1, '2017-05-03 18:20:58', '2017-05-14 21:01:05'),
+(3, 'Phụ Kiện Đi Kèm', 'setofaccessorie_1493860887793.png', '9', NULL, 1, '2017-05-03 18:21:27', '2017-05-14 21:05:57'),
+(4, 'Toàn Bộ File Gốc', 'allphotodata_1493860919345.png', '9', NULL, 1, '2017-05-03 18:21:59', '2017-05-14 21:08:37'),
+(5, '25 x 30  Album', '10album_1493860949081.png', '3', '(15 tờ - 30 Trang )', 1, '2017-05-03 18:22:29', '2017-05-14 21:00:30'),
+(6, 'Chỉnh Sửa Hình Ảnh', 'simpleeditedpho_1493860977077.png', '9', NULL, 1, '2017-05-03 18:22:57', '2017-05-14 21:08:08'),
+(7, '05 Ảnh Để Bàn (13x18cm)', 'simpleeditedpho_1494821385014.png', '9', NULL, 1, '2017-05-03 18:23:22', '2017-05-14 21:09:45'),
+(8, 'Phương Tiện Đi Lại', 'transportatione_1493861028688.png', '9', '(Studio ⇆ Location)', 1, '2017-05-03 18:23:48', '2017-05-14 21:06:12'),
 (9, 'Tặng 1 Áo Sơ Mi Nam Cao Cấp', 'shippingbyair_1493861051494.png', '1', NULL, 1, '2017-05-03 18:24:11', '2017-05-14 09:25:16'),
-(10, 'Hình Lớn Ngày Cưới (60x90)', 'a3photoboard_1493861081696.png', '1', NULL, 1, '2017-05-03 18:24:41', '2017-05-14 09:27:24'),
-(11, '01 DVD SlideShow', 'allphotodata149_1494779408092.png', '1', NULL, 1, '2017-05-14 09:29:46', '2017-05-14 09:30:08');
+(10, 'Hình Lớn Ngày Cưới (60x90)', 'a3photoboard_1493861081696.png', '2', NULL, 1, '2017-05-03 18:24:41', '2017-05-14 21:00:19'),
+(11, '01 DVD SlideShow', 'allphotodata149_1494779408092.png', '9', NULL, 1, '2017-05-14 09:29:46', '2017-05-14 21:06:19');
 
 -- --------------------------------------------------------
 
@@ -173,7 +217,31 @@ CREATE TABLE `imagemanagers` (
 
 INSERT INTO `imagemanagers` (`id`, `imagename`, `id_album`, `created_at`, `updated_at`) VALUES
 (49, '7+thump1_1494775875401.jpg', 7, NULL, NULL),
-(50, '8+thump1_1494776025659.jpg', 8, NULL, NULL);
+(50, '8+thump1_1494776025659.jpg', 8, NULL, NULL),
+(51, '7+1_1494838993356.jpg', 7, NULL, NULL),
+(52, '7+2_1494838993357.jpg', 7, NULL, NULL),
+(53, '7+3_1494838993358.jpg', 7, NULL, NULL),
+(54, '7+4_1494838993359.jpg', 7, NULL, NULL),
+(55, '7+5_1494838993360.jpg', 7, NULL, NULL),
+(56, '7+6_1494838993361.jpg', 7, NULL, NULL),
+(57, '7+7_1494838993362.jpg', 7, NULL, NULL),
+(58, '7+8_1494838993363.jpg', 7, NULL, NULL),
+(59, '7+9_1494838993364.jpg', 7, NULL, NULL),
+(60, '7+10_1494838993366.jpg', 7, NULL, NULL),
+(61, '7+11_1494838993367.jpg', 7, NULL, NULL),
+(62, '7+12_1494838993368.jpg', 7, NULL, NULL),
+(63, '8+1_1494839029090.jpg', 8, NULL, NULL),
+(64, '8+2_1494839029091.jpg', 8, NULL, NULL),
+(65, '8+3_1494839029092.jpg', 8, NULL, NULL),
+(66, '8+4_1494839029093.jpg', 8, NULL, NULL),
+(67, '8+5_1494839029094.jpg', 8, NULL, NULL),
+(68, '8+6_1494839029095.jpg', 8, NULL, NULL),
+(69, '8+7_1494839029097.jpg', 8, NULL, NULL),
+(70, '8+8_1494839029098.jpg', 8, NULL, NULL),
+(71, '8+9_1494839029100.jpg', 8, NULL, NULL),
+(72, '8+10_1494839029101.jpg', 8, NULL, NULL),
+(73, '8+11_1494839029103.jpg', 8, NULL, NULL),
+(74, '8+12_1494839029104.jpg', 8, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -219,7 +287,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (31, '2017_05_12_031401_change_type_column_id_album_imagemanagers_table', 22),
 (32, '2017_05_14_011952_create_sliders_table', 23),
 (33, '2017_05_14_095015_add_isCampaign_to_albums_table', 24),
-(34, '2017_05_14_100038_add_price_to_albums_table', 25);
+(34, '2017_05_14_100038_add_price_to_albums_table', 25),
+(35, '2017_05_15_072033_create_danhmucaocuois_table', 26),
+(36, '2017_05_15_091938_add_column_order_danhmucaocuois_table', 27),
+(37, '2017_05_15_095403_change_type_column_mota_danhmucaocuois_table', 28),
+(38, '2017_05_15_101057_create_aocuois_table', 29);
 
 -- --------------------------------------------------------
 
@@ -280,7 +352,15 @@ INSERT INTO `permissions` (`id`, `name`, `display_name`, `description`, `created
 (25, 'slider-list', 'Display Slider Listing', 'See only Slider Of Role', '2017-05-13 18:24:10', '2017-05-13 18:24:10'),
 (26, 'slider-create', 'Create Slider', 'Create New Slider', '2017-05-13 18:24:10', '2017-05-13 18:24:10'),
 (27, 'slider-edit', 'Edit Slider', 'Edit Slider', '2017-05-13 18:24:11', '2017-05-13 18:24:11'),
-(28, 'slider-delete', 'Delete Slider', 'Delete Slider', '2017-05-13 18:24:11', '2017-05-13 18:24:11');
+(28, 'slider-delete', 'Delete Slider', 'Delete Slider', '2017-05-13 18:24:11', '2017-05-13 18:24:11'),
+(29, 'danhmucaocuoi-list', 'Display Danh Mục Áo Cưới Listing', 'See only Danh Mục Áo Cưới Of Role', '2017-05-15 02:45:05', '2017-05-15 02:45:05'),
+(30, 'danhmucaocuoi-create', 'Create Danh Mục Áo Cưới', 'Create New Danh Mục Áo Cưới', '2017-05-15 02:45:05', '2017-05-15 02:45:05'),
+(31, 'danhmucaocuoi-edit', 'Edit Danh Mục Áo Cưới', 'Edit Danh Mục Áo Cưới', '2017-05-15 02:45:05', '2017-05-15 02:45:05'),
+(32, 'danhmucaocuoi-delete', 'Delete Danh Mục Áo Cưới', 'Delete Danh Mục Áo Cưới', '2017-05-15 02:45:05', '2017-05-15 02:45:05'),
+(33, 'aocuoi-list', 'Display Áo Cưới Listing', 'See only Áo Cưới Of Role', '2017-05-15 03:21:07', '2017-05-15 03:21:07'),
+(34, 'aocuoi-create', 'Create Áo Cưới', 'Create New Áo Cưới', '2017-05-15 03:21:07', '2017-05-15 03:21:07'),
+(35, 'aocuoi-edit', 'Edit Áo Cưới', 'Edit Áo Cưới', '2017-05-15 03:21:07', '2017-05-15 03:21:07'),
+(36, 'aocuoi-delete', 'Delete Áo Cưới', 'Delete Áo Cưới', '2017-05-15 03:21:07', '2017-05-15 03:21:07');
 
 -- --------------------------------------------------------
 
@@ -325,7 +405,15 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (25, 1),
 (26, 1),
 (27, 1),
-(28, 1);
+(28, 1),
+(29, 1),
+(30, 1),
+(31, 1),
+(32, 1),
+(33, 1),
+(34, 1),
+(35, 1),
+(36, 1);
 
 -- --------------------------------------------------------
 
@@ -347,9 +435,9 @@ CREATE TABLE `phukiens` (
 --
 
 INSERT INTO `phukiens` (`id`, `name`, `order`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'Corset for Dress', '1', 1, '2017-05-11 06:51:42', '2017-05-11 06:51:42'),
+(1, '1 Bộ Áo Dài Nam Nữ', '1', 1, '2017-05-11 06:51:42', '2017-05-14 20:58:23'),
 (2, 'White Shirt for Tuxedo/Suite', '1', 1, '2017-05-11 06:51:54', '2017-05-11 06:51:54'),
-(3, 'Shoes for Bride & Groom', '1', 1, '2017-05-11 06:52:02', '2017-05-11 06:52:02'),
+(3, 'Cà Vạt Chú Rể', '1', 1, '2017-05-11 06:52:02', '2017-05-14 20:58:48'),
 (4, 'Groom & Bride’s Undergarments for kimono', '1', 1, '2017-05-11 06:52:17', '2017-05-11 06:52:17');
 
 -- --------------------------------------------------------
@@ -462,6 +550,21 @@ ALTER TABLE `albums`
   ADD KEY `albums_user_id_foreign` (`user_id`);
 
 --
+-- Indexes for table `aocuois`
+--
+ALTER TABLE `aocuois`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `aocuois_user_id_foreign` (`user_id`),
+  ADD KEY `aocuois_danhmucaocuoi_id_foreign` (`danhmucaocuoi_id`);
+
+--
+-- Indexes for table `danhmucaocuois`
+--
+ALTER TABLE `danhmucaocuois`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `danhmucaocuois_user_id_foreign` (`user_id`);
+
+--
 -- Indexes for table `diadiems`
 --
 ALTER TABLE `diadiems`
@@ -554,6 +657,16 @@ ALTER TABLE `users`
 ALTER TABLE `albums`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
+-- AUTO_INCREMENT for table `aocuois`
+--
+ALTER TABLE `aocuois`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `danhmucaocuois`
+--
+ALTER TABLE `danhmucaocuois`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `diadiems`
 --
 ALTER TABLE `diadiems`
@@ -567,17 +680,17 @@ ALTER TABLE `dichvus`
 -- AUTO_INCREMENT for table `imagemanagers`
 --
 ALTER TABLE `imagemanagers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `phukiens`
 --
@@ -607,6 +720,19 @@ ALTER TABLE `users`
 --
 ALTER TABLE `albums`
   ADD CONSTRAINT `albums_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `aocuois`
+--
+ALTER TABLE `aocuois`
+  ADD CONSTRAINT `aocuois_danhmucaocuoi_id_foreign` FOREIGN KEY (`danhmucaocuoi_id`) REFERENCES `danhmucaocuois` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `aocuois_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `danhmucaocuois`
+--
+ALTER TABLE `danhmucaocuois`
+  ADD CONSTRAINT `danhmucaocuois_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `diadiems`

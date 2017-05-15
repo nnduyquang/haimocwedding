@@ -80,3 +80,11 @@ $('#chooseAnhSlider').change(function (event) {
     var tmppath = URL.createObjectURL(event.target.files[0]);
     $("#showSlider").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
 });
+$('#chooseAnhDaiDienDanhMuc').change(function (event) {
+    var tmppath = URL.createObjectURL(event.target.files[0]);
+    $("#showAnhDaiDienDanhMuc").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
+});
+$('#chooseAnhAoCuoi').change(function (event) {
+    var tmppath = URL.createObjectURL(event.target.files[0]);
+    $("#showAnhAoCuoi").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
+});

@@ -241,6 +241,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li><a href="{{ route('dichvus.index') }}"><i class="fa fa-link"></i> <span>Dịch Vụ</span></a></li>
                 <li><a href="{{ route('phukiens.index') }}"><i class="fa fa-link"></i> <span>Phụ Kiện</span></a></li>
                 <li><a href="{{ route('albums.index') }}"><i class="fa fa-link"></i> <span>Quản Lý Album</span></a></li>
+                <li><a href="{{ route('danhmucaocuois.index') }}"><i class="fa fa-link"></i> <span>Danh Mục Áo Cưới</span></a></li>
+                <li><a href="{{ route('aocuois.index') }}"><i class="fa fa-link"></i> <span>Áo Cưới</span></a></li>
                 <li><a href="{{ route('sliders.index') }}"><i class="fa fa-link"></i> <span>Slider</span></a></li>
             </ul>
             <!-- /.sidebar-menu -->

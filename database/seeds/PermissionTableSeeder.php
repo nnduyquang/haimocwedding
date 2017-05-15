@@ -133,25 +133,65 @@ class PermissionTableSeeder extends Seeder
 //                'display_name' => 'Delete Phụ Kiện ',
 //                'description' => 'Delete Phụ Kiện '
 //            ]
+//            [
+//                'name' => 'slider-list',
+//                'display_name' => 'Display Slider Listing',
+//                'description' => 'See only Slider Of Role'
+//            ],
+//            [
+//                'name' => 'slider-create',
+//                'display_name' => 'Create Slider',
+//                'description' => 'Create New Slider'
+//            ],
+//            [
+//                'name' => 'slider-edit',
+//                'display_name' => 'Edit Slider',
+//                'description' => 'Edit Slider'
+//            ],
+//            [
+//                'name' => 'slider-delete',
+//                'display_name' => 'Delete Slider',
+//                'description' => 'Delete Slider'
+//            ]
+//            [
+//                'name' => 'danhmucaocuoi-list',
+//                'display_name' => 'Display Danh Mục Áo Cưới Listing',
+//                'description' => 'See only Danh Mục Áo Cưới Of Role'
+//            ],
+//            [
+//                'name' => 'danhmucaocuoi-create',
+//                'display_name' => 'Create Danh Mục Áo Cưới',
+//                'description' => 'Create New Danh Mục Áo Cưới'
+//            ],
+//            [
+//                'name' => 'danhmucaocuoi-edit',
+//                'display_name' => 'Edit Danh Mục Áo Cưới',
+//                'description' => 'Edit Danh Mục Áo Cưới'
+//            ],
+//            [
+//                'name' => 'danhmucaocuoi-delete',
+//                'display_name' => 'Delete Danh Mục Áo Cưới',
+//                'description' => 'Delete Danh Mục Áo Cưới'
+//            ]
             [
-                'name' => 'slider-list',
-                'display_name' => 'Display Slider Listing',
-                'description' => 'See only Slider Of Role'
+                'name' => 'aocuoi-list',
+                'display_name' => 'Display Áo Cưới Listing',
+                'description' => 'See only Áo Cưới Of Role'
             ],
             [
-                'name' => 'slider-create',
-                'display_name' => 'Create Slider',
-                'description' => 'Create New Slider'
+                'name' => 'aocuoi-create',
+                'display_name' => 'Create Áo Cưới',
+                'description' => 'Create New Áo Cưới'
             ],
             [
-                'name' => 'slider-edit',
-                'display_name' => 'Edit Slider',
-                'description' => 'Edit Slider'
+                'name' => 'aocuoi-edit',
+                'display_name' => 'Edit Áo Cưới',
+                'description' => 'Edit Áo Cưới'
             ],
             [
-                'name' => 'slider-delete',
-                'display_name' => 'Delete Slider',
-                'description' => 'Delete Slider'
+                'name' => 'aocuoi-delete',
+                'display_name' => 'Delete Áo Cưới',
+                'description' => 'Delete Áo Cưới'
             ]
 
         ];

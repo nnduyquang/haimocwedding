@@ -60,6 +60,8 @@ mix.styles([
         'resources/assets/js/be.dichvu.js',
         'resources/assets/js/be.album.js',
         'resources/assets/js/be.slider.js',
+        'resources/assets/js/be.danhmucaocuoi.js',
+        'resources/assets/js/be.aocuoi.js',
     ], 'public/js/backend.js')
 
 

@@ -102,4 +102,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('sml_admin/slider/{id}/edit', ['as' => 'sliders.edit', 'uses' => 'SliderController@edit', 'middleware' => ['permission:slider-edit']]);
     Route::patch('sml_admin/slider/{id}', ['as' => 'sliders.update', 'uses' => 'SliderController@update', 'middleware' => ['permission:slider-edit']]);
     Route::delete('sml_admin/slider/{id}', ['as' => 'sliders.destroy', 'uses' => 'SliderController@destroy', 'middleware' => ['permission:slider-delete']]);
+    //Danh Mục Áo Cưới
+    Route::get('sml_admin/danh-muc-ao-cuoi', ['as' => 'danhmucaocuois.index', 'uses' => 'DanhMucAoCuoiController@index', 'middleware' => ['permission:danhmucaocuoi-list|danhmucaocuoi-create|danhmucaocuoi-edit|danhmucaocuoi-delete']]);
+    Route::post('sml_admin/danh-muc-ao-cuoi/create', ['as' => 'danhmucaocuois.store', 'uses' => 'DanhMucAoCuoiController@store', 'middleware' => ['permission:danhmucaocuoi-create']]);
+    Route::get('sml_admin/danh-muc-ao-cuoi/create', ['as' => 'danhmucaocuois.create', 'uses' => 'DanhMucAoCuoiController@create', 'middleware' => ['permission:danhmucaocuoi-create']]);
+    Route::get('sml_admin/danh-muc-ao-cuoi/{id}/edit', ['as' => 'danhmucaocuois.edit', 'uses' => 'DanhMucAoCuoiController@edit', 'middleware' => ['permission:danhmucaocuoi-edit']]);
+    Route::patch('sml_admin/danh-muc-ao-cuoi/{id}', ['as' => 'danhmucaocuois.update', 'uses' => 'DanhMucAoCuoiController@update', 'middleware' => ['permission:danhmucaocuoi-edit']]);
+    Route::delete('sml_admin/danh-muc-ao-cuoi/{id}', ['as' => 'danhmucaocuois.destroy', 'uses' => 'DanhMucAoCuoiController@destroy', 'middleware' => ['permission:danhmucaocuoi-delete']]);
+    //Áo Cưới
+    Route::get('sml_admin/ao-cuoi', ['as' => 'aocuois.index', 'uses' => 'AoCuoiController@index', 'middleware' => ['permission:aocuoi-list|aocuoi-create|aocuoi-edit|aocuoi-delete']]);
+    Route::post('sml_admin/ao-cuoi/create', ['as' => 'aocuois.store', 'uses' => 'AoCuoiController@store', 'middleware' => ['permission:aocuoi-create']]);
+    Route::get('sml_admin/ao-cuoi/create', ['as' => 'aocuois.create', 'uses' => 'AoCuoiController@create', 'middleware' => ['permission:aocuoi-create']]);
+    Route::get('sml_admin/ao-cuoi/{id}/edit', ['as' => 'aocuois.edit', 'uses' => 'AoCuoiController@edit', 'middleware' => ['permission:aocuoi-edit']]);
+    Route::patch('sml_admin/ao-cuoi/{id}', ['as' => 'aocuois.update', 'uses' => 'AoCuoiController@update', 'middleware' => ['permission:aocuoi-edit']]);
+    Route::delete('sml_admin/ao-cuoi/{id}', ['as' => 'aocuois.destroy', 'uses' => 'AoCuoiController@destroy', 'middleware' => ['permission:aocuoi-delete']]);
 });

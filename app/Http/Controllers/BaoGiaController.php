@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Album;
+use App\DichVu;
+use App\ImageManager;
+use App\PhuKien;
 use Illuminate\Http\Request;
 
 class BaoGiaController extends Controller
@@ -16,6 +19,9 @@ class BaoGiaController extends Controller
     public function chiTietBaoGia($path)
     {
         $album = Album::where('path', $path)->first();
-        return view('frontend.chitietbaogia.index', compact(['album']));
+        $dichvus=DichVu::whereIn('id',explode('-',$album->arrayiddichvu))->orderBy('order', 'asc')->get();
+        $phukiens=PhuKien::find((explode('-',$album->arrayidphukien)));
+        $imagemanagers = ImageManager::where('id_album', $album->id)->get();
+        return view('frontend.chitietbaogia.index', compact(['album','dichvus','phukiens','imagemanagers']));
     }
 }

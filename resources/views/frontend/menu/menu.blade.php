@@ -1,6 +1,9 @@
-<p class="p-header__logo"><a href="{{URL::to('/')}}"><img
-                src="http://d-weddingphoto.com/cms/wp-content/themes/decollte/assets/images/common-img-logo.png"
-                alt="DE&amp;Co decollte wedding photography in JAPAN"></a></p>
+<p class="p-header__logo">
+    <a href="{{URL::to('/')}}">
+        <img src="http://d-weddingphoto.com/cms/wp-content/themes/decollte/assets/images/common-img-logo.png"
+                alt="DE&amp;Co decollte wedding photography in JAPAN">
+        {{--{{ Html::image('images/logo/logo_haimoc.png','',array('style'=>'width:110px!important','height'=>'80'))}}--}}
+    </a></p>
 <h1 class="p-header__lead">DE &amp; Co. Decollte Wedding Photography in Japan<br>A Japanese Wedding Photo Studio</h1>
 <ul class="p-header__social-nav">
     <li class="p-header__social-nav__item"><a href="https://www.facebook.com/decolltewp" target="_blank"><img
