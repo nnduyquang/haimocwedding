@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2017 at 01:42 AM
+-- Generation Time: May 18, 2017 at 01:54 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -149,19 +149,20 @@ CREATE TABLE `diadiems` (
   `tieude3` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `mota3` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `hinhnenphobien` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `hinhnendiadiem` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+  `hinhnendiadiem` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bando` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `diadiems`
 --
 
-INSERT INTO `diadiems` (`id`, `name`, `path`, `user_id`, `created_at`, `updated_at`, `order`, `mota`, `anhdaidien`, `hinhdiadiem1`, `tieude1`, `mota1`, `hinhdiadiem2`, `tieude2`, `mota2`, `hinhdiadiem3`, `tieude3`, `mota3`, `hinhnenphobien`, `hinhnendiadiem`) VALUES
-(1, 'Bãi Đa', 'bai-da', 1, '2017-05-01 08:01:11', '2017-05-02 02:02:51', '1', 'Located in the center of Japan, Nagoya is filled not only with great shopping and urban sightseeing but also with important sites in history and samurai culture such as Nagoya Castle, the Tokugawa Garden, and Atsuta Shrine. Various photo locations incorporating mountains, the sea, flowers, historical architecture, and more are concentrated near the city center. For bridal photos, Nagoya Castle is a popular choice.', 'aaf9e56cac9dfcd_1493653994975.jpg', 'nagoyanagoyacas_1493715606847.jpg', 'Nagoya Castle', 'The famous golden Shachihoko (a mythical sea creatures) adorning the topmost part of the castle is the symbol of Nagoya Castle.', 'nagoyatokugawag_1493715606849.jpg', 'Tokugawa Japanese Garden', 'See the ruins of the Tokugawa Owari clan residences and the beautiful traditional Japanese garden with its pond and surrounding walking path.', 'nagoyacentralpa_1493715606850.jpg', 'Central Park', 'The centre of the business and entertainment surrounded by many shops and buildings. There is a famous Ferris Wheel in front of the studio.', 'nagoya3_1493715606851.jpg', 'nagoya_1493715606852.png'),
-(2, 'Đồi Chè', 'doi-che', 1, '2017-05-01 08:04:53', '2017-05-01 08:05:15', '2', NULL, '', '', '', '', '', '', '', '', '', '', '', ''),
-(3, 'Đồi Thông', 'doi-thong', 1, '2017-05-01 08:08:35', '2017-05-01 08:11:25', '3', NULL, '', '', '', '', '', '', '', '', '', '', '', ''),
-(5, 'Hội An', 'hoi-an', 1, '2017-05-01 08:13:00', '2017-05-01 08:13:00', '1', NULL, '', '', '', '', '', '', '', '', '', '', '', ''),
-(6, 'Biển Đà Nẵng', 'bien-da-nang', 1, '2017-05-01 08:13:16', '2017-05-01 08:13:16', '1', NULL, '', '', '', '', '', '', '', '', '', '', '', '');
+INSERT INTO `diadiems` (`id`, `name`, `path`, `user_id`, `created_at`, `updated_at`, `order`, `mota`, `anhdaidien`, `hinhdiadiem1`, `tieude1`, `mota1`, `hinhdiadiem2`, `tieude2`, `mota2`, `hinhdiadiem3`, `tieude3`, `mota3`, `hinhnenphobien`, `hinhnendiadiem`, `bando`) VALUES
+(1, 'Bãi Đa', 'bai-da', 1, '2017-05-01 08:01:11', '2017-05-17 07:36:59', '1', 'Located in the center of Japan, Nagoya is filled not only with great shopping and urban sightseeing but also with important sites in history and samurai culture such as Nagoya Castle, the Tokugawa Garden, and Atsuta Shrine. Various photo locations incorporating mountains, the sea, flowers, historical architecture, and more are concentrated near the city center. For bridal photos, Nagoya Castle is a popular choice.', 'aaf9e56cac9dfcd_1493653994975.jpg', 'nagoyanagoyacas_1493715606847.jpg', 'Nagoya Castle', 'The famous golden Shachihoko (a mythical sea creatures) adorning the topmost part of the castle is the symbol of Nagoya Castle.', 'nagoyatokugawag_1493715606849.jpg', 'Tokugawa Japanese Garden', 'See the ruins of the Tokugawa Owari clan residences and the beautiful traditional Japanese garden with its pond and surrounding walking path.', 'nagoyacentralpa_1493715606850.jpg', 'Central Park', 'The centre of the business and entertainment surrounded by many shops and buildings. There is a famous Ferris Wheel in front of the studio.', 'nagoya3_1493715606851.jpg', 'nagoya_1493715606852.png', 'baida_1495031819834.jpg'),
+(2, 'Đồi Chè', 'doi-che', 1, '2017-05-01 08:04:53', '2017-05-17 07:57:53', '2', NULL, 'thump1_1495033073291.jpg', 'thump1_1495033073293.jpg', '1', '1', 'thump1_1495033073293.jpg', '1', '1', 'thump1_1495033073294.jpg', '1', '1', 'thump1_1495033073294.jpg', 'thump1_1495033073294.jpg', 'doiche_1495033073292.jpg'),
+(3, 'Đồi Thông', 'doi-thong', 1, '2017-05-01 08:08:35', '2017-05-17 08:01:04', '3', NULL, 'thump1_1495033264214.jpg', 'thump1_1495033264216.jpg', '1', '1', 'thump1_1495033264216.jpg', '1', '1', 'thump1_1495033264217.jpg', '1', '1', 'thump1_1495033264217.jpg', 'thump1_1495033264218.jpg', 'doithong_1495033264215.jpg'),
+(5, 'Hội An', 'hoi-an', 1, '2017-05-01 08:13:00', '2017-05-17 07:54:23', '1', NULL, 'thump1_1495032863855.jpg', 'thump1_1495032863857.jpg', '1', '1', 'thump1_1495032863857.jpg', '1', '1', 'thump1_1495032863858.jpg', '1', '1', 'thump1_1495032863858.jpg', 'thump1_1495032863859.jpg', 'hoian_1495032863856.jpg'),
+(6, 'Biển Đà Nẵng', 'bien-da-nang', 1, '2017-05-01 08:13:16', '2017-05-17 07:48:21', '1', NULL, 'NAMZ1233_1495032377091.jpg', 'NAMZ1233_1495032377092.jpg', '1', '1', 'NAMZ1233_1495032377093.jpg', '1', '1', 'NAMZ1233_1495032377094.jpg', '1', '1', 'NAMZ1233_1495032377094.jpg', 'NAMZ1233_1495032377095.jpg', 'bien_1495032501127.jpg');
 
 -- --------------------------------------------------------
 
@@ -291,7 +292,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (35, '2017_05_15_072033_create_danhmucaocuois_table', 26),
 (36, '2017_05_15_091938_add_column_order_danhmucaocuois_table', 27),
 (37, '2017_05_15_095403_change_type_column_mota_danhmucaocuois_table', 28),
-(38, '2017_05_15_101057_create_aocuois_table', 29);
+(38, '2017_05_15_101057_create_aocuois_table', 29),
+(39, '2017_05_17_142338_add_bando_to_diadiems_table', 30);
 
 -- --------------------------------------------------------
 
@@ -685,7 +687,7 @@ ALTER TABLE `imagemanagers`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
