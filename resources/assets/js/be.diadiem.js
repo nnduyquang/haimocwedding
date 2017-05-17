@@ -22,3 +22,7 @@ $('#chooseHinhNenPhoBien').change(function (event) {
     var tmppath = URL.createObjectURL(event.target.files[0]);
     $("#showHinhNenPhoBien").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
 });
+$('#chooseBanDo').change(function (event) {
+    var tmppath = URL.createObjectURL(event.target.files[0]);
+    $("#showBanDo").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
+});

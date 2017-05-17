@@ -62,9 +62,13 @@ class DiaDiemController extends Controller
         else
             $diadiem->order = $order;
         $file = Input::file('anhdaidien');
+        $file_bando=Input::file('bando');
+        $filename_bando=get_filename_from_input($file_bando);
         $directory = "images/diadiem/";
         $filename = get_filename_from_input($file);
         $file->move($directory, $filename);
+        $file_bando->move($directory, $filename_bando);
+        $diadiem->bando = $filename_bando;
         $diadiem->anhdaidien = $filename;
         $diadiem->name = $name;
         $diadiem->mota = $mota;
@@ -149,12 +153,20 @@ class DiaDiemController extends Controller
         else
             $diadiem->order = $order;
         $file = Input::file('anhdaidien');
+        $file_bando=Input::file('bando');
         if ($file) {
             File::delete('images/diadiem/' . $diadiem->anhdaidien);
             $directory = "images/diadiem/";
             $filename = get_filename_from_input($file);
             $file->move($directory, $filename);
             $diadiem->anhdaidien = $filename;
+        }
+        if ($file_bando) {
+            File::delete('images/diadiem/' . $diadiem->bando);
+            $directory = "images/diadiem/";
+            $filename_bando = get_filename_from_input($file_bando);
+            $file_bando->move($directory, $filename_bando);
+            $diadiem->bando = $filename_bando;
         }
         if ($file_diadiem1) {
             File::delete('images/diadiem/' . $diadiem->hinhdiadiem1);

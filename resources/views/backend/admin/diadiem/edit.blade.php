@@ -46,6 +46,11 @@
                 {!! Form::file('anhdaidien',array('id'=>'chooseHinhDiaDiem','accept'=>'image/jpeg,image/jpg,image/png')) !!}
                 {{ Html::image('images/diadiem/'.$diadiem->anhdaidien,'',array('id'=>'showHinhDiaDiem'))}}
             </div>
+            <div class="form-group">
+                <strong>Bản Đồ:</strong>
+                {!! Form::file('bando',array('id'=>'chooseBanDo','accept'=>'image/jpeg,image/jpg,image/png')) !!}
+                {{ Html::image('images/diadiem/'.$diadiem->bando,'',array('id'=>'showBanDo'))}}
+            </div>
         </div>
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">

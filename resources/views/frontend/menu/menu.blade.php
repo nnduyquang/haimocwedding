@@ -1,8 +1,8 @@
 <p class="p-header__logo">
     <a href="{{URL::to('/')}}">
-        <img src="http://d-weddingphoto.com/cms/wp-content/themes/decollte/assets/images/common-img-logo.png"
-                alt="DE&amp;Co decollte wedding photography in JAPAN">
-        {{--{{ Html::image('images/logo/logo_haimoc.png','',array('style'=>'width:110px!important','height'=>'80'))}}--}}
+        {{--<img src="http://d-weddingphoto.com/cms/wp-content/themes/decollte/assets/images/common-img-logo.png"--}}
+                {{--alt="DE&amp;Co decollte wedding photography in JAPAN">--}}
+        {{ Html::image('images/logo/logo_haimoc.png','',array(''))}}
     </a></p>
 <h1 class="p-header__lead">DE &amp; Co. Decollte Wedding Photography in Japan<br>A Japanese Wedding Photo Studio</h1>
 <ul class="p-header__social-nav">
@@ -29,15 +29,17 @@
 <nav class="p-header__main-nav">
     <ul>
         <li class="p-header__main-nav__item p-header__main-nav__item--about ">
-            <a href="{{URL::to('lien-he')}}">About Us</a>
-            <p class="p-header__main-nav__office p-header__main-nav__office--en_US">
-                <a href="http://d-weddingphoto.com/about/#hongkong-office">Hong Kong Office</a>
-            </p>
+            <a href="{{URL::to('lien-he')}}">GIỚI THIỆU</a>
+            {{--<p class="p-header__main-nav__office p-header__main-nav__office--en_US">--}}
+                {{--<a href="http://d-weddingphoto.com/about/#hongkong-office">Hong Kong Office</a>--}}
+            {{--</p>--}}
         </li>
-        <li class="p-header__main-nav__item "><a href="{{URL::to('album')}}">Album</a></li>
-        <li class="p-header__main-nav__item "><a href="{{URL::to('bao-gia')}}">Báo Giá</a></li>
-        <li class="p-header__main-nav__item "><a href="http://d-weddingphoto.com/#area">Area</a></li>
-        <li class="p-header__main-nav__item "><a href="{{URL::to('phu-kien')}}">Item</a></li>
+        <li class="p-header__main-nav__item "><a href="{{URL::to('album')}}">ALBUM</a></li>
+        <li class="p-header__main-nav__item "><a href="{{URL::to('phu-kien')}}">ÁO CƯỚI</a></li>
+        <li class="p-header__main-nav__item "><a href="{{URL::to('bao-gia')}}">BÁO GIÁ</a></li>
+        <li class="p-header__main-nav__item "><a href="http://d-weddingphoto.com/#area">KHUYẾN MÃI</a></li>
+        <li class="p-header__main-nav__item "><a href="http://d-weddingphoto.com/#area">TIN TỨC</a></li>
+
     </ul>
 </nav>
 <div class="p-header__contact p-header__contact--small"><a

@@ -2449,7 +2449,7 @@ html.lang-hn .p-faq-body {
 .p-footer-nav-area__heading {
   padding: 50px 0 0;
   font-size: 30px;
-  color: #FFF;
+  color: black;
   font-family: 'Muli', "Century Gothic","Carme","Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro", sans-serif;
   font-weight: 200;
   font-style: normal;
@@ -2465,7 +2465,7 @@ html.lang-hn .p-faq-body {
   text-align: center;
 }
 .p-footer-nav-area__box {
-  margin: 50px 0 0;
+  //margin: 50px 0 0;
   padding: 0 52px;
 }
 
@@ -2511,7 +2511,7 @@ html.lang-hn .p-faq-body {
 }
 
 .p-footer__main {
-  background: #2D2D33;
+  background: white;
   padding: 0 0 50px;
 }
 .p-footer__sub {
@@ -2616,6 +2616,8 @@ html.lang-hn .p-faq-body {
   transition: right 0.175s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 }
 .p-header__main-nav__item {
+  color: #023406;
+  font-weight: bold!important;
   position: relative;
   float: left;
   margin: 0 18px 0 0;
