@@ -1,79 +1,39 @@
 <section class="c-sention c-section--top">
-    <h2 class="c-section__heading">Plan</h2>
+    <h2 class="c-section__heading">Kế Hoạch</h2>
     <section class="p-plan-detail">
-        <h1 class="p-plan-detail__title">Ancient &amp; Modern Tokyo</h1>
-        <ul class="p-plan-detail__tags">
-            <li class="p-plan-detail__tags__item"><a href="http://d-weddingphoto.com/plans/?area=tokyo">Tokyo</a></li>
-            <li class="p-plan-detail__tags__item"><a href="http://d-weddingphoto.com/plans/keyword/summer/">Summer</a>
-            </li>
-            <li class="p-plan-detail__tags__item"><a
-                        href="http://d-weddingphoto.com/plans/keyword/greenery/">Greenery</a></li>
-            <li class="p-plan-detail__tags__item"><a href="http://d-weddingphoto.com/plans/keyword/flower/">Flower</a>
-            </li>
-            <li class="p-plan-detail__tags__item"><a href="http://d-weddingphoto.com/plans/keyword/japanese-garden/">Japanese
-                    Garden</a></li>
-            <li class="p-plan-detail__tags__item"><a href="http://d-weddingphoto.com/plans/keyword/city/">City</a></li>
-            <li class="p-plan-detail__tags__item"><a href="http://d-weddingphoto.com/plans/keyword/kimono/">Kimono</a>
-            </li>
-            <li class="p-plan-detail__tags__item"><a href="http://d-weddingphoto.com/plans/keyword/dresstuxedo/">Dress/Tuxedo</a>
-            </li>
-            <li class="p-plan-detail__tags__item"><a href="http://d-weddingphoto.com/plans/keyword/night-view/">Night
-                    View</a></li>
-        </ul>
+        <h1 class="p-plan-detail__title">{{$album->name}}</h1>
+        {{--<ul class="p-plan-detail__tags">--}}
+        {{--<li class="p-plan-detail__tags__item"><a href="http://d-weddingphoto.com/plans/?area=tokyo">Tokyo</a></li>--}}
+        {{--<li class="p-plan-detail__tags__item"><a href="http://d-weddingphoto.com/plans/keyword/summer/">Summer</a>--}}
+        {{--</li>--}}
+        {{--<li class="p-plan-detail__tags__item"><a--}}
+        {{--href="http://d-weddingphoto.com/plans/keyword/greenery/">Greenery</a></li>--}}
+        {{--<li class="p-plan-detail__tags__item"><a href="http://d-weddingphoto.com/plans/keyword/flower/">Flower</a>--}}
+        {{--</li>--}}
+        {{--<li class="p-plan-detail__tags__item"><a href="http://d-weddingphoto.com/plans/keyword/japanese-garden/">Japanese--}}
+        {{--Garden</a></li>--}}
+        {{--<li class="p-plan-detail__tags__item"><a href="http://d-weddingphoto.com/plans/keyword/city/">City</a></li>--}}
+        {{--<li class="p-plan-detail__tags__item"><a href="http://d-weddingphoto.com/plans/keyword/kimono/">Kimono</a>--}}
+        {{--</li>--}}
+        {{--<li class="p-plan-detail__tags__item"><a href="http://d-weddingphoto.com/plans/keyword/dresstuxedo/">Dress/Tuxedo</a>--}}
+        {{--</li>--}}
+        {{--<li class="p-plan-detail__tags__item"><a href="http://d-weddingphoto.com/plans/keyword/night-view/">Night--}}
+        {{--View</a></li>--}}
+        {{--</ul>--}}
         <div class="p-plan-detail__container" data-j-selector="search-plan-position-base">
             <div class="p-plan-detail-body">
 
                 <ul class="c-gallery" data-j-class="Gallery">
-                    <li class="c-gallery__item" data-id="1">
-                        <a>
-                            <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/unspecified-17.jpeg"
-                                 alt="unspecified" class="" height="562" width="750"> </a>
-                    </li>
-                    <li class="c-gallery__item" data-id="2">
-                        <a>
-                            <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/unspecified-6-1.jpeg"
-                                 alt="unspecified-6" class="" height="562" width="750"> </a>
-                    </li>
-                    <li class="c-gallery__item" data-id="3">
-                        <a>
-                            <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/unspecified-2-1.jpeg"
-                                 alt="unspecified-2" class="" height="562" width="750"> </a>
-                    </li>
-                    <li class="c-gallery__item" data-id="4">
-                        <a>
-                            <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/unspecified-12-3.jpeg"
-                                 alt="unspecified-12" class="" height="562" width="750"> </a>
-                    </li>
-                    <li class="c-gallery__item" data-id="5">
-                        <a>
-                            <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/unspecified-4-2.jpeg"
-                                 alt="unspecified-4" class="" height="562" width="750"> </a>
-                    </li>
-                    <li class="c-gallery__item" data-id="6">
-                        <a>
-                            <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/unspecified-5-2.jpeg"
-                                 alt="unspecified-5" class="" height="562" width="750"> </a>
-                    </li>
-                    <li class="c-gallery__item" data-id="7">
-                        <a>
-                            <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/375.jpg" alt="375"
-                                 class="" height="562" width="750"> </a>
-                    </li>
-                    <li class="c-gallery__item" data-id="8">
-                        <a>
-                            <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/400.jpg" alt="400"
-                                 class="" height="562" width="750"> </a>
-                    </li>
-                    <li class="c-gallery__item" data-id="9">
-                        <a>
-                            <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/unspecified-16.jpeg"
-                                 alt="unspecified-16" class="" height="562" width="750"> </a>
-                    </li>
-                    <li class="c-gallery__item" data-id="10">
-                        <a>
-                            <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/unspecified-10-1.jpeg"
-                                 alt="unspecified-10" class="" height="562" width="750"> </a>
-                    </li>
+                    @foreach($imagemanagers as $key=>$imagemanager)
+                        @php
+                            $array_images=explode("+",$imagemanager->imagename);
+                        @endphp
+                        <li class="c-gallery__item" data-id="{{$imagemanager->id}}">
+                            <a>
+                                {{ Html::image('images/album/'.$array_images[0].'/'.$imagemanager->imagename,'',array('width'=>'750','height'=>'562'))}}
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
 
                 <div class="c-lightbox">
@@ -82,26 +42,15 @@
                     <div class="c-lightbox__btn c-lightbox__btn--prev"></div>
                     <div class="c-lightbox__btn c-lightbox__btn--delete"></div>
                     <div class="c-lightbox__photos">
-                        <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/unspecified-17.jpeg"
-                             alt="unspecified" class="c-lightbox__photo" data-id="1" height="562" width="750"> <img
-                                src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/unspecified-6-1.jpeg"
-                                alt="unspecified-6" class="c-lightbox__photo" data-id="2" height="562" width="750"> <img
-                                src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/unspecified-2-1.jpeg"
-                                alt="unspecified-2" class="c-lightbox__photo" data-id="3" height="562" width="750"> <img
-                                src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/unspecified-12-3.jpeg"
-                                alt="unspecified-12" class="c-lightbox__photo" data-id="4" height="562" width="750">
-                        <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/unspecified-4-2.jpeg"
-                             alt="unspecified-4" class="c-lightbox__photo" data-id="5" height="562" width="750"> <img
-                                src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/unspecified-5-2.jpeg"
-                                alt="unspecified-5" class="c-lightbox__photo" data-id="6" height="562" width="750"> <img
-                                src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/375.jpg" alt="375"
-                                class="c-lightbox__photo" data-id="7" height="562" width="750"> <img
-                                src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/400.jpg" alt="400"
-                                class="c-lightbox__photo" data-id="8" height="562" width="750"> <img
-                                src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/unspecified-16.jpeg"
-                                alt="unspecified-16" class="c-lightbox__photo" data-id="9" height="562" width="750">
-                        <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2017/02/unspecified-10-1.jpeg"
-                             alt="unspecified-10" class="c-lightbox__photo" data-id="10" height="562" width="750"></div>
+                        @foreach($imagemanagers as $key=>$imagemanager)
+                            @php
+                                $array_images=explode("+",$imagemanager->imagename);
+                            @endphp
+                            {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/img02-1.jpg" width="750"--}}
+                            {{--height="562" alt="img02" class="c-lightbox__photo" data-id="1">--}}
+                            {{ Html::image('images/album/'.$array_images[0].'/'.$imagemanager->imagename,'',array('style'=>'width:100%;height:100%;padding:50px 50px 50px 50px','class'=>'c-lightbox__photo','data-id'=>$imagemanager->id))}}
+                        @endforeach
+                    </div>
                 </div>
 
 
@@ -149,13 +98,14 @@
                                     <div class="p-plan-details-list__item__icon"><img
                                                 src="http://d-weddingphoto.com/cms/wp-content/themes/decollte/assets/images/_sample/plan-icn-time.png"
                                                 alt=""></div>
-                                    <p class="p-plan-details-list__item__text">Total Time / 9 Hours〜</p>
+                                    <p class="p-plan-details-list__item__text">{{$album->tongthoigianchup}}</p>
                                 </li>
                                 <li>
                                     <div class="p-plan-details-list__item__icon"><img
                                                 src="http://d-weddingphoto.com/cms/wp-content/themes/decollte/assets/images/_sample/plan-icn-camera.png"
                                                 alt=""></div>
-                                    <p class="p-plan-details-list__item__text">Cut / 300〜</p>
+                                    <p class="p-plan-details-list__item__text">Số Shot Ảnh
+                                        / {{$album->soluonganhchup}}</p>
                                 </li>
                             </ul>
                         </li>
@@ -170,8 +120,8 @@
                                             alt=""></div>
                                 <p class="p-plan-details-costume__item__text">
           <span class="p-plan-details-dl is-lang-en_US">
-            <span class="p-plan-details-dl__dt p-plan-details-dl__dt--em-min">Bride / </span>
-            <span class="p-plan-details-dl__dd">1 Western Outfit &amp; 1 Wedding Kimono</span>
+            <span class="p-plan-details-dl__dt p-plan-details-dl__dt--em-min">>Cô Dâu / </span>
+            <span class="p-plan-details-dl__dd">{{$album->quanaocodau}}</span>
           </span>
                                 </p>
                             </li>
@@ -181,111 +131,33 @@
                                             alt=""></div>
                                 <p class="p-plan-details-costume__item__text">
           <span class="p-plan-details-dl is-lang-en_US">
-            <span class="p-plan-details-dl__dt p-plan-details-dl__dt--em-small">Groom / </span>
-            <span class="p-plan-details-dl__dd">1 Western Outfit &amp; 1 Wedding Kimono</span>
+            <span class="p-plan-details-dl__dt p-plan-details-dl__dt--em-small">Chú Rể / </span>
+            <span class="p-plan-details-dl__dd">{{$album->quanaochure}}</span>
           </span>
                                 </p>
                             </li>
                         </ul>
                         <ul class="p-plan-details-costume__attrs">
-                            <li class="p-plan-details-costume__attr">Groom &amp; Bride’s Undergarments for kimono</li>
-                            <li class="p-plan-details-costume__attr">Corset for Dress</li>
-                            <li class="p-plan-details-costume__attr">White Shirt for Tuxedo/Suite</li>
-                            <li class="p-plan-details-costume__attr">Shoes for Bride &amp; Groom</li>
+                            @foreach($phukiens as $key=>$phukien)
+                                <li class="p-plan-details-costume__attr">{{$phukien->name}}</li>
+                            @endforeach
                         </ul>
                     </div>
 
                     <section class="p-plan-included-services">
-                        <h4 class="p-plan-included-services__title">Services included in this plans</h4>
+                        <h4 class="p-plan-included-services__title">Dịch Vụ Bao Gồm</h4>
                         <ul class="p-plan-included-services__items">
-                            <li class="p-plan-included-services__item p-plan-included-service">
-                                <div class="p-plan-included-service__icon">
-                                    <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/hair_makeup.png"
-                                         alt="hair_makeup" class="" height="90" width="90"></div>
-                                <div class="p-plan-included-service__text">
-                                    Hair &amp; Makeup for Bride &amp; Groom
-                                </div>
-                            </li>
-                            <li class="p-plan-included-services__item p-plan-included-service">
-                                <div class="p-plan-included-service__icon">
-                                    <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/set_of_accessories.png"
-                                         alt="set_of_accessories" class="" height="90" width="90"></div>
-                                <div class="p-plan-included-service__text">
-                                    Set of Accessories
-                                </div>
-                            </li>
-                        </ul>
-                        <ul class="p-plan-included-services__items">
-                            <li class="p-plan-included-services__item p-plan-included-service">
-                                <div class="p-plan-included-service__icon">
-                                    <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/photo_props.png"
-                                         alt="photo_props" class="" height="90" width="90"></div>
-                                <div class="p-plan-included-service__text">
-                                    Photo Props
-                                </div>
-                            </li>
-                            <li class="p-plan-included-services__item p-plan-included-service">
-                                <div class="p-plan-included-service__icon">
-                                    <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/all_photo_data.png"
-                                         alt="all_photo_data" class="" height="90" width="90"></div>
-                                <div class="p-plan-included-service__text">
-                                    All Photo Data
-                                </div>
-                            </li>
-                        </ul>
-                        <ul class="p-plan-included-services__items">
-                            <li class="p-plan-included-services__item p-plan-included-service">
-                                <div class="p-plan-included-service__icon">
-                                    <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/10_album.png"
-                                         alt="10_album" class="" height="90" width="90"></div>
-                                <div class="p-plan-included-service__text">
-                                    10” x 10” Album<br>
-                                    <em>(the maximum number of photos : 25 pics)</em></div>
-                            </li>
-                            <li class="p-plan-included-services__item p-plan-included-service">
-                                <div class="p-plan-included-service__icon">
-                                    <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/simple_edited_photodata.png"
-                                         alt="simple_edited_photodata" class="" height="90" width="90"></div>
-                                <div class="p-plan-included-service__text">
-                                    Simple Edited Photo Data<br>
-                                    <em> (pictures for your album)</em></div>
-                            </li>
-                        </ul>
-                        <ul class="p-plan-included-services__items">
-                            <li class="p-plan-included-services__item p-plan-included-service">
-                                <div class="p-plan-included-service__icon">
-                                    <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/englsih_speaking_guide.png"
-                                         alt="englsih_speaking_guide" class="" height="90" width="90"></div>
-                                <div class="p-plan-included-service__text">
-                                    English Speaking Guide
-                                </div>
-                            </li>
-                            <li class="p-plan-included-services__item p-plan-included-service">
-                                <div class="p-plan-included-service__icon">
-                                    <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/transportation_expenses.png"
-                                         alt="transportation_expenses" class="" height="90" width="90"></div>
-                                <div class="p-plan-included-service__text">
-                                    Transportation Expenses<br>
-                                    <em>(Studio ⇆ Location)</em></div>
-                            </li>
-                        </ul>
-                        <ul class="p-plan-included-services__items">
-                            <li class="p-plan-included-services__item p-plan-included-service">
-                                <div class="p-plan-included-service__icon">
-                                    <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/shipping_by_air.png"
-                                         alt="shipping_by_air" class="" height="90" width="90"></div>
-                                <div class="p-plan-included-service__text">
-                                    Shipping Cost by Air
-                                </div>
-                            </li>
-                            <li class="p-plan-included-services__item p-plan-included-service">
-                                <div class="p-plan-included-service__icon">
-                                    <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/a3_photo_board.png"
-                                         alt="a3_photo_board" class="" height="90" width="90"></div>
-                                <div class="p-plan-included-service__text">
-                                    A3 Photo Board<br>
-                                    <strong>(Book NOW, Get it FREE!)</strong></div>
-                            </li>
+                            @foreach($dichvus as $key=>$dichvu)
+                                <li class="p-plan-included-services__item p-plan-included-service">
+                                    <div class="p-plan-included-service__icon">
+                                        {{ Html::image('images/dichvu/'.$dichvu->icon,'',array('width'=>'90','height'=>'90'))}}
+                                    </div>
+                                    <div class="p-plan-included-service__text">
+                                        {{$dichvu->name}}<br>
+                                        <em>{{$dichvu->note}}</em>
+                                    </div>
+                                </li>
+                            @endforeach
                         </ul>
 
                         <p class="p-plan-included-services__notice"><strong>Everything you need for the shooing is all
@@ -338,7 +210,7 @@
 
                 <section class="p-plan-detail-body__related p-plan-related">
                     <h2 class="p-plan-related__title c-headline">
-                        <span>You may also like</span>
+                        <span>Bạn Cũng Có Thể Thích</span>
                     </h2>
                     <div class="p-plans c-columns c-columns--no-gutter p-plan-related__plans">
                         <div class="p-plans__item c-column--three">
@@ -399,69 +271,54 @@
             <div class="p-search-plan p-search-plan--vertical" data-j-class="SearchPlanVartical"
                  style="visibility: visible;">
                 <div class="p-search-plan__item p-search-by-key p-search-by-key--vertical">
-                    <h3 class="p-search-by-key__title">Area</h3>
+                    <h3 class="p-search-by-key__title">Khu Vực</h3>
                     <ul class="p-search-by-key__items">
-                        <li class="p-search-by-key__item "><a
-                                    href="http://d-weddingphoto.com/plans/?area=tokyo">Tokyo</a></li>
-                        <li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/?area=yokohama">Yokohama</a>
-                        </li>
-                        <li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/?area=mt-fuji">Mt.
-                                Fuji</a></li>
-                        <li class="p-search-by-key__item "><a
-                                    href="http://d-weddingphoto.com/plans/?area=nagoya">Nagoya</a></li>
-                        <li class="p-search-by-key__item "><a
-                                    href="http://d-weddingphoto.com/plans/?area=kyoto">Kyoto</a></li>
-                        <li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/?area=nara">Nara</a>
-                        </li>
-                        <li class="p-search-by-key__item "><a
-                                    href="http://d-weddingphoto.com/plans/?area=osaka">Osaka</a></li>
-                        <li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/?area=kobe">Kobe</a>
-                        </li>
-                        <li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/?area=fukuoka">Fukuoka</a>
-                        </li>
-                        <li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/?area=okinawa">Okinawa</a>
-                        </li>
+                        @foreach($diadiems as $key=>$diadiem)
+                            <li class="p-search-by-key__item ">
+                                <a href="http://d-weddingphoto.com/plans/?area=tokyo">{{$diadiem->name}}</a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
-                <div class="p-search-plan__item p-search-by-key p-search-by-key--vertical">
-                    <h3 class="p-search-by-key__title">Keyword</h3>
-                    <ul class="p-search-by-key__items">
-                        <li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/spring/">Spring</a>
-                        </li>
-                        <li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/summer/">Summer</a>
-                        </li>
-                        <li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/autumn/">Autumn</a>
-                        </li>
-                        <li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/winter/">Winter</a>
-                        </li>
-                        <li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/sakura/">Sakura</a>
-                        </li>
-                        <li class="p-search-by-key__item "><a
-                                    href="http://d-weddingphoto.com/plans/keyword/autumn-leaves/">Autumn Leaves</a></li>
-                        <li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/greenery/">Greenery</a>
-                        </li>
-                        <li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/flower/">Flower</a>
-                        </li>
-                        <li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/beach/">Beach</a>
-                        </li>
-                        <li class="p-search-by-key__item "><a
-                                    href="http://d-weddingphoto.com/plans/keyword/templeshrine/">Temple/Shrine</a></li>
-                        <li class="p-search-by-key__item "><a
-                                    href="http://d-weddingphoto.com/plans/keyword/japanese-castle/">Japanese Castle</a>
-                        </li>
-                        <li class="p-search-by-key__item "><a
-                                    href="http://d-weddingphoto.com/plans/keyword/japanese-garden/">Japanese Garden</a>
-                        </li>
-                        <li class="p-search-by-key__item "><a
-                                    href="http://d-weddingphoto.com/plans/keyword/city/">City</a></li>
-                        <li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/kimono/">Kimono</a>
-                        </li>
-                        <li class="p-search-by-key__item "><a
-                                    href="http://d-weddingphoto.com/plans/keyword/dresstuxedo/">Dress/Tuxedo</a></li>
-                        <li class="p-search-by-key__item "><a
-                                    href="http://d-weddingphoto.com/plans/keyword/night-view/">Night View</a></li>
-                    </ul>
-                </div>
+                {{--<div class="p-search-plan__item p-search-by-key p-search-by-key--vertical">--}}
+                {{--<h3 class="p-search-by-key__title">Keyword</h3>--}}
+                {{--<ul class="p-search-by-key__items">--}}
+                {{--<li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/spring/">Spring</a>--}}
+                {{--</li>--}}
+                {{--<li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/summer/">Summer</a>--}}
+                {{--</li>--}}
+                {{--<li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/autumn/">Autumn</a>--}}
+                {{--</li>--}}
+                {{--<li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/winter/">Winter</a>--}}
+                {{--</li>--}}
+                {{--<li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/sakura/">Sakura</a>--}}
+                {{--</li>--}}
+                {{--<li class="p-search-by-key__item "><a--}}
+                {{--href="http://d-weddingphoto.com/plans/keyword/autumn-leaves/">Autumn Leaves</a></li>--}}
+                {{--<li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/greenery/">Greenery</a>--}}
+                {{--</li>--}}
+                {{--<li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/flower/">Flower</a>--}}
+                {{--</li>--}}
+                {{--<li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/beach/">Beach</a>--}}
+                {{--</li>--}}
+                {{--<li class="p-search-by-key__item "><a--}}
+                {{--href="http://d-weddingphoto.com/plans/keyword/templeshrine/">Temple/Shrine</a></li>--}}
+                {{--<li class="p-search-by-key__item "><a--}}
+                {{--href="http://d-weddingphoto.com/plans/keyword/japanese-castle/">Japanese Castle</a>--}}
+                {{--</li>--}}
+                {{--<li class="p-search-by-key__item "><a--}}
+                {{--href="http://d-weddingphoto.com/plans/keyword/japanese-garden/">Japanese Garden</a>--}}
+                {{--</li>--}}
+                {{--<li class="p-search-by-key__item "><a--}}
+                {{--href="http://d-weddingphoto.com/plans/keyword/city/">City</a></li>--}}
+                {{--<li class="p-search-by-key__item "><a href="http://d-weddingphoto.com/plans/keyword/kimono/">Kimono</a>--}}
+                {{--</li>--}}
+                {{--<li class="p-search-by-key__item "><a--}}
+                {{--href="http://d-weddingphoto.com/plans/keyword/dresstuxedo/">Dress/Tuxedo</a></li>--}}
+                {{--<li class="p-search-by-key__item "><a--}}
+                {{--href="http://d-weddingphoto.com/plans/keyword/night-view/">Night View</a></li>--}}
+                {{--</ul>--}}
+                {{--</div>--}}
             </div>
         </div>
     </section>

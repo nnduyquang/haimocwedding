@@ -85,11 +85,11 @@ class DiaDiemController extends Controller
         $diadiem->tieude1 = $tieude1;
         $diadiem->mota1 = $mota1;
         $diadiem->hinhdiadiem1 = $filename_diadiem1;
-        $diadiem->tieude1 = $tieude2;
-        $diadiem->mota1 = $mota2;
+        $diadiem->tieude2 = $tieude2;
+        $diadiem->mota2 = $mota2;
         $diadiem->hinhdiadiem2 = $filename_diadiem2;
-        $diadiem->tieude1 = $tieude3;
-        $diadiem->mota1 = $mota3;
+        $diadiem->tieude3 = $tieude3;
+        $diadiem->mota3 = $mota3;
         $diadiem->hinhdiadiem3 = $filename_diadiem3;
         $diadiem->hinhnenphobien = $filename_hinhnenphobien;
         $diadiem->hinhnendiadiem = $filename_hinhnendiadiem;

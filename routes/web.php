@@ -18,21 +18,13 @@ Route::get('/', 'FrontEndController@getAllTrangChu');
 Route::get('/lien-he', function () {
     return view('frontend.lienhe.index');
 });
-Route::get('/dia-diem/tokyo', function () {
-    return view('frontend.diadiem.index');
-});
-//Route::get('/bao-gia/tokyo', function () {
-//    return view('frontend.chitietbaogia.index');
-//});
-Route::get('/album/ancient-and-modern-tokyo', function () {
-    return view('frontend.chitietalbum.index');
-});
+Route::get('/dia-diem/{path}','DiaDiemFEController@getAllAlbumBelongToDiaDie');
+
+Route::get('/album/{path}','AlbumFEController@chiTietAlbum');
 Route::get('/album/', function () {
     return view('frontend.tatcaalbum.index');
 });
-//Route::get('/baogia/', function () {
-//    return view('frontend.baogia.index');
-//});
+
 Route::get('/bao-gia/', 'BaoGiaController@getAllBaoGia');
 Route::get('/bao-gia/{path}', 'BaoGiaController@chiTietBaoGia');
 Route::get('/phu-kien/', function () {

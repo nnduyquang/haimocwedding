@@ -13,6 +13,7 @@ class FrontEndController extends Controller
         $slides = Slider::all()->sortBy('order');
         $baogias=Album::where('IsCampaign','1')->get();
         $diadiems=DiaDiem::all()->sortBy('order');
-        return view('frontend.trangchu.index', compact(['slides','baogias','diadiems']));
+        $albums=Album::where('IsCampaign','0')->limit(3)->get();
+        return view('frontend.trangchu.index', compact(['slides','baogias','diadiems','albums']));
     }
 }

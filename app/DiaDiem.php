@@ -16,4 +16,7 @@ class DiaDiem extends Model
     {
         return $this->belongsTo('App\User', 'user_id');
     }
+    public function albums(){
+        return $this->belongsToMany('App\Album','albumofdiadiem','id_diadiem','id_album')->withTimestamps();
+    }
 }

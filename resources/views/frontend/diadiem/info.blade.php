@@ -1,29 +1,31 @@
-<section class="c-sention c-section--top p-area" style="background-image: url(http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/tokyo.png);">
-    <h1 class="c-section__heading">Tokyo Area</h1>
+<section class="c-sention c-section--top p-area"
+         style="background-image: url({{ URL::asset('images/diadiem/'.$diadiem->hinhnendiadiem) }});"
+>
+    <h1 class="c-section__heading">{{$diadiem->name}}</h1>
     <div class="p-area__description">
-        Tokyo is the capital city of Japan and the centre of its politics, culture, finance and fashion, attracting a number of visitors from around the world. This giant metropolitan city is always on the cutting edge and perfectly combines the modern and historical culture of Japan. Discover various attractions of this city by having the photo shoot with us visiting spectacular spots in the city.    </div>
-    <section class="p-area__locations p-locations" style="background-image: url(http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/tokyo-2.jpg);">
+       {{$diadiem->mota}} </div>
+    <section class="p-area__locations p-locations" style="background-image: url({{ URL::asset('images/diadiem/'.$diadiem->hinhnenphobien) }});">
         <div class="p-locations__filter">
-            <h2 class="p-locations__title">Popular Locations</h2>
+            <h2 class="p-locations__title">Địa Điểm Chụp Ảnh</h2>
             <ul class="p-locations__items">
                 <li class="p-locations__item p-location">
-                    <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/tokyo_asakusaarea.jpg" width="650" height="432" alt="tokyo_asakusaarea" class="p-location__photo">                        <h3 class="p-location__title">Asakusa</h3>
-                    <p class="p-location__description">There are lots of traditional symbols of Asakusa, such as Sensoji Temple &amp; Kaminarimon Gate. Also traditional Japanese Garden and a Park with great view of Sky Tree in the background.</p>
+                    <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/tokyo_asakusaarea.jpg" width="650" height="432" alt="tokyo_asakusaarea" class="p-location__photo">                        <h3 class="p-location__title">{{$diadiem->tieude1}}</h3>
+                    <p class="p-location__description">{{$diadiem->mota1}}</p>
                 </li>
                 <li class="p-locations__item p-location">
-                    <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/tokyo_tokyotower-1.jpg" width="650" height="432" alt="tokyo_tokyotower" class="p-location__photo">                        <h3 class="p-location__title">Tokyo Tower</h3>
-                    <p class="p-location__description">The famous symbol of Tokyo at the night can add a romantic touch to your photos.</p>
+                    <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/tokyo_tokyotower-1.jpg" width="650" height="432" alt="tokyo_tokyotower" class="p-location__photo">                        <h3 class="p-location__title">{{$diadiem->tieude2}}</h3>
+                    <p class="p-location__description">{{$diadiem->mota2}}</p>
                 </li>
                 <li class="p-locations__item p-location">
-                    <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/tokyo_shibuyaarea.jpg" width="650" height="432" alt="tokyo_shibuyaarea" class="p-location__photo">                        <h3 class="p-location__title">Shibuya / Shinjuku</h3>
-                    <p class="p-location__description">Where the young people gather, it is a hip place where latest fashion trends and are created.</p>
+                    <img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/tokyo_shibuyaarea.jpg" width="650" height="432" alt="tokyo_shibuyaarea" class="p-location__photo">                        <h3 class="p-location__title">{{$diadiem->tieude3}}</h3>
+                    <p class="p-location__description">{{$diadiem->mota3}}</p>
                 </li>
             </ul>
         </div>
     </section>
 
     <section class="p-area__plans p-plans-more">
-        <h2 class="p-plans-more__title">Plan</h2>
+        <h2 class="p-plans-more__title">Album</h2>
 
         <div class="p-plans c-columns p-plans-more__items">
             <div class="p-plans__item c-column--three">
@@ -39,7 +41,8 @@
                             <div class="p-plan__box__btn"><p class="c-btn">VIEW DETAILS</p></div>
                         </div>
                     </div>
-                </a>        </div>
+                </a>
+            </div>
             <div class="p-plans__item c-column--three">
                 <a class="p-plan " href="http://d-weddingphoto.com/plans/tokyo-06/">
                     <div class="p-plan__photo">
@@ -53,7 +56,8 @@
                             <div class="p-plan__box__btn"><p class="c-btn">VIEW DETAILS</p></div>
                         </div>
                     </div>
-                </a>        </div>
+                </a>
+            </div>
             <div class="p-plans__item c-column--three">
                 <a class="p-plan " href="http://d-weddingphoto.com/plans/tokyo11-%e7%99%bd%e3%81%84%e3%83%81%e3%83%a3%e3%83%9a%e3%83%ab%ef%bc%8b%e6%b0%b4%e5%85%83%e5%85%ac%e5%9c%92/">
                     <div class="p-plan__photo">
@@ -67,7 +71,8 @@
                             <div class="p-plan__box__btn"><p class="c-btn">VIEW DETAILS</p></div>
                         </div>
                     </div>
-                </a>        </div>
+                </a>
+            </div>
         </div>
         <div class="p-plans c-columns p-plans-more__items">
             <div class="p-plans__item c-column--three">

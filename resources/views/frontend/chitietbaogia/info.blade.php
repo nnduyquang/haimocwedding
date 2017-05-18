@@ -153,103 +153,17 @@
                             <h4 class="p-plan-included-services__title">Dịch Vụ Bao Gồm</h4>
                             <ul class="p-plan-included-services__items">
                                 @foreach($dichvus as $key=>$dichvu)
-
                                     <li class="p-plan-included-services__item p-plan-included-service">
                                         <div class="p-plan-included-service__icon">
-                                            {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/hair_makeup.png"--}}
-                                            {{--width="90" height="90" alt="hair_makeup" class="">--}}
                                             {{ Html::image('images/dichvu/'.$dichvu->icon,'',array('width'=>'90','height'=>'90'))}}
                                         </div>
                                         <div class="p-plan-included-service__text">
                                             {{$dichvu->name}}<br>
                                             <em>{{$dichvu->note}}</em>
-
                                         </div>
                                     </li>
-                                    {{--<li class="p-plan-included-services__item p-plan-included-service">--}}
-                                    {{--<div class="p-plan-included-service__icon">--}}
-                                    {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/set_of_accessories.png"--}}
-                                    {{--width="90" height="90" alt="set_of_accessories" class=""></div>--}}
-                                    {{--<div class="p-plan-included-service__text">--}}
-                                    {{--Set of Accessories--}}
-                                    {{--</div>--}}
-                                    {{--</li>--}}
-
                                 @endforeach
                             </ul>
-                            {{--<ul class="p-plan-included-services__items">--}}
-                            {{--<li class="p-plan-included-services__item p-plan-included-service">--}}
-                            {{--<div class="p-plan-included-service__icon">--}}
-                            {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/photo_props.png"--}}
-                            {{--width="90" height="90" alt="photo_props" class=""></div>--}}
-                            {{--<div class="p-plan-included-service__text">--}}
-                            {{--Photo Props--}}
-                            {{--</div>--}}
-                            {{--</li>--}}
-                            {{--<li class="p-plan-included-services__item p-plan-included-service">--}}
-                            {{--<div class="p-plan-included-service__icon">--}}
-                            {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/all_photo_data.png"--}}
-                            {{--width="90" height="90" alt="all_photo_data" class=""></div>--}}
-                            {{--<div class="p-plan-included-service__text">--}}
-                            {{--All Photo Data--}}
-                            {{--</div>--}}
-                            {{--</li>--}}
-                            {{--</ul>--}}
-                            {{--<ul class="p-plan-included-services__items">--}}
-                            {{--<li class="p-plan-included-services__item p-plan-included-service">--}}
-                            {{--<div class="p-plan-included-service__icon">--}}
-                            {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/10_album.png"--}}
-                            {{--width="90" height="90" alt="10_album" class=""></div>--}}
-                            {{--<div class="p-plan-included-service__text">--}}
-                            {{--10” x 10” Album<br>--}}
-                            {{--<em>(the maximum number of photos : 25 pics)</em></div>--}}
-                            {{--</li>--}}
-                            {{--<li class="p-plan-included-services__item p-plan-included-service">--}}
-                            {{--<div class="p-plan-included-service__icon">--}}
-                            {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/simple_edited_photodata.png"--}}
-                            {{--width="90" height="90" alt="simple_edited_photodata" class=""></div>--}}
-                            {{--<div class="p-plan-included-service__text">--}}
-                            {{--Simple Edited Photo Data<br>--}}
-                            {{--<em> (pictures for your album)</em></div>--}}
-                            {{--</li>--}}
-                            {{--</ul>--}}
-                            {{--<ul class="p-plan-included-services__items">--}}
-                            {{--<li class="p-plan-included-services__item p-plan-included-service">--}}
-                            {{--<div class="p-plan-included-service__icon">--}}
-                            {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/englsih_speaking_guide.png"--}}
-                            {{--width="90" height="90" alt="englsih_speaking_guide" class=""></div>--}}
-                            {{--<div class="p-plan-included-service__text">--}}
-                            {{--English Speaking Guide--}}
-                            {{--</div>--}}
-                            {{--</li>--}}
-                            {{--<li class="p-plan-included-services__item p-plan-included-service">--}}
-                            {{--<div class="p-plan-included-service__icon">--}}
-                            {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/transportation_expenses.png"--}}
-                            {{--width="90" height="90" alt="transportation_expenses" class=""></div>--}}
-                            {{--<div class="p-plan-included-service__text">--}}
-                            {{--Transportation Expenses<br>--}}
-                            {{--<em>(Studio ⇆ Location)</em></div>--}}
-                            {{--</li>--}}
-                            {{--</ul>--}}
-                            {{--<ul class="p-plan-included-services__items">--}}
-                            {{--<li class="p-plan-included-services__item p-plan-included-service">--}}
-                            {{--<div class="p-plan-included-service__icon">--}}
-                            {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/shipping_by_air.png"--}}
-                            {{--width="90" height="90" alt="shipping_by_air" class=""></div>--}}
-                            {{--<div class="p-plan-included-service__text">--}}
-                            {{--Shipping Cost by Air--}}
-                            {{--</div>--}}
-                            {{--</li>--}}
-                            {{--<li class="p-plan-included-services__item p-plan-included-service">--}}
-                            {{--<div class="p-plan-included-service__icon">--}}
-                            {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/a3_photo_board.png"--}}
-                            {{--width="90" height="90" alt="a3_photo_board" class=""></div>--}}
-                            {{--<div class="p-plan-included-service__text">--}}
-                            {{--A3 Photo Board<br>--}}
-                            {{--<strong>(Book NOW, Get it FREE!)</strong></div>--}}
-                            {{--</li>--}}
-                            {{--</ul>--}}
-
                             <p class="p-plan-included-services__notice"><strong>Everything you need for the shooing is
                                     all included.</strong><br>
                             </p>
