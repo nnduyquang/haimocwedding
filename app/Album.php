@@ -8,7 +8,7 @@ class Album extends Model
 {
     protected $table = 'albums';
     protected $fillable = [
-        'name', 'path','mota','anhdaidien','order','tongthoigianchup','soluonganhchup','quanaocodau','quanaochure','note','arrayidphukien','arrayiddichvu','IsCampaign','price','user_id'
+        'name', 'path','mota','anhdaidien','anhmini','order','tongthoigianchup','soluonganhchup','quanaocodau','quanaochure','note','arrayidphukien','arrayiddichvu','IsCampaign','price','user_id'
     ];
     protected $primaryKey = 'id';
 

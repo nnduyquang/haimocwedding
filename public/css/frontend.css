@@ -1,6 +1,21 @@
 @import url(https://fonts.googleapis.com/css?family=Muli:400,300italic,300,400italic);@import url(https://fonts.googleapis.com/css?family=Merriweather:400,300italic,300,400italic,700,700italic);@charset "UTF-8";
 
 
+@font-face {
+  font-family: Annabelle;
+  src: url("fonts/Annabelle.ttf");
+}
+
+@font-face {
+  font-family: Kizo;
+  src: url("fonts/UVF-Kizo.ttf");
+}
+
+@font-face {
+  font-family: helveticaneuelight;
+  src: url("fonts/helveticaneuelight.ttf");
+}
+
 /* http://meyerweb.com/eric/tools/css/reset/
  * v2.0 | 20110126
  * License: none (public domain)
@@ -81,7 +96,7 @@ body {
   min-height: 100%;
   padding: 0 0 50px;
   color: #333333;
-  font-family: 'Merriweather', 'YuMincho', YuMincho, '游明朝', serif;
+  font-family: helveticaneuelight;
   font-weight: normal;
   font-style: normal;
   font-size: 13px;
@@ -173,6 +188,19 @@ iframe[name=google_conversion_frame] {
   cursor: pointer;
 }
 
+.header-title {
+  font-family: Annabelle !important;
+  font-size: 50px !important;
+}
+
+.title-h3 {
+  font-family: helveticaneuelight !important;
+  font-size: 20px !important;
+  font-style: normal !important;
+  font-weight: 800;
+  color: #0f887d !important;
+}
+
 @media only screen and (min-width: 720px) {
   .c-albums__btn {
     -webkit-transform-style: preserve-3d;
@@ -227,14 +255,14 @@ iframe[name=google_conversion_frame] {
   display: inline-block;
   width: 100%;
   max-width: 160px;
-  background-color: #8BB4B5;
+  background-color: #0f887d;
   color: #ffffff;
-  font-size: 12px;
+  font-size: 15px;
   line-height: 40px;
   letter-spacing: 2px;
   text-align: center;
-  font-family: 'Muli', "Century Gothic", "Carme", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", sans-serif;
-  font-weight: 200;
+  font-family: helveticaneuelight !important;
+  font-weight: 800;
   font-style: normal;
 }
 
@@ -427,7 +455,7 @@ iframe[name=google_conversion_frame] {
   background-color: #000000;
   color: #ffffff;
   font-size: 14px;
-  font-family: 'Muli', "Century Gothic", "Carme", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", sans-serif;
+  font-family: helveticaneuelight;
   font-weight: 200;
   font-style: normal;
   line-height: 72px;
@@ -659,17 +687,15 @@ iframe[name=google_conversion_frame] {
 .c-lightbox__photo {
   z-index: 999;
   position: absolute;
-  width: 633px;
-  height: 475px;
   top: 50%;
   left: 100%;
   margin: -237.5px 0 0 0;
 }
 
 .c-lightbox__photo--is-active {
-  top: 0;
-  left: 0;
-  margin: 0;
+  top: 10% !important;
+  left: 25% !important;
+  margin: 50px;
 }
 
 .c-lightbox__photo--is-move-out {
@@ -737,7 +763,7 @@ iframe[name=google_conversion_frame] {
 .c-notice {
   width: 1202px;
   color: #c30d23;
-  font-family: 'Muli', "Century Gothic", "Carme", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", sans-serif;
+  font-family: helveticaneuelight;
   font-weight: 200;
   font-style: normal;
   margin: 25px auto 0;
@@ -748,13 +774,13 @@ iframe[name=google_conversion_frame] {
 }
 
 .c-section__heading {
-  color: #8BB4B5;
+  color: #0f887d;
   position: relative;
   padding-bottom: 60px;
   font-size: 39px;
   line-height: 1;
   text-align: center;
-  font-family: 'Muli', "Century Gothic", "Carme", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", sans-serif;
+  font-family: helveticaneuelight;
   font-weight: 200;
   font-style: normal;
 }
@@ -1078,18 +1104,18 @@ iframe[name=google_conversion_frame] {
 
 .p-area-select-nav {
   width: 300px;
-  background: #8BB4B5;
+  background: #0f887d;
   padding: 25px 40px 20px;
   box-sizing: border-box;
 }
 
 .p-area-select-nav__item {
   color: #F5300A;
-  font-family: 'Muli', "Century Gothic", "Carme", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", sans-serif;
+  font-family: helveticaneuelight;
   font-weight: 200;
   font-style: normal;
   font-size: 20px;
-  border-top: 1px solid #303030;
+  border-top: 1px solid #f58735;
   text-align: center;
   padding: 6px 0;
 }
@@ -1246,6 +1272,7 @@ iframe[name=google_conversion_frame] {
   background-color: #f2f2f2;
   top: 7.2916666667%;
   bottom: 7.2916666667%;
+  width: 100%;
 }
 
 .p-campaign-info-box__inner {
@@ -1253,10 +1280,9 @@ iframe[name=google_conversion_frame] {
 }
 
 .p-campaign-info-box__title {
-  color: #8BB4B5;
-  font-family: 'Muli', "Century Gothic", "Carme", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", sans-serif;
+  color: #0f887d;
+  font-family: helveticaneuelight;
   font-weight: 200;
-  font-style: normal;
   font-size: 30px;
   font-style: italic;
   line-height: 1.3;
@@ -1273,6 +1299,9 @@ iframe[name=google_conversion_frame] {
 
 .p-campaign-info-box__description {
   color: #616161;
+  font-family: helveticaneuelight;
+  font-size: 15px;
+  font-weight: 800;
 }
 
 .p-campaign-info-box__btn {
@@ -1598,13 +1627,12 @@ iframe[name=google_conversion_frame] {
 .p-discount-price__after {
   display: inline-block;
   vertical-align: baseline;
-  color: #c30d23;
+  color: #f58735;
   font-size: 34px;
-  font-family: 'Muli', "Century Gothic", "Carme", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", sans-serif;
-  font-weight: 200;
+  font-family: helveticaneuelight;
+  font-weight: 800;
   font-style: normal;
   font-style: italic;
-  font-weight: 200;
 }
 
 .p-discount-price--plan-detail {
@@ -2132,7 +2160,7 @@ html.lang-hn .p-faq-body {
   width: 16.6%;
   border-left: 1px solid #3a3a3a;
   color: #fff;
-  font-family: 'Muli', "Century Gothic", "Carme", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", sans-serif;
+  font-family: helveticaneuelight;
   font-weight: 200;
   font-style: normal;
   text-align: center;
@@ -2540,10 +2568,10 @@ html.lang-hn .p-faq-body {
 
 .p-footer-nav__item {
   border-bottom: 1px solid #444447;
-  color: #023406;
+  color: #0f887d;
   font-size: 17px;
-  font-family: 'Muli', "Century Gothic", "Carme", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", sans-serif;
-  font-weight: 200;
+  font-family: helveticaneuelight;
+  font-weight: 800;
   font-style: normal;
   padding: 6px 0;
 }
@@ -2574,7 +2602,7 @@ html.lang-hn .p-faq-body {
 }
 
 .p-footer__main {
-  background: white;
+  background: #e9eeec;
   padding: 0 0 50px;
 }
 
@@ -2646,14 +2674,14 @@ html.lang-hn .p-faq-body {
 
 .p-header__logo a {
   display: inline-block;
-  margin: -25px 0 0;
+  margin: -50px 0 0;
   transition: margin 0.175s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
   padding: 0 39px;
   background: #fff;
 }
 
 .p-header__logo a img {
-  width: 100%;
+  width: 200px;
   transition: width 0.175s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 }
 
@@ -2675,7 +2703,7 @@ html.lang-hn .p-faq-body {
 }
 
 .p-header__main-nav__item {
-  color: #8BB4B5;
+  color: #0f887d;
   font-weight: bold !important;
   position: relative;
   float: left;
@@ -3497,7 +3525,7 @@ html.lang-hn .p-faq-body {
   text-align: center;
   font-size: 30px;
   color: #333333;
-  font-family: 'Muli', "Century Gothic", "Carme", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", sans-serif;
+  font-family: helveticaneuelight;
   font-weight: 200;
   font-style: normal;
 }
@@ -3940,7 +3968,7 @@ html.lang-hn .p-faq-body {
   padding: 15px 20px;
   background: #f3f3f3;
   color: #333333;
-  font-family: 'Muli', "Century Gothic", "Carme", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", sans-serif;
+  font-family: helveticaneuelight;
   font-weight: 200;
   font-style: normal;
   font-size: 15px;
@@ -3987,8 +4015,8 @@ html.lang-hn .p-faq-body {
   border: 1px solid #c8c8c8;
   border-right: none;
   font-size: 15px;
-  font-family: 'Muli', "Century Gothic", "Carme", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", sans-serif;
-  font-weight: 200;
+  font-family: helveticaneuelight;
+  font-weight: 800;
   font-style: normal;
 }
 

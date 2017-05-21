@@ -2,7 +2,7 @@
     <a href="{{URL::to('/')}}">
         {{--<img src="http://d-weddingphoto.com/cms/wp-content/themes/decollte/assets/images/common-img-logo.png"--}}
                 {{--alt="DE&amp;Co decollte wedding photography in JAPAN">--}}
-        {{ Html::image('images/logo/logo_haimoc.png','',array(''))}}
+        {{ Html::image('images/logo/logo_office_2.png','',array(''))}}
     </a></p>
 <h1 class="p-header__lead">DE &amp; Co. Decollte Wedding Photography in Japan<br>A Japanese Wedding Photo Studio</h1>
 <ul class="p-header__social-nav">

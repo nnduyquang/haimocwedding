@@ -43,14 +43,19 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Mô Tả:</strong>
-                {!! Form::textarea('mota', null, array('placeholder' => 'Mô Tả Ngắn','class' => 'form-control','rows'=>'5','style'=>'resize:none')) !!}
+                {!! Form::textarea('mota', null, array('placeholder' => 'Mô Tả Ngắn','class' => 'form-control','rows'=>'5','style'=>'resize:none','id'=>'summernote-album')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Ảnh Đại Diện:</strong>
+                <strong>Ảnh Đại Diện(1366x504):</strong>
                 {!! Form::file('anhdaidien',array('id'=>'chooseAnhDaiDienAlbum','class'=>'showAnhDaiDienAlbum','accept'=>'image/jpeg,image/jpg,image/png')) !!}
                 {{ Html::image('images/album/anhdaidien/'.$album->anhdaidien,'',array('id'=>'showAnhDaiDienAlbum'))}}
+            </div>
+            <div class="form-group">
+                <strong>Ảnh Mini(650x410):</strong>
+                {!! Form::file('anhmini',array('id'=>'chooseAnhMiniAlbum','class'=>'showAnhMiniAlbum','accept'=>'image/jpeg,image/jpg,image/png')) !!}
+                {{ Html::image('images/album/anhdaidien/'.$album->anhmini,'',array('id'=>'showAnhMiniAlbum'))}}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -144,7 +149,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <h3>Ảnh Album</h3>
+                <h3>Ảnh Album(1024px x 683px)</h3>
                 <button id="btnThemAnhAlbum" class="btn btn-success" type="button"><i class="fa fa-plus"
                                                                                       aria-hidden="true"></i>
                     Thêm Ảnh Vào Album
@@ -157,11 +162,12 @@
                     @endphp
                     <div class="col-md-2">
                         {{ Html::image('images/album/'.$array_images[0].'/'.$imagemanager->imagename,'',array('class'=>'editHinhAlbum'))}}
-                        <button id="is-remove-{{$imagemanager->id}}"  type="button" data-id="1"
+                        <button id="is-remove-{{$imagemanager->id}}" type="button" data-id="1"
                                 class="btn btn-primary is-remove"
                                 value="{{$imagemanager->id}}">Xóa
                         </button>
-                        <input id="is-remove-hd-{{$imagemanager->id}}" name="isremove[]" value="{{$imagemanager->id}}" type="hidden">
+                        <input id="is-remove-hd-{{$imagemanager->id}}" name="isremove[]" value="{{$imagemanager->id}}"
+                               type="hidden">
 
                     </div>
                 @endforeach

@@ -42,7 +42,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Ảnh Đại Diện:</strong>
+                <strong>Ảnh Đại Diện(1366x504):</strong>
                 {!! Form::file('anhdaidien',array('id'=>'chooseHinhDiaDiem','accept'=>'image/jpeg,image/jpg,image/png')) !!}
                 {{ Html::image('','',array('id'=>'showHinhDiaDiem'))}}
             </div>
@@ -75,7 +75,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <strong>Hình Đại Diện</strong>
+                                <strong>Hình Đại Diện(650x432)</strong>
                                 {!! Form::file('hinhdiadiem1',array('id'=>'chooseHinhDiaDiem1','accept'=>'image/jpeg,image/jpg,image/png')) !!}
                                 {{ Html::image('','',array('id'=>'showHinhDiaDiem1','class'=>'showHinhDiaDiem'))}}
                             </div>
@@ -98,7 +98,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <strong>Hình Đại Diện</strong>
+                                <strong>Hình Đại Diện(650x432)</strong>
                                 {!! Form::file('hinhdiadiem2',array('id'=>'chooseHinhDiaDiem2','accept'=>'image/jpeg,image/jpg,image/png')) !!}
                                 {{ Html::image('','',array('id'=>'showHinhDiaDiem2','class'=>'showHinhDiaDiem'))}}
                             </div>
@@ -121,7 +121,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <strong>Hình Đại Diện</strong>
+                                <strong>Hình Đại Diện(650x432)</strong>
                                 {!! Form::file('hinhdiadiem3',array('id'=>'chooseHinhDiaDiem3','accept'=>'image/jpeg,image/jpg,image/png')) !!}
                                 {{ Html::image('','',array('id'=>'showHinhDiaDiem3','class'=>'showHinhDiaDiem'))}}
                             </div>
@@ -132,14 +132,14 @@
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <strong>Hình Nền Phổ Biến</strong>
+                <strong>Hình Nền Phổ Biến(1304x572)</strong>
                 {!! Form::file('hinhnenphobien',array('id'=>'chooseHinhNenPhoBien','accept'=>'image/jpeg,image/jpg,image/png')) !!}
                 {{ Html::image('','',array('id'=>'showHinhNenPhoBien','class'=>'showHinhNen'))}}
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <strong>Hình Nền Địa Điểm</strong>
+                <strong>Hình Nền Địa Điểm(489x360)</strong>
                 {!! Form::file('hinhnendiadiem',array('id'=>'chooseHinhNenDiaDiem','accept'=>'image/jpeg,image/jpg,image/png')) !!}
                 {{ Html::image('','',array('id'=>'showHinhNenDiaDiem','class'=>'showHinhNen'))}}
             </div>

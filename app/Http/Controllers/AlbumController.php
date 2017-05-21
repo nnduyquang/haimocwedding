@@ -71,15 +71,19 @@ class AlbumController extends Controller
         $arrayiddichvu = $request->input('arrayiddichvu');
         $arraydiadiem = $request->input('arraydiadiem');
         $file_anhdaidien = Input::file('anhdaidien');
+        $file_anhmini = Input::file('anhmini');
         $filename_anhdaidien = get_filename_from_input($file_anhdaidien);
+        $filename_mini = get_filename_from_input($file_anhmini);
         $directory = "images/album/anhdaidien";
         $file_anhdaidien->move($directory, $filename_anhdaidien);
+        $file_anhmini->move($directory, $filename_mini);
         $list_images = Input::file('images');
         $album->name = $name;
         $path = vn_str_co_dau_thanh_khong_dau($name);
         $album->path = $path;
         $album->mota = $mota;
         $album->anhdaidien = $filename_anhdaidien;
+        $album->anhmini = $filename_mini;
         $album->tongthoigianchup = $tongthoigianchup;
         $album->soluonganhchup = $soluonganhchup;
         $album->quanaocodau = $quanaocodau;
@@ -176,6 +180,14 @@ class AlbumController extends Controller
         $arraydiadiem = $request->input('arraydiadiem');
         $album->diadiems()->sync($arraydiadiem);
         $file_anhdaidien = Input::file('anhdaidien');
+        $file_anhmini = Input::file('anhmini');
+        if ($file_anhmini) {
+            File::delete('images/album/anhdaidien/' . $album->anhmini);
+            $filename_anhmini = get_filename_from_input($file_anhmini);
+            $directory = "images/album/anhdaidien";
+            $file_anhmini->move($directory, $filename_anhmini);
+            $album->anhmini = $filename_anhmini;
+        }
         if ($file_anhdaidien) {
             File::delete('images/album/anhdaidien/' . $album->anhdaidien);
             $filename_anhdaidien = get_filename_from_input($file_anhdaidien);
@@ -203,8 +215,8 @@ class AlbumController extends Controller
             $arrayId = explode('-', $removeimageId);
             if (count($arrayId) == 2) {
                 $imagemager = ImageManager::find($arrayId[0]);
-                $path=public_path() . '/images/album/' . explode("+",$imagemager->imagename)[0] . '/' .$imagemager->imagename;
-                File::delete('images/album/' . explode("+",$imagemager->imagename)[0] . '/' .$imagemager->imagename);
+                $path = public_path() . '/images/album/' . explode("+", $imagemager->imagename)[0] . '/' . $imagemager->imagename;
+                File::delete('images/album/' . explode("+", $imagemager->imagename)[0] . '/' . $imagemager->imagename);
                 $imagemager->delete();
             }
         }

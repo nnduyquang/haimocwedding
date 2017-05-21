@@ -2,7 +2,7 @@
    href="hong-kong-wedding-expo/index.Html">{{ Html::image('images/events/img-banner-home-expo-201609-en_US.png', 'HONG KONG WEDDING EXPO 2016.07.15-2016.07.17') }}
 </a>
 <section class="c-section c-section--top">
-    <h3 class="c-section__heading">Báo Giá</h3>
+    <h3 class="c-section__heading header-title">List of Price</h3>
     <div class="p-pickup-campaigns" data-j-class="PickupCampaigns">
         <div class="p-pickup-campaigns__content">
             <div class="p-pickup-campaigns__items j-pickup-campaigns-items">
@@ -22,11 +22,11 @@
                                                 {{--<p class="p-discount-price__before">Special Kimono Shooting--}}
                                                     {{--Price</p>--}}
                                                 <!-- <div class="p-discount-price__arrow"><img src="http://d-weddingphoto.com/cms/wp-content/themes/decollte/assets/images/top-icn-arrow.png" alt=""></div> -->
-                                                <p class="p-discount-price__after">{{$baogia->price}}</p>
+                                                <p class="p-discount-price__after">Giá Đặc Biệt Chỉ {{$baogia->price}}</p>
                                             </div>
-                                            <div class="p-campaign-info-box__description">{{$baogia->mota}}
+                                            <div class="p-campaign-info-box__description">{!! $baogia->mota!!}
                                             </div>
-                                            <div class="p-campaign-info-box__btn"><p class="c-btn">XEM CHI TIẾT</p></div>
+                                            <div class="p-campaign-info-box__btn"><p class="c-btn">Xem chi tiết</p></div>
                                         </div>
                                     </div>
                                 </div>

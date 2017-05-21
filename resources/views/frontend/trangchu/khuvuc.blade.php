@@ -1,5 +1,5 @@
 <section id="area" class="c-section c-section--top p-our-area" data-j-class="OurArea">
-    <h3 class="c-section__heading p-our-area__ttl">Địa Điểm Chụp Ảnh Tại Đà Nẵng</h3>
+    <h3 class="c-section__heading p-our-area__ttl header-title">Da Nang Locations</h3>
     <p class="c-section__lead p-our-area__lead">Please select the area you are interested in having your photo shoot in for additional information.<br>We also offer photo shoots to special locations such as Nara and Hokkaido. </p>
     <div class="p-our-area__content">
         <nav class="p-our-area__nav">
@@ -17,7 +17,7 @@
 
     <div class="p-our-area__map">
         <div class="p-our-area__map__contents">
-            {{ Html::image('images/diadiem/baida_1495031819834.jpg', '',array('class'=>'p-our-area__map__content p-our-area__map__content--is-active','data-map-img-name' => 'bai-da')) }}
+            {{ Html::image('images/diadiem/baida_1495251915150.jpg', '',array('class'=>'p-our-area__map__content p-our-area__map__content--is-active','data-map-img-name' => 'bai-da')) }}
             {{--<img class="p-our-area__map__content p-our-area__map__content--is-active" src="http://d-weddingphoto.com/cms/wp-content/themes/decollte/assets/images/img-home-map--tokyo.jpg" alt="" data-map-img-name="tokyo">--}}
             @foreach($diadiems as $key=>$diadiem)
                 {{ Html::image('images/diadiem/'.$diadiem->bando, '',array('class'=>'p-our-area__map__content','data-map-img-name' => $diadiem->path)) }}

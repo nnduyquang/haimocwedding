@@ -22,6 +22,7 @@
     "dropzone": "^4.3.0",
     "imageuploadify": "^1.1.0",
     "bootstrap-fileinput": "4.4.0",
-    "nivo-slider": "*"
+    "nivo-slider": "*",
+    "summernote": "^0.8.3"
   }
 }

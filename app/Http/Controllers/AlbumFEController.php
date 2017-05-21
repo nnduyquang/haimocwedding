@@ -20,4 +20,9 @@ class AlbumFEController extends Controller
         $diadiems = $album->diadiems()->get();
         return view('frontend.chitietalbum.index', compact(['album','dichvus','phukiens','imagemanagers','diadiems']));
     }
+    public function getAllAlbum(){
+        $albums = Album::all();
+        $diadiems = DiaDiem::all();
+        return view('frontend.tatcaalbum.index', compact(['albums','diadiems']));
+    }
 }

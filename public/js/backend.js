@@ -37,6 +37,10 @@ $('#chooseAnhDaiDienAlbum').change(function (event) {
     var tmppath = URL.createObjectURL(event.target.files[0]);
     $("#showAnhDaiDienAlbum").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
 });
+$('#chooseAnhMiniAlbum').change(function (event) {
+    var tmppath = URL.createObjectURL(event.target.files[0]);
+    $("#showAnhMiniAlbum").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
+});
 
 $("#input-id").fileinput({
 
@@ -77,6 +81,13 @@ $('input[type=checkbox][name=IsCampaign]').change(function () {
         $('input[name=price]').attr("disabled", "disabled");
     }
 });
+$('#summernote-album').summernote({
+    height: 500,
+    minHeight: null,
+    maxHeight: null,
+    focus: true,
+});
+
 
 
 

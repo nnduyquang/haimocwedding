@@ -16,7 +16,7 @@
                                 <div class="p-discount-price">
                                     <p class="p-discount-price__after">{{$album->price}}</p>
                                 </div>
-                                <div class="p-campaign-info-box__description">{{$album->mota}}</div>
+                                <div class="p-campaign-info-box__description">{!! $album->mota!!}</div>
                                 <div class="p-campaign-info-box__btn"><p class="c-btn">Xem Chi Tiết</p></div>
                             </div>
                         </div>

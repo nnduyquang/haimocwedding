@@ -32,7 +32,7 @@
                             @endphp
                             {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/img02-1.jpg" width="750"--}}
                             {{--height="562" alt="img02" class="c-lightbox__photo" data-id="1">--}}
-                            {{ Html::image('images/album/'.$array_images[0].'/'.$imagemanager->imagename,'',array('style'=>'width:100%;height:100%;padding:50px 50px 50px 50px','class'=>'c-lightbox__photo','data-id'=>$imagemanager->id))}}
+                            {{ Html::image('images/album/'.$array_images[0].'/'.$imagemanager->imagename,'',array('class'=>'c-lightbox__photo','data-id'=>$imagemanager->id))}}
                         @endforeach
                     </div>
                 </div>
@@ -40,10 +40,7 @@
 
                 <div class="p-plan-detail-body__info p-plan-detail-info">
                     <div class="p-plan-detail-info__description p-plan-detail-info__description--full">
-                        Japan’s northernmost island, Hokkaido. <br>
-                        Thanks to these unique features, this charming Japanese destination boasts a natural landscape
-                        and scenery that are rare even by world standards. Let us capture your unforgettable moment with
-                        spectacular natural locations!
+                        {!!$album->mota!!}
                     </div>
 
                     <div class="p-plan-detail-info__location p-plan-detail-info__location--full">
@@ -87,7 +84,7 @@
                                             src="http://d-weddingphoto.com/cms/wp-content/themes/decollte/assets/images/_sample/plan-icn-money.png"
                                             alt=""></div>
                                 <div class="p-plan-details-list__item__text">
-                                    Giá /
+                                    Giá Đặc Biệt Chỉ Với
                                     <div class="p-discount-price p-discount-price--plan-detail">
                                         <p class="p-discount-price__after">{{$album->price}}</p>
                                     </div>

@@ -23,7 +23,8 @@ mix.styles([
         // 'bower_components/dropzone/dist/min/dropzone.min.js',
         'bower_components/bootstrap-fileinput/js/plugins/sortable.min.js',
         'bower_components/bootstrap-fileinput/js/plugins/purify.min.js',
-        'bower_components/bootstrap-fileinput/js/fileinput.js'
+        'bower_components/bootstrap-fileinput/js/fileinput.js',
+        'bower_components/summernote/dist/summernote.js',
     ], 'public/js/core.backend.js')
     .styles([
         'bower_components/bootstrap/dist/css/bootstrap.min.css',
@@ -36,6 +37,7 @@ mix.styles([
     .styles([
         // 'bower_components/dropzone/dist/min/dropzone.min.css',
         'bower_components/bootstrap-fileinput/css/fileinput.min.css',
+        'bower_components/summernote/dist/summernote.css',
     ], 'public/css/app.backend.css')
     .styles([
         'resources/assets/js/libs-min.js',
@@ -55,6 +57,9 @@ mix.styles([
     .copy('bower_components/AdminLTE/dist/js/app.min.js', 'public/js')
     .copy('bower_components/bootstrap/fonts/', 'public/fonts', false)
     .copy('bower_components/font-awesome/fonts/', 'public/fonts', false)
+    .copy([
+        'bower_components/summernote/dist/font/**'
+    ], 'public/css/font')
     .styles([
         'resources/assets/js/be.diadiem.js',
         'resources/assets/js/be.dichvu.js',

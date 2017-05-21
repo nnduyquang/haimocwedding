@@ -48,7 +48,7 @@
                             @endphp
                             {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/img02-1.jpg" width="750"--}}
                             {{--height="562" alt="img02" class="c-lightbox__photo" data-id="1">--}}
-                            {{ Html::image('images/album/'.$array_images[0].'/'.$imagemanager->imagename,'',array('style'=>'width:100%;height:100%;padding:50px 50px 50px 50px','class'=>'c-lightbox__photo','data-id'=>$imagemanager->id))}}
+                            {{ Html::image('images/album/'.$array_images[0].'/'.$imagemanager->imagename,'',array('class'=>'c-lightbox__photo','data-id'=>$imagemanager->id))}}
                         @endforeach
                     </div>
                 </div>
@@ -120,7 +120,7 @@
                                             alt=""></div>
                                 <p class="p-plan-details-costume__item__text">
           <span class="p-plan-details-dl is-lang-en_US">
-            <span class="p-plan-details-dl__dt p-plan-details-dl__dt--em-min">>Cô Dâu / </span>
+            <span class="p-plan-details-dl__dt p-plan-details-dl__dt--em-small">Cô Dâu / </span>
             <span class="p-plan-details-dl__dd">{{$album->quanaocodau}}</span>
           </span>
                                 </p>
