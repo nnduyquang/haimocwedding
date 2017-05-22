@@ -21,9 +21,8 @@ Route::get('/lien-he', function () {
 Route::get('/dia-diem/{path}','DiaDiemFEController@getAllAlbumBelongToDiaDie');
 
 Route::get('/album/{path}','AlbumFEController@chiTietAlbum');
-Route::get('/album/', function () {
-    return view('frontend.tatcaalbum.index');
-});
+Route::get('/album/', 'AlbumFEController@getAllAlbum');
+Route::get('/album/dia-diem/{path}', 'AlbumFEController@getAlbumByDiaDiem');
 
 Route::get('/bao-gia/', 'BaoGiaController@getAllBaoGia');
 Route::get('/bao-gia/{path}', 'BaoGiaController@chiTietBaoGia');

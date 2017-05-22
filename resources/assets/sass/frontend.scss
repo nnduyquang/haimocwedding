@@ -3,15 +3,15 @@
 @import url(https://fonts.googleapis.com/css?family=Merriweather:400,300italic,300,400italic,700,700italic);
 @font-face {
   font-family: Annabelle;
-  src: url('fonts/Annabelle.ttf');
+  src: url('font/Annabelle.ttf');
 }
 @font-face {
   font-family: Kizo;
-  src: url('fonts/UVF-Kizo.ttf');
+  src: url('font/UVF-Kizo.ttf');
 }
 @font-face {
   font-family: helveticaneuelight;
-  src: url('fonts/helveticaneuelight.ttf');
+  src: url('font/helveticaneuelight.ttf');
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/
@@ -5003,7 +5003,7 @@ html.lang-hn .p-faq-body {
 }
 
 .p-search-by-key--horizontal {
-  float: left;
+  //float: left;
 }
 
 .p-search-by-key--horizontal .p-search-by-key__title {
@@ -5028,8 +5028,8 @@ html.lang-hn .p-faq-body {
 }
 
 .p-search-by-key--horizontal:nth-child(1) {
-  width: 39.2670157068%;
-  border-right: 1px solid #303030;
+  //width: 39.2670157068%;
+  //border-right: 1px solid #303030;
 }
 
 .p-search-by-key--horizontal:nth-child(1) .p-search-by-key__title {

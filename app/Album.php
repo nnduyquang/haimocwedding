@@ -13,7 +13,7 @@ class Album extends Model
     protected $primaryKey = 'id';
 
     public function diadiems(){
-        return $this->belongsToMany('App\diadiem','albumofdiadiem','id_album','id_diadiem')->withPivot('id_diadiem')->withTimestamps();
+        return $this->belongsToMany('App\DiaDiem','albumofdiadiem','id_album','id_diadiem')->withPivot('id_diadiem')->withTimestamps();
     }
 
     public function users()

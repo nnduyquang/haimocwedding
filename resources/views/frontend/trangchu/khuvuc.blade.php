@@ -1,6 +1,6 @@
 <section id="area" class="c-section c-section--top p-our-area" data-j-class="OurArea">
     <h3 class="c-section__heading p-our-area__ttl header-title">Da Nang Locations</h3>
-    <p class="c-section__lead p-our-area__lead">Please select the area you are interested in having your photo shoot in for additional information.<br>We also offer photo shoots to special locations such as Nara and Hokkaido. </p>
+    <p class="c-section__lead p-our-area__lead">Hãy Chọn Địa Điểm Bạn Muốn Chụp Ảnh Cưới. </p>
     <div class="p-our-area__content">
         <nav class="p-our-area__nav">
             <ul class="p-area-select-nav">

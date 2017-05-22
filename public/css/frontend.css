@@ -3,17 +3,17 @@
 
 @font-face {
   font-family: Annabelle;
-  src: url("fonts/Annabelle.ttf");
+  src: url("font/Annabelle.ttf");
 }
 
 @font-face {
   font-family: Kizo;
-  src: url("fonts/UVF-Kizo.ttf");
+  src: url("font/UVF-Kizo.ttf");
 }
 
 @font-face {
   font-family: helveticaneuelight;
-  src: url("fonts/helveticaneuelight.ttf");
+  src: url("font/helveticaneuelight.ttf");
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/
@@ -4597,10 +4597,6 @@ html.lang-hn .p-faq-body {
   margin: 0;
 }
 
-.p-search-by-key--horizontal {
-  float: left;
-}
-
 .p-search-by-key--horizontal .p-search-by-key__title {
   float: left;
   font-family: 'Muli', "Century Gothic", "Carme", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", sans-serif;
@@ -4620,11 +4616,6 @@ html.lang-hn .p-faq-body {
   font-weight: 200;
   font-style: normal;
   font-size: 14px;
-}
-
-.p-search-by-key--horizontal:nth-child(1) {
-  width: 39.2670157068%;
-  border-right: 1px solid #303030;
 }
 
 .p-search-by-key--horizontal:nth-child(1) .p-search-by-key__title {
