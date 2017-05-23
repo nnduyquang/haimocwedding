@@ -117,7 +117,7 @@ iframe[name=google_conversion_frame] {
   display: none;
 }
 
-#main-contain {
+#main-contain,#footer {
   position: relative;
   max-width: 1306px;
   min-width: 1024px;
@@ -747,7 +747,10 @@ iframe[name=google_conversion_frame] {
 
 .c-lightbox__photo--is-active {
   top: 10%!important;
-  left: 25%!important;
+  left: 0%!important;
+  right: 0%!important;
+  margin-left: auto!important;
+  margin-right: auto!important;
   margin: 50px;
 }
 
