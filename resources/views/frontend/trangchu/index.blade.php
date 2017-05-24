@@ -3,7 +3,7 @@
     @include('frontend.slider.slider')
 @stop
 @section('container')
-    <div id="container" class="container--is-home">
+    <div id="main-contain" class="container--is-home">
         <div class="container__inner">
             @include('frontend.trangchu.chiendich')
             @include('frontend.trangchu.kehoachdenghi')

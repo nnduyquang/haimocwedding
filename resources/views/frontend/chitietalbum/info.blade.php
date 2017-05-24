@@ -1,5 +1,5 @@
 <section class="c-sention c-section--top">
-    <h2 class="c-section__heading">Kế Hoạch</h2>
+    <h2 class="c-section__heading">Album</h2>
     <section class="p-plan-detail">
         <h1 class="p-plan-detail__title">{{$album->name}}</h1>
         {{--<ul class="p-plan-detail__tags">--}}
@@ -54,12 +54,11 @@
                 </div>
 
 
-                <div class="p-plan-detail-body__info p-plan-detail-info">
-                    <div class="p-plan-detail-info__location">
-                        <div class="p-plan-detail-info__location__box">
-                            <div>Nơi Chụp / <br><span class="p-plan-detail-info__location__body"><p>Đà Nẵng</p><br>
-</span></div>
-                        </div>
+                {{--<div class="p-plan-detail-body__info p-plan-detail-info">--}}
+                    {{--<div class="p-plan-detail-info__location">--}}
+                        {{--<div class="p-plan-detail-info__location__box">--}}
+                            {{--<div>Nơi Chụp / <br><span class="p-plan-detail-info__location__body"><p>Đà Nẵng</p><br></span></div>--}}
+                        {{--</div>--}}
                         {{--<div class="p-plan-detail-info__location__shares">--}}
                             {{--<div class="p-shares" data-j-class="Shares">--}}
                                 {{--<dl class="p-shares__inner">--}}
@@ -79,12 +78,12 @@
                                 {{--</dl>--}}
                             {{--</div>--}}
                         {{--</div>--}}
-                    </div>
-                </div>
+                    {{--</div>--}}
+                {{--</div>--}}
 
                 <section class="p-plan-detail-body__details p-plan-details">
                     <h3 class="p-plan-details__title c-headline">
-                        <span>Chi Tiết</span>
+                        <span>CHI TIẾT</span>
                     </h3>
 
 
@@ -144,7 +143,7 @@
                     </div>
 
                     <section class="p-plan-included-services">
-                        <h4 class="p-plan-included-services__title">Dịch Vụ Bao Gồm</h4>
+                        <h4 class="p-plan-included-services__title">DỊCH VỤ BAO GỒM</h4>
                         <ul class="p-plan-included-services__items">
                             @foreach($dichvus as $key=>$dichvu)
                                 <li class="p-plan-included-services__item p-plan-included-service">
@@ -273,11 +272,11 @@
             <div class="p-search-plan p-search-plan--vertical" data-j-class="SearchPlanVartical"
                  style="visibility: visible;">
                 <div class="p-search-plan__item p-search-by-key p-search-by-key--vertical">
-                    <h3 class="p-search-by-key__title">Khu Vực</h3>
+                    <h3 class="p-search-by-key__title">NƠI CHỤP</h3>
                     <ul class="p-search-by-key__items">
                         @foreach($diadiems as $key=>$diadiem)
                             <li class="p-search-by-key__item ">
-                                <a href="http://d-weddingphoto.com/plans/?area=tokyo">{{$diadiem->name}}</a>
+                                <a href="{{URL::to('/dia-diem/'.$diadiem->path)}}">{{$diadiem->name}}</a>
                             </li>
                         @endforeach
                     </ul>
