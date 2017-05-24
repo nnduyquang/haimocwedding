@@ -10,7 +10,7 @@
                 <div class="p-pickup-campaigns__item j-pickup-campaigns-item">
                     <a href="{{URL::to('/bao-gia/'.$baogia->path)}}" class="p-campaigns-item is-size-fixed">
                         <div class="p-campaigns-item__photo">
-                            {{ Html::image('images/album/anhdaidien/'.$baogia->anhdaidien, '',array('style'=>'height:400px!important','width' => 840,'height' => 500)) }}
+                            {{ Html::image('images/album/anhdaidien/'.$baogia->anhmini, '',array('style'=>'height:400px!important','width' => 840,'height' => 500)) }}
                         </div>
                         <div class="p-campaigns-item__info">
                             <div class="p-campaign-info-box-wrap">
@@ -22,7 +22,7 @@
                                                 {{--<p class="p-discount-price__before">Special Kimono Shooting--}}
                                                     {{--Price</p>--}}
                                                 <!-- <div class="p-discount-price__arrow"><img src="http://d-weddingphoto.com/cms/wp-content/themes/decollte/assets/images/top-icn-arrow.png" alt=""></div> -->
-                                                <p class="p-discount-price__after">Giá Đặc Biệt Chỉ {{$baogia->price}}</p>
+                                                <p class="p-discount-price__after">Giá đặc biệt chỉ {{$baogia->price}}</p>
                                             </div>
                                             <div class="p-campaign-info-box__description">{!! $baogia->mota!!}
                                             </div>
