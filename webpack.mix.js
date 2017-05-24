@@ -67,6 +67,7 @@ mix.styles([
         'resources/assets/js/be.slider.js',
         'resources/assets/js/be.danhmucaocuoi.js',
         'resources/assets/js/be.aocuoi.js',
+        'resources/assets/js/be.trang.js',
     ], 'public/js/backend.js')
 
 

@@ -51,10 +51,10 @@
     </ul>
 </nav>
 <div class="p-header__contact p-header__contact--small"><a
-            href="#" target="_blank"><img
-                src="http://d-weddingphoto.com/cms/wp-content/themes/decollte/assets/images/common-img-contact--min--en_US.gif"
-                alt=""></a></div>
+            href="#" target="_blank">
+        {{ Html::image('images/temps/common-img-contact--min--en_US.jpg','',array(''))}}
+    </a></div>
 <div class="p-header__contact p-header__contact--large"><a
-            href="#" target="_blank"><img
-                src="http://d-weddingphoto.com/cms/wp-content/themes/decollte/assets/images/common-img-contact--en_US.gif"
-                alt=""></a></div>
+            href="#" target="_blank">
+        {{ Html::image('images/temps/common-img-contact--en_US.jpg','',array(''))}}
+    </a></div>

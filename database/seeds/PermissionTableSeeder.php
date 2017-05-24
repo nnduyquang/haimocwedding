@@ -173,25 +173,45 @@ class PermissionTableSeeder extends Seeder
 //                'display_name' => 'Delete Danh Mục Áo Cưới',
 //                'description' => 'Delete Danh Mục Áo Cưới'
 //            ]
+//            [
+//                'name' => 'aocuoi-list',
+//                'display_name' => 'Display Áo Cưới Listing',
+//                'description' => 'See only Áo Cưới Of Role'
+//            ],
+//            [
+//                'name' => 'aocuoi-create',
+//                'display_name' => 'Create Áo Cưới',
+//                'description' => 'Create New Áo Cưới'
+//            ],
+//            [
+//                'name' => 'aocuoi-edit',
+//                'display_name' => 'Edit Áo Cưới',
+//                'description' => 'Edit Áo Cưới'
+//            ],
+//            [
+//                'name' => 'aocuoi-delete',
+//                'display_name' => 'Delete Áo Cưới',
+//                'description' => 'Delete Áo Cưới'
+//            ]
             [
-                'name' => 'aocuoi-list',
-                'display_name' => 'Display Áo Cưới Listing',
+                'name' => 'trang-list',
+                'display_name' => 'Display Trang Listing',
                 'description' => 'See only Áo Cưới Of Role'
             ],
             [
-                'name' => 'aocuoi-create',
-                'display_name' => 'Create Áo Cưới',
-                'description' => 'Create New Áo Cưới'
+                'name' => 'trang-create',
+                'display_name' => 'Create Trang',
+                'description' => 'Create Trang'
             ],
             [
-                'name' => 'aocuoi-edit',
-                'display_name' => 'Edit Áo Cưới',
-                'description' => 'Edit Áo Cưới'
+                'name' => 'trang-edit',
+                'display_name' => 'Edit Trang',
+                'description' => 'Edit Trang'
             ],
             [
-                'name' => 'aocuoi-delete',
-                'display_name' => 'Delete Áo Cưới',
-                'description' => 'Delete Áo Cưới'
+                'name' => 'trang-delete',
+                'display_name' => 'Delete Trang',
+                'description' => 'Delete Trang'
             ]
 
         ];

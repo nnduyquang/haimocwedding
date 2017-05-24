@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2017 at 05:47 PM
+-- Generation Time: May 24, 2017 at 12:04 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -425,7 +425,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (38, '2017_05_15_101057_create_aocuois_table', 29),
 (39, '2017_05_17_142338_add_bando_to_diadiems_table', 30),
 (40, '2017_05_20_115632_add_anhmini_to_albums_table', 31),
-(41, '2017_05_21_052042_change_type_note_albums_table', 32);
+(41, '2017_05_21_052042_change_type_note_albums_table', 32),
+(43, '2017_05_24_083346_create_trangs_table', 33);
 
 -- --------------------------------------------------------
 
@@ -494,7 +495,11 @@ INSERT INTO `permissions` (`id`, `name`, `display_name`, `description`, `created
 (33, 'aocuoi-list', 'Display Áo Cưới Listing', 'See only Áo Cưới Of Role', '2017-05-15 03:21:07', '2017-05-15 03:21:07'),
 (34, 'aocuoi-create', 'Create Áo Cưới', 'Create New Áo Cưới', '2017-05-15 03:21:07', '2017-05-15 03:21:07'),
 (35, 'aocuoi-edit', 'Edit Áo Cưới', 'Edit Áo Cưới', '2017-05-15 03:21:07', '2017-05-15 03:21:07'),
-(36, 'aocuoi-delete', 'Delete Áo Cưới', 'Delete Áo Cưới', '2017-05-15 03:21:07', '2017-05-15 03:21:07');
+(36, 'aocuoi-delete', 'Delete Áo Cưới', 'Delete Áo Cưới', '2017-05-15 03:21:07', '2017-05-15 03:21:07'),
+(37, 'trang-list', 'Display Trang Listing', 'See only Áo Cưới Of Role', '2017-05-24 01:54:49', '2017-05-24 01:54:49'),
+(38, 'trang-create', 'Create Trang', 'Create Trang', '2017-05-24 01:54:49', '2017-05-24 01:54:49'),
+(39, 'trang-edit', 'Edit Trang', 'Edit Trang', '2017-05-24 01:54:49', '2017-05-24 01:54:49'),
+(40, 'trang-delete', 'Delete Trang', 'Delete Trang', '2017-05-24 01:54:49', '2017-05-24 01:54:49');
 
 -- --------------------------------------------------------
 
@@ -547,7 +552,11 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (33, 1),
 (34, 1),
 (35, 1),
-(36, 1);
+(36, 1),
+(37, 1),
+(38, 1),
+(39, 1),
+(40, 1);
 
 -- --------------------------------------------------------
 
@@ -641,6 +650,32 @@ INSERT INTO `sliders` (`id`, `display_name`, `anhslider`, `chuthich`, `order`, `
 (3, 'NAMZ1808bg_1495333143128.jpg', 'NAMZ1808bg_1495333143128.jpg', NULL, '1', 1, '2017-05-14 02:34:56', '2017-05-20 19:19:03'),
 (4, 'NAMZ1888_1495333162043.jpg', 'NAMZ1888_1495333162043.jpg', NULL, '1', 1, '2017-05-14 02:38:45', '2017-05-20 19:19:22'),
 (5, 'NAMZ1624bg_1495333128630.jpg', 'NAMZ1624bg_1495333128630.jpg', NULL, '1', 1, '2017-05-14 02:41:17', '2017-05-20 19:18:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `trangs`
+--
+
+CREATE TABLE `trangs` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `path` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `anhdaidien` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `noidung` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `order` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT '1',
+  `idLoai` tinyint(1) NOT NULL DEFAULT '0',
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `trangs`
+--
+
+INSERT INTO `trangs` (`id`, `name`, `path`, `anhdaidien`, `noidung`, `order`, `idLoai`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'asd', 'asd', 'dulichdanangdia_1495617785271.JPG', '<p>asdsad</p>', '1', 1, 1, '2017-05-24 02:23:05', '2017-05-24 02:26:02');
 
 -- --------------------------------------------------------
 
@@ -775,6 +810,13 @@ ALTER TABLE `sliders`
   ADD KEY `sliders_user_id_foreign` (`user_id`);
 
 --
+-- Indexes for table `trangs`
+--
+ALTER TABLE `trangs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `trangs_user_id_foreign` (`user_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -819,12 +861,12 @@ ALTER TABLE `imagemanagers`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT for table `phukiens`
 --
@@ -840,6 +882,11 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `sliders`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `trangs`
+--
+ALTER TABLE `trangs`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -905,6 +952,12 @@ ALTER TABLE `role_user`
 --
 ALTER TABLE `sliders`
   ADD CONSTRAINT `sliders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `trangs`
+--
+ALTER TABLE `trangs`
+  ADD CONSTRAINT `trangs_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

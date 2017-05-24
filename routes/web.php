@@ -107,4 +107,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('sml_admin/ao-cuoi/{id}/edit', ['as' => 'aocuois.edit', 'uses' => 'AoCuoiController@edit', 'middleware' => ['permission:aocuoi-edit']]);
     Route::patch('sml_admin/ao-cuoi/{id}', ['as' => 'aocuois.update', 'uses' => 'AoCuoiController@update', 'middleware' => ['permission:aocuoi-edit']]);
     Route::delete('sml_admin/ao-cuoi/{id}', ['as' => 'aocuois.destroy', 'uses' => 'AoCuoiController@destroy', 'middleware' => ['permission:aocuoi-delete']]);
+    //Trang
+    Route::get('sml_admin/trang', ['as' => 'trangs.index', 'uses' => 'TrangController@index', 'middleware' => ['permission:trang-list|trang-create|trang-edit|trang-delete']]);
+    Route::post('sml_admin/trang/create', ['as' => 'trangs.store', 'uses' => 'TrangController@store', 'middleware' => ['permission:trang-create']]);
+    Route::get('sml_admin/trang/create', ['as' => 'trangs.create', 'uses' => 'TrangController@create', 'middleware' => ['permission:trang-create']]);
+    Route::get('sml_admin/trang/{id}/edit', ['as' => 'trangs.edit', 'uses' => 'TrangController@edit', 'middleware' => ['permission:trang-edit']]);
+    Route::patch('sml_admin/trang/{id}', ['as' => 'trangs.update', 'uses' => 'TrangController@update', 'middleware' => ['permission:trang-edit']]);
+    Route::delete('sml_admin/trang/{id}', ['as' => 'trangs.destroy', 'uses' => 'TrangController@destroy', 'middleware' => ['permission:trang-delete']]);
 });

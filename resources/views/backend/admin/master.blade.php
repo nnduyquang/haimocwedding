@@ -244,6 +244,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li><a href="{{ route('danhmucaocuois.index') }}"><i class="fa fa-link"></i> <span>Danh Mục Áo Cưới</span></a></li>
                 <li><a href="{{ route('aocuois.index') }}"><i class="fa fa-link"></i> <span>Áo Cưới</span></a></li>
                 <li><a href="{{ route('sliders.index') }}"><i class="fa fa-link"></i> <span>Slider</span></a></li>
+                <li><a href="{{ route('trangs.index') }}"><i class="fa fa-link"></i> <span>Trang</span></a></li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>

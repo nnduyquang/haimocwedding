@@ -72,7 +72,7 @@
 
                 <section class="p-plan-detail-body__details p-plan-details">
                     <h3 class="p-plan-details__title c-headline">
-                        <span>Chi Tiết</span>
+                        <span>CHI TIẾT</span>
                     </h3>
 
                     <div class="p-plan-details__box">
@@ -147,7 +147,7 @@
                         </div>
 
                         <section class="p-plan-included-services">
-                            <h4 class="p-plan-included-services__title">Dịch Vụ Bao Gồm</h4>
+                            <h4 class="p-plan-included-services__title">DỊCH VỤ BAO GỒM</h4>
                             <ul class="p-plan-included-services__items">
                                 @foreach($dichvus as $key=>$dichvu)
                                     <li class="p-plan-included-services__item p-plan-included-service">
