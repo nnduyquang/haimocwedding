@@ -12,7 +12,7 @@ class BaoGiaController extends Controller
 {
     public function getAllBaoGia()
     {
-        $albums = Album::where('IsCampaign', '1')->get();
+        $albums = Album::where('IsCampaign', '1')->orderBy('order','ASC')->get();
         return view('frontend.baogia.index', compact(['albums']));
     }
 

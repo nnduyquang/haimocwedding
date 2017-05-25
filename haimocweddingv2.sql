@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2017 at 12:04 PM
+-- Generation Time: May 25, 2017 at 12:30 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -426,7 +426,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (39, '2017_05_17_142338_add_bando_to_diadiems_table', 30),
 (40, '2017_05_20_115632_add_anhmini_to_albums_table', 31),
 (41, '2017_05_21_052042_change_type_note_albums_table', 32),
-(43, '2017_05_24_083346_create_trangs_table', 33);
+(43, '2017_05_24_083346_create_trangs_table', 33),
+(46, '2017_05_25_082242_add_motangan_to_trangs_table', 34);
 
 -- --------------------------------------------------------
 
@@ -667,15 +668,16 @@ CREATE TABLE `trangs` (
   `idLoai` tinyint(1) NOT NULL DEFAULT '0',
   `user_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `motangan` text COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `trangs`
 --
 
-INSERT INTO `trangs` (`id`, `name`, `path`, `anhdaidien`, `noidung`, `order`, `idLoai`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'asd', 'asd', 'dulichdanangdia_1495617785271.JPG', '<p>asdsad</p>', '1', 1, 1, '2017-05-24 02:23:05', '2017-05-24 02:26:02');
+INSERT INTO `trangs` (`id`, `name`, `path`, `anhdaidien`, `noidung`, `order`, `idLoai`, `user_id`, `created_at`, `updated_at`, `motangan`) VALUES
+(1, 'asd', 'asd', 'dulichdanangdia_1495617785271.JPG', '<p>asdsad</p>', '1', 1, 1, '2017-05-24 02:23:05', '2017-05-25 01:30:40', '1');
 
 -- --------------------------------------------------------
 
@@ -861,7 +863,7 @@ ALTER TABLE `imagemanagers`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT for table `permissions`
 --

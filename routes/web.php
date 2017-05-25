@@ -18,9 +18,11 @@ Route::get('/', 'FrontEndController@getAllTrangChu');
 Route::get('/lien-he', function () {
     return view('frontend.lienhe.index');
 });
-Route::get('/dia-diem/{path}','DiaDiemFEController@getAllAlbumBelongToDiaDie');
+Route::get('/tin-tuc', 'TinTucFEController@showAllTinTuc');
+Route::get('/tin-tuc/{path}', 'TinTucFEController@chiTietTinTuc');
+Route::get('/dia-diem/{path}', 'DiaDiemFEController@getAllAlbumBelongToDiaDie');
 
-Route::get('/album/{path}','AlbumFEController@chiTietAlbum');
+Route::get('/album/{path}', 'AlbumFEController@chiTietAlbum');
 Route::get('/album/', 'AlbumFEController@getAllAlbum');
 Route::get('/album/dia-diem/{path}', 'AlbumFEController@getAlbumByDiaDiem');
 

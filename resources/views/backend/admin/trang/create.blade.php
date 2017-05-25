@@ -38,7 +38,14 @@
             <div class="form-group">
                 <strong>Loại:</strong>
                 <br>{{ Form::radio('idLoại', '1',true) }}Tin Tức<br>
-                {{ Form::radio('idLoại', '0') }}Sự Kiện
+                {{ Form::radio('idLoai', '0') }}Sự Kiện<br>
+                {{ Form::radio('idLoai', '2') }}Giới Thiệu
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Nội dung:</strong>
+                {!! Form::textarea('motangan', null, array('placeholder' => 'Mô Tả Ngắn','class' => 'form-control','rows'=>'5','style'=>'resize:none')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">

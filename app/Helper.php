@@ -63,7 +63,10 @@ function get_filename_from_input($file)
     return $filename;
 }
 
-function cat_chuoi_dai_thanh_ngan($str)
+function cat_chuoi_dai_thanh_ngan($str, $num)
 {
-    return substr($str, 0, strpos($str, ' ', 46)) . "...";
+    if (strlen($str) > $num)
+        return substr($str, 0, strpos($str, ' ', $num)) . "...";
+    else
+        return $str;
 }

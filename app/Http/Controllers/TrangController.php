@@ -44,7 +44,8 @@ class TrangController extends Controller
         $path = vn_str_co_dau_thanh_khong_dau($name);
         $order = $request->input('order');
         $noidung = $request->input('noidung');
-        $idLoai = $request->input('idLoại');
+        $idLoai = $request->input('idLoai');
+        $motangan=$request->input('motangan');
         $file_anhdaidien = Input::file('anhdaidien');
         $filename = get_filename_from_input($file_anhdaidien);
         $directory = "images/tintuc/";
@@ -58,6 +59,7 @@ class TrangController extends Controller
         $trang->noidung = $noidung;
         $trang->idLoai = $idLoai;
         $trang->anhdaidien = $filename;
+        $trang->motangan=$motangan;
         $trang->user_id = Auth::user()->id;
         $trang->save();
         return redirect()->route('trangs.index')
@@ -101,7 +103,8 @@ class TrangController extends Controller
         $path = vn_str_co_dau_thanh_khong_dau($name);
         $order = $request->input('order');
         $noidung = $request->input('noidung');
-        $idLoai = $request->input('idLoại');
+        $idLoai = $request->input('idLoai');
+        $motangan=$request->input('motangan');
         $file_anhdaidien = Input::file('anhdaidien');
         if ($file_anhdaidien) {
             $filename = get_filename_from_input($file_anhdaidien);
@@ -117,6 +120,7 @@ class TrangController extends Controller
         $trang->path=$path;
         $trang->noidung = $noidung;
         $trang->idLoai = $idLoai;
+        $trang->motangan=$motangan;
         $trang->user_id = Auth::user()->id;
         $trang->save();
         return redirect()->route('trangs.index')

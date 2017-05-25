@@ -46,7 +46,7 @@
         {{--<li class="p-header__main-nav__item "><a href="{{URL::to('phu-kien')}}">ÁO CƯỚI</a></li>--}}
         <li class="p-header__main-nav__item "><a href="{{URL::to('bao-gia')}}">BÁO GIÁ</a></li>
         <li class="p-header__main-nav__item "><a href="#">KHUYẾN MÃI</a></li>
-        <li class="p-header__main-nav__item "><a href="#">TIN TỨC</a></li>
+        <li class="p-header__main-nav__item "><a href="{{URL::to('tin-tuc')}}">TIN TỨC</a></li>
 
     </ul>
 </nav>

@@ -5,7 +5,7 @@
             <a href="{{URL::to('/bao-gia/'.$album->path)}}" class="p-campaigns-item ">
                 <div class="p-campaigns-item__photo">
                     {{--<img src="http://d-weddingphoto.com/cms/wp-content/uploads/2016/03/fb634d7e88cf5dfaa644c3e85cd955e4.jpg" width="840" height="500" alt="" class="">--}}
-                    {{ Html::image('images/album/anhdaidien/'.$album->anhdaidien,'',array('width'=>'840','style'=>'height:500px!important'))}}
+                    {{ Html::image('images/album/anhdaidien/'.$album->anhmini,'',array('width'=>'840','style'=>'height:500px!important'))}}
                 </div>
                 <div class="p-campaigns-item__info">
                     <div class="p-campaign-info-box-wrap">
