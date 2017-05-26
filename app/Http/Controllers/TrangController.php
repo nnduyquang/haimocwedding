@@ -6,6 +6,7 @@ use App\Trang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\File;
 
 class TrangController extends Controller
 {
@@ -39,6 +40,7 @@ class TrangController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         $trang = new Trang();
         $name = $request->input('name');
         $path = vn_str_co_dau_thanh_khong_dau($name);
@@ -107,6 +109,7 @@ class TrangController extends Controller
         $motangan=$request->input('motangan');
         $file_anhdaidien = Input::file('anhdaidien');
         if ($file_anhdaidien) {
+            File::delete('images/tintuc/' . $trang->anhdaidien);
             $filename = get_filename_from_input($file_anhdaidien);
             $directory = "images/tintuc/";
             $file_anhdaidien->move($directory, $filename);

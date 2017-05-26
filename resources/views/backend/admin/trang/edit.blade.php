@@ -38,7 +38,7 @@
             <div class="form-group">
                 <strong>Loại:</strong>
                 <br>{{ Form::radio('idLoai', '1', $trang->idLoai==1?true:false) }}Tin Tức<br>
-                {{ Form::radio('idLoại', '0',$trang->idLoai==0?true:false) }}Sự Kiện<br>
+                {{ Form::radio('idLoai', '0',$trang->idLoai==0?true:false) }}Sự Kiện<br>
                 {{ Form::radio('idLoai', '2',$trang->idLoai==2?true:false) }}Giới Thiệu
             </div>
         </div>

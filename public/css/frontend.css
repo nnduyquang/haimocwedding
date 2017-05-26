@@ -5282,7 +5282,7 @@ html.lang-hn .p-wpolicy-nav__txts > a {
   width: 45px;
   height: 2px;
   margin-top: 10px;
-  background: #DFAA00;
+  background: #0F887D;
 }
 
 .oneVideo {
@@ -5356,13 +5356,13 @@ html.lang-hn .p-wpolicy-nav__txts > a {
   line-height: 38px;
   height: 38px;
   color: #0C1E1E;
-  font-family: "VNF Valentina";
+  font-family: helveticaneuelight;
   display: table;
   margin: 0 auto;
   position: relative;
   padding: 0 20px;
-  border-left: solid 2px #DFAA00;
-  border-right: solid 2px #DFAA00;
+  border-left: solid 2px #0F887D;
+  border-right: solid 2px #0F887D;
   z-index: 20;
 }
 

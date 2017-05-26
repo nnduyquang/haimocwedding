@@ -7,11 +7,11 @@
                     <li class="oneNews show">
                         <a href="{{URL::to('tin-tuc/'.$tintuc->path)}}" class="thumb"
                            title="{{$tintuc->name}}"
-                           style="background-image: url('http://amiwedding.vn/multidata/a-698.jpg');">
+                           style="background-image: url({{ URL::asset('images/tintuc/'.$tintuc->anhdaidien) }});    background-size: contain;background-size: 100% 100%;">
 
                             {{ Html::image('images/tintuc/'.$tintuc->anhdaidien, $tintuc->name) }}
                         </a>
-                        <h3><a href="{{URL::to('tin-tuc/test')}}"
+                        <h3><a href="{{URL::to('tin-tuc/'.$tintuc->path)}}"
                                title="{{$tintuc->name}}">{{$tintuc->name}}</a></h3>
                         <p>
                             {{$tintuc->motangan}}
