@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2017 at 12:30 PM
+-- Generation Time: May 26, 2017 at 12:05 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -427,7 +427,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (40, '2017_05_20_115632_add_anhmini_to_albums_table', 31),
 (41, '2017_05_21_052042_change_type_note_albums_table', 32),
 (43, '2017_05_24_083346_create_trangs_table', 33),
-(46, '2017_05_25_082242_add_motangan_to_trangs_table', 34);
+(46, '2017_05_25_082242_add_motangan_to_trangs_table', 34),
+(47, '2017_05_26_021139_add_anhmini_to_trangs_table', 35);
 
 -- --------------------------------------------------------
 
@@ -669,15 +670,16 @@ CREATE TABLE `trangs` (
   `user_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `motangan` text COLLATE utf8mb4_unicode_ci
+  `motangan` text COLLATE utf8mb4_unicode_ci,
+  `anhmini` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `trangs`
 --
 
-INSERT INTO `trangs` (`id`, `name`, `path`, `anhdaidien`, `noidung`, `order`, `idLoai`, `user_id`, `created_at`, `updated_at`, `motangan`) VALUES
-(1, 'asd', 'asd', 'dulichdanangdia_1495617785271.JPG', '<p>asdsad</p>', '1', 1, 1, '2017-05-24 02:23:05', '2017-05-25 01:30:40', '1');
+INSERT INTO `trangs` (`id`, `name`, `path`, `anhdaidien`, `noidung`, `order`, `idLoai`, `user_id`, `created_at`, `updated_at`, `motangan`, `anhmini`) VALUES
+(1, 'asd', 'asd', 'dulichdanangdia_1495617785271.JPG', '<p>asdsad</p>', '1', 0, 1, '2017-05-24 02:23:05', '2017-05-25 20:53:30', '1', 'img201607221308_1495765359447.jpg');
 
 -- --------------------------------------------------------
 
@@ -863,7 +865,7 @@ ALTER TABLE `imagemanagers`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 --
 -- AUTO_INCREMENT for table `permissions`
 --

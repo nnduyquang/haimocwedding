@@ -1,5 +1,5 @@
 <a class="p-expo-banner"
-   href="#">{{ Html::image('images/events/img-banner-home-expo-201609-en_US.png', 'HONG KONG WEDDING EXPO 2016.07.15-2016.07.17') }}
+   href="{{URL::to('/khuyen-mai/uu-da-i-ha-p-da-n-nga-y-vui-tro-n-ve-n')}}">{{ Html::image('images/events/img-banner-home-expo-201609-en_US.png', '') }}
 </a>
 <section class="c-section c-section--top">
     <h3 class="c-section__heading header-title">List of Price</h3>

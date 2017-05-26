@@ -40,7 +40,6 @@ class TrangController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         $trang = new Trang();
         $name = $request->input('name');
         $path = vn_str_co_dau_thanh_khong_dau($name);
@@ -49,9 +48,12 @@ class TrangController extends Controller
         $idLoai = $request->input('idLoai');
         $motangan=$request->input('motangan');
         $file_anhdaidien = Input::file('anhdaidien');
-        $filename = get_filename_from_input($file_anhdaidien);
+        $file_anhmini = Input::file('anhmini');
+        $filename_anhdaidien = get_filename_from_input($file_anhdaidien);
+        $filename_anhmini = get_filename_from_input($file_anhmini);
         $directory = "images/tintuc/";
-        $file_anhdaidien->move($directory, $filename);
+        $file_anhdaidien->move($directory, $filename_anhdaidien);
+        $file_anhmini->move($directory, $filename_anhmini);
         if (strlen(trim($order)) == 0)
             $trang->order = 1;
         else
@@ -60,7 +62,8 @@ class TrangController extends Controller
         $trang->path=$path;
         $trang->noidung = $noidung;
         $trang->idLoai = $idLoai;
-        $trang->anhdaidien = $filename;
+        $trang->anhdaidien =$filename_anhdaidien;
+        $trang->anhmini =$filename_anhmini;
         $trang->motangan=$motangan;
         $trang->user_id = Auth::user()->id;
         $trang->save();
@@ -108,12 +111,20 @@ class TrangController extends Controller
         $idLoai = $request->input('idLoai');
         $motangan=$request->input('motangan');
         $file_anhdaidien = Input::file('anhdaidien');
+        $file_anhmini = Input::file('anhmini');
         if ($file_anhdaidien) {
             File::delete('images/tintuc/' . $trang->anhdaidien);
-            $filename = get_filename_from_input($file_anhdaidien);
+            $filename_anhdaidien = get_filename_from_input($file_anhdaidien);
             $directory = "images/tintuc/";
-            $file_anhdaidien->move($directory, $filename);
-            $trang->anhdaidien = $filename;
+            $file_anhdaidien->move($directory, $filename_anhdaidien);
+            $trang->anhdaidien = $filename_anhdaidien;
+        }
+        if ($file_anhmini) {
+            File::delete('images/tintuc/' . $trang->anhmini);
+            $filename_anhmini = get_filename_from_input($file_anhmini);
+            $directory = "images/tintuc/";
+            $file_anhmini->move($directory, $filename_anhmini);
+            $trang->anhmini = $filename_anhmini;
         }
         if (strlen(trim($order)) == 0)
             $trang->order = 1;
@@ -139,7 +150,8 @@ class TrangController extends Controller
     public function destroy($id)
     {
         $trang = Trang::find($id);
-        File::delete('images/tintuc/' . $trang->icon);
+        File::delete('images/tintuc/' . $trang->anhdaidien);
+        File::delete('images/tintuc/' . $trang->anhmini);
         $trang->delete();
         return redirect()->route('trangs.index')
             ->with('success', 'Trang deleted successfully');

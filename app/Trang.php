@@ -8,7 +8,7 @@ class Trang extends Model
 {
     protected $table = 'trangs';
     protected $fillable = [
-        'name', 'anhdaidien','motangan','noidung','order','idLoai','user_id'
+        'name', 'anhdaidien','anhmini','motangan','noidung','order','idLoai','user_id'
     ];
     protected $primaryKey = 'id';
 

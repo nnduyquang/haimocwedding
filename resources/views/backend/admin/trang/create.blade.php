@@ -44,7 +44,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Nội dung:</strong>
+                <strong>Mô Tả Ngắn</strong>
                 {!! Form::textarea('motangan', null, array('placeholder' => 'Mô Tả Ngắn','class' => 'form-control','rows'=>'5','style'=>'resize:none')) !!}
             </div>
         </div>
@@ -52,6 +52,14 @@
             <div class="form-group">
                 <strong>Nội dung:</strong>
                 {!! Form::textarea('noidung', null, array('placeholder' => 'Nội Dung','class' => 'form-control','rows'=>'5','style'=>'resize:none','id'=>'summernote-trang')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Chọn Ảnh Nhỏ:</strong>
+                {!! Form::file('anhmini',array('id'=>'chooseAnhMini','accept'=>'image/jpeg,image/jpg,image/png')) !!}
+                {{ Html::image('','',array('id'=>'showAnhMini','class'=>'showAnhMini'))}}
+
             </div>
         </div>
 

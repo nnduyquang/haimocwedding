@@ -20,6 +20,8 @@ Route::get('/lien-he', function () {
 });
 Route::get('/tin-tuc', 'TinTucFEController@showAllTinTuc');
 Route::get('/tin-tuc/{path}', 'TinTucFEController@chiTietTinTuc');
+Route::get('/khuyen-mai', 'KhuyenMaiFEController@showAllKhuyenMai');
+Route::get('/khuyen-mai/{path}', 'KhuyenMaiFEController@chiTietKhuyenMai');
 Route::get('/dia-diem/{path}', 'DiaDiemFEController@getAllAlbumBelongToDiaDie');
 
 Route::get('/album/{path}', 'AlbumFEController@chiTietAlbum');

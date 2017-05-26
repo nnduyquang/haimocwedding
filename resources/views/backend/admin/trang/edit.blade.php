@@ -54,6 +54,13 @@
                 {!! Form::textarea('noidung', null, array('placeholder' => 'Nội Dung','class' => 'form-control','rows'=>'5','style'=>'resize:none','id'=>'summernote-trang')) !!}
             </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Chọn Ảnh Nhỏ:</strong>
+                {!! Form::file('anhmini',array('id'=>'chooseAnhMini','accept'=>'image/jpeg,image/jpg,image/png')) !!}
+                {{ Html::image('images/tintuc/'.$trang->anhmini,'',array('id'=>'showAnhMini','class'=>'showAnhMini'))}}
+            </div>
+        </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">

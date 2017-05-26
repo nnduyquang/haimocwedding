@@ -1,11 +1,11 @@
 <div class="pagewrap inside">
-    <div class="titBox fixCen"><h1 class="tit">Tin Tức</h1></div>
+    <div class="titBox fixCen"><h1 class="tit">Khuyến Mãi</h1></div>
     <div class="overHide">
         <div class="list">
             <ul>
                 @foreach($tintucs as $key=>$tintuc)
                     <li class="oneNews show">
-                        <a href="{{URL::to('tin-tuc/'.$tintuc->path)}}" class="thumb"
+                        <a href="{{URL::to('khuyen-mai/'.$tintuc->path)}}" class="thumb"
                            title="{{$tintuc->name}}"
                            style="background-image: url({{ URL::asset('images/tintuc/'.$tintuc->anhmini) }});    background-size: contain;background-size: 100% 100%;">
 
