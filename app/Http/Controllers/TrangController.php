@@ -49,11 +49,14 @@ class TrangController extends Controller
         $motangan=$request->input('motangan');
         $file_anhdaidien = Input::file('anhdaidien');
         $file_anhmini = Input::file('anhmini');
-        $filename_anhdaidien = get_filename_from_input($file_anhdaidien);
-        $filename_anhmini = get_filename_from_input($file_anhmini);
         $directory = "images/tintuc/";
+        if ($file_anhmini) {
+            $filename_anhmini = get_filename_from_input($file_anhmini);
+            $file_anhmini->move($directory, $filename_anhmini);
+            $trang->anhmini =$filename_anhmini;
+        }
+        $filename_anhdaidien = get_filename_from_input($file_anhdaidien);
         $file_anhdaidien->move($directory, $filename_anhdaidien);
-        $file_anhmini->move($directory, $filename_anhmini);
         if (strlen(trim($order)) == 0)
             $trang->order = 1;
         else
@@ -63,7 +66,7 @@ class TrangController extends Controller
         $trang->noidung = $noidung;
         $trang->idLoai = $idLoai;
         $trang->anhdaidien =$filename_anhdaidien;
-        $trang->anhmini =$filename_anhmini;
+
         $trang->motangan=$motangan;
         $trang->user_id = Auth::user()->id;
         $trang->save();

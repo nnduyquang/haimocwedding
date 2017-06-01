@@ -7,7 +7,7 @@
 <h1 class="p-header__lead">Hải Mộc Wedding<br>Hãy Ghi Lại Khoảnh Khắc Của Bạn</h1>
 <ul class="p-header__social-nav">
     <li class="p-header__main-nav__item p-header__main-nav__item--about ">
-        <a href="#">GIỚI THIỆU</a>
+        <a href="{{URL::to('gioi-thieu')}}">GIỚI THIỆU</a>
         {{--<p class="p-header__main-nav__office p-header__main-nav__office--en_US">--}}
         {{--<a href="http://d-weddingphoto.com/about/#hongkong-office">Hong Kong Office</a>--}}
         {{--</p>--}}

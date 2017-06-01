@@ -31,7 +31,7 @@
                 {{--<div class="col-md-4">--}}
                 <h4 class="footer-title" style="color: black;font-family: helveticaneuelight;font-weight: 800">THÔNG TIN
                     LIÊN HỆ</h4>
-                <div style="color: black;font-family: helveticaneuelight;font-weight: 800;font-size: 15px;">
+                <div style="color: black;font-family: helveticaneuelight;font-weight: 800;font-size: 15px;font-style: normal">
                     Địa chỉ: 38 Tôn Thất Đạm (Lê Độ nối dài),Thanh Khê, TP Đà Nẵng<br>
                     Hotline: 0919.567.177 - 0934.970.977<br>
                     Email : haimocwedding@gmail.com&nbsp;<br>

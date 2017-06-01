@@ -198,7 +198,7 @@ iframe[name=google_conversion_frame] {
   font-size: 20px !important;
   font-style: normal !important;
   font-weight: 800;
-  color: #0f887d !important;
+  color: #00999f !important;
 }
 
 @media only screen and (min-width: 720px) {
@@ -255,7 +255,7 @@ iframe[name=google_conversion_frame] {
   display: inline-block;
   width: 100%;
   max-width: 160px;
-  background-color: #0f887d;
+  background-color: #00999f;
   color: #ffffff;
   font-size: 15px;
   line-height: 40px;
@@ -785,7 +785,7 @@ iframe[name=google_conversion_frame] {
 }
 
 .c-section__heading {
-  color: #0f887d;
+  color: #00999f;
   position: relative;
   padding-bottom: 60px;
   font-size: 39px;
@@ -1126,7 +1126,7 @@ iframe[name=google_conversion_frame] {
   font-weight: 200;
   font-style: normal;
   font-size: 20px;
-  border-top: 1px solid #f58735;
+  border-top: 1px solid #ff6d00;
   text-align: center;
   padding: 6px 0;
 }
@@ -1168,11 +1168,12 @@ iframe[name=google_conversion_frame] {
   color: #333333;
   font-size: 30px;
   text-align: center;
+  font-weight: bold;
 }
 
 .p-authentic-photo__description {
   margin: 15px 0 0;
-  text-align: center;
+  text-align: justify;
   color: #616161;
   font-size: 15px;
   line-height: 2.0;
@@ -1638,7 +1639,7 @@ iframe[name=google_conversion_frame] {
 .p-discount-price__after {
   display: inline-block;
   vertical-align: baseline;
-  color: #f58735;
+  color: #FF6D00;
   font-size: 34px;
   font-family: helveticaneuelight;
   font-weight: 800;
@@ -2579,7 +2580,7 @@ html.lang-hn .p-faq-body {
 
 .p-footer-nav__item {
   border-bottom: 1px solid #444447;
-  color: #0f887d;
+  color: #00999f;
   font-size: 17px;
   font-family: helveticaneuelight;
   font-weight: 800;
@@ -2714,7 +2715,7 @@ html.lang-hn .p-faq-body {
 }
 
 .p-header__main-nav__item {
-  color: #0f887d;
+  color: #00999F;
   font-weight: bold !important;
   position: relative;
   float: left;
@@ -4710,7 +4711,7 @@ html.lang-hn .p-faq-body {
 .p-search-plan {
   max-width: 1304px;
   margin: 0 auto;
-  background: #4BA69E;
+  background: #00999f;
   color: #fff;
   font-family: 'Muli', "Century Gothic", "Carme", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", sans-serif;
   font-weight: 200;
@@ -5377,4 +5378,8 @@ html.lang-hn .p-wpolicy-nav__txts > a {
   color: #333;
   font-size: 30px;
   line-height: 1.4em;
+}
+
+.footer-title {
+  font-style: normal;
 }

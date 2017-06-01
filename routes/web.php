@@ -18,6 +18,7 @@ Route::get('/', 'FrontEndController@getAllTrangChu');
 Route::get('/lien-he', function () {
     return view('frontend.lienhe.index');
 });
+Route::get('/gioi-thieu', 'FrontEndController@getTrangGioiThieu');
 Route::get('/tin-tuc', 'TinTucFEController@showAllTinTuc');
 Route::get('/tin-tuc/{path}', 'TinTucFEController@chiTietTinTuc');
 Route::get('/khuyen-mai', 'KhuyenMaiFEController@showAllKhuyenMai');

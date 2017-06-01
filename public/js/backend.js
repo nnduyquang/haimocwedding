@@ -109,7 +109,7 @@ $('#chooseAnhDaiDienTrang').change(function (event) {
 });
 $('#chooseAnhMini').change(function (event) {
     var tmppath = URL.createObjectURL(event.target.files[0]);
-    $("#showAnhMini").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
+    $("#showAnhMinid").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
 });
 $('#summernote-trang').summernote({
     height: 500,
