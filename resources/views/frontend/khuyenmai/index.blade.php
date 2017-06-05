@@ -1,6 +1,6 @@
 @extends('frontend.master')
 @section('slider')
-    @include('frontend.tintuc.header')
+    @include('frontend.khuyenmai.header')
 @stop
 @section('container')
     <div id="main-contain" class="container--is-photo">
